@@ -5,9 +5,11 @@ Um aluno do curso de Ciência da Computação da UFV está cansado da pandemia e
 
 ## Integrantes
 
-Igor Eduardo Martins Braga
-João Pedro Medrado Sena
-João Pedro Pulz de Oliveira
-Samuel Raimundo Lopes Pinto
+<ul>
+  <li><a href="https://github.com/Igoreduardobraga">Igor Eduardo Martins Braga</a></li>
+  <li><a href="https://github.com/jpmedras">João Pedro Medrado Sena</a></li>
+  <li><a href="https://github.com/jopzoli">João Pedro Pulz de Oliveira</a></li>
+  <li><a href="https://github.com/SRaimundo">Samuel Raimundo Lopes Pinto</a></li>
+</ul>
 
 
