@@ -1,7 +1,7 @@
 # 20212-team-1
-<ul>
+
 Grupo 1
-<ul>
+
 ## Roteiro
 Um aluno do curso de Ciência da Computação da UFV está cansado da pandemia e do EAD e decide resolver a situação por si mesmo. Durante essa jornada, Capivaristo tem que enfrentar alguns inimigos.
 
