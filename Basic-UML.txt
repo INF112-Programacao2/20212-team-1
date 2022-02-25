@@ -11,24 +11,20 @@ Position {
 }
 	
 Object {
-	- BMP *initial_image
 	- BMP *viewing_image
-	- Position initial_position
+	- Position position
 	virtual create(BMP *initial_image, Position initial_position) = 0
 	change_image(BMP *image)
 	move(Position position)
-	delete()
 }
   
 Interaction {
-	- vector<key-value(string speech: string response)> dialogs
+	- const string dialogs[][2]
 	begin()
-	stop()
 }
 
 Character : Object {
 	- string name
-	- vector<*BMP> walk_images
 	- vector<*Capimon> deck
 	virtual create()
 }
@@ -41,6 +37,7 @@ Player : Character {
 }
 	
 NPC : Character {
+	- BMP *dialog_image
 	- vector<Interaction> interactions
 }
 	
@@ -56,16 +53,18 @@ Capimon {
 	- int life
 	- vector<*BMP> battle_images
 	- vector<Attack> attacks
-	attack()
+	battle_attack()
 }
 	
 Map : Object {
-	- int walkable[][]
+	- const int area_size[2]
+	- vector<vector<unsigned char>> walkable[][]
+	- unsigned char camera[]
+	ajust_camera()
 	draw_part(int part_x, int part_y)
 }
 	
 Battle {
 	- NPC *enimy
 	begin(NPC *enimy)
-	end()
-}
+}	
