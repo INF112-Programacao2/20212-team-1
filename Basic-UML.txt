@@ -67,4 +67,8 @@ Map : Object {
 Battle {
 	- NPC *enimy
 	begin(NPC *enimy)
+<<<<<<< HEAD
 }	
+=======
+}
+>>>>>>> 4f0f90470a0d957fde4103e564b0b6de6690700f
