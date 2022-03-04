@@ -1,0 +1,74 @@
+Position {
+	- position_x
+	- position_y
+	creat(int x, int y)
+	creat()
+	change_to(int x, int y)
+	change_x(int x)
+	change_y(int y)
+	add_to_x(int value)	// x + value
+	add_to_y(int value)	// y + value
+}
+	
+Object {
+	- BMP *viewing_image
+	- Position position
+	virtual create(BMP *initial_image, Position initial_position) = 0
+	change_image(BMP *image)
+	move(Position position)
+}
+  
+Interaction {
+	- const string dialogs[][2]
+	begin()
+}
+
+Character : Object {
+	- string name
+	- vector<*Capimon> deck
+	virtual create()
+}
+
+Player : Character {
+	walk()
+	act()	// other actions like (e.g. to open the deck)
+	interact(NPC *npc)
+	capture_capimon(Capimon *capimon)
+}
+	
+NPC : Character {
+	- BMP *dialog_image
+	- vector<Interaction> interactions
+}
+	
+Attack {
+	- int damage
+	- int critic_damage
+	- double chance_of_critic
+}
+	
+Capimon {
+	- string name
+	- int total_life
+	- int life
+	- vector<*BMP> battle_images
+	- vector<Attack> attacks
+	battle_attack()
+}
+	
+Map : Object {
+	- const int area_size[2]
+	- vector<vector<unsigned char>> walkable[][]
+	- unsigned char camera[]
+	ajust_camera()
+	draw_part(int part_x, int part_y)
+}
+	
+Battle {
+	- NPC *enimy
+	begin(NPC *enimy)
+<<<<<<< HEAD
+}	
+=======
+}
+>>>>>>> 4f0f90470a0d957fde4103e564b0b6de6690700f
