@@ -1,3 +1,7 @@
+/* CapimonStatus.hpp */
+
+#ifndef CAPIMON_STATUS_HPP
+#define CAPIMON_STATUS_HPP
 
 #include "Object.hpp"
 
@@ -15,17 +19,4 @@ private:
 	int m_maxHealth;
 };
 
-CapimonStatus::CapimonStatus()
-{
-
-}
-
-void CapimonStatus::decrementHealth(int _a)
-{
-	m_health -= _a;
-}
-
-void CapimonStatus::draw()
-{
-	Object::draw();
-}
+#endif /* CAPIMON_STATUS_HPP */

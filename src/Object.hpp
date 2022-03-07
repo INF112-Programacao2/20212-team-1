@@ -1,3 +1,7 @@
+/* Object.hpp */
+
+#ifndef OBJECT_HPP
+#define OBJECT_HPP
 
 #include <allegro.h>
 
@@ -43,3 +47,5 @@ Rect& Object::get_rect()
 {
 	return m_rect;
 }
+
+#endif /* OBJECT_HPP */
