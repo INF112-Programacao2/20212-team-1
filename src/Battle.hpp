@@ -1,3 +1,7 @@
+/* Battle.hpp */
+
+#ifdef BATTLE_HPP
+#define BATTLE_HPP
 
 #include "Capimon.hpp"
 #include "CapimonStatus.hpp"
@@ -10,3 +14,5 @@ public:
 private:
 
 };
+
+#endif /* BATTLE_HPP */
