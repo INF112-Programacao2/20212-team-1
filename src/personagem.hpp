@@ -4,7 +4,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-#include "position.hpp"
+#include "Position.hpp"
 #include "object.hpp"
 
 class Personagem : public Object{

@@ -6,7 +6,7 @@
 
 #include "personagem.hpp"
 #include "object.hpp"
-#include "position.hpp"
+#include "Position.hpp"
 
 class Player : public Personagem{
     private:
