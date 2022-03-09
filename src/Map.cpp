@@ -3,37 +3,33 @@
 #include "Map.hpp"
 
 Map::Map(string arquivo) {		
-	int width, hight;
-		
 	std::ifstream file(arquivo);
-	file.ignore(100, '\n');
-	file.ignore(100, '\n');
-	file >> width;
-	file >> hight;
-	file.ignore(1);
-	file.ignore(100, '\n');
 	
-	this->_walkable = new unsigned char*[hight];
-	for (int i = 0; i < hight; i++) {
-		this->_walkable[i] = new unsigned char[widht]
+	file.ignore(100, '\n');	// file type
+	file.ignore(300, '\n');	// file commentary
+	file >> this->_dimension[1];	// file dimension (hight)
+	file >> this->_dimension[0];	// file dimension (width)
+	file.ignore(100, '\n');	// endline
+	file.ignore(100, '\n');	// maximun color
+	
+	// creating matrix
+	this->_walkable = new unsigned char*[this->_dimension[0]];
+	for (int i = 0; i < this->_dimension[0]; i++) {
+		this->_walkable[i] = new unsigned char[this->_dimension[1]]
 	}
 	
-	unsigned char p3[hight][width][3];
 	char line[100];
 	
-	for (int i = 0; i < hight; i++) {
-		for (int j = 0; j < width; j++) {
-			for (int k = 0; k < 3; k++) {
-				file.getline(line, '\n');
-				p[i][j][k] = line[0];
-			}
+	for (int i = 0; i < this->_dimension[0]; i++) {
+		for (int j = 0; j < this->_dimension[1]; j++) {
+			file.getline(line, '\n');
+			p[i][j] = (line[0] == '0') ? '0' : '1';
+			file.ignore(100, '\n');	// ignoring second píxel
+			file.ignore(100, '\n');	// ignoring third pixel
 		}
 	}
 	
-	for (int i = 0; i < hight; i++) {
-		for (int j = 0; j < width; j++)
-			this->_walkable[i][j] = (p3[i][j][0]=='0')?'0':'1';
-	}
+	arquivo.close();
 }
 
 Map::~Map() {
