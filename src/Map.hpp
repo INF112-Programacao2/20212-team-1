@@ -4,6 +4,7 @@
 #define MAP_HPP
 
 #include "Object.hpp"
+#include <fstream>
 
 class Map : public Object {
 	private:
@@ -11,7 +12,7 @@ class Map : public Object {
 		unsigned char **_walkable;
 		
 	public:
-		Map();
+		Map(string arquivo);
 		~Map();
 		int get_width() const;
 		int get_hight() const;
