@@ -4,9 +4,9 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-#include "personagem.hpp"
-#include "object.hpp"
-#include "position.hpp"
+#include "Personagem.hpp"
+#include "Object.hpp"
+#include "Position.hpp"
 
 class Player : public Personagem{
     private:

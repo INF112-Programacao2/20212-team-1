@@ -2,10 +2,10 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-#include "position.hpp"
-#include "object.hpp"
-#include "personagem.hpp"
-#include "player.hpp"
+#include "Position.hpp"
+#include "Object.hpp"
+#include "Personagem.hpp"
+#include "Player.hpp"
 
 int Player::_numSprites = 2;
 int Player::_tamPixels = 16;
