@@ -3,10 +3,11 @@
 #ifndef INF112_MAP_HPP
 #define INF12_MAP_HPP
 
-#include "object.hpp"
+#include "Object.hpp"
+#include "Position.hpp"
 #include <fstream>
 
-class Map : public Object {
+class Map : public Object{
 	private:
 		int _width, _hight;	// width and hight
 		unsigned char **_walkable;
@@ -19,5 +20,4 @@ class Map : public Object {
 		char get_val_walkable(int x, int y);
 		void draw_part();		
 };
-
 #endif /* MAP_HPP */

@@ -1,11 +1,15 @@
 /* Map.cpp */
+#include <iostream>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
 #include "Map.hpp"
+#include "Object.hpp"
+#include "Position.hpp"
 
 
-Map::Map(string arquivo) {		
+Map::Map(std::string arquivo, ALLEGRO_BITMAP *image,int x, int y):		
+	Object(image, x, y){
 	std::ifstream file(arquivo);
 	
 	file.ignore(100, '\n');	// file type
@@ -18,7 +22,7 @@ Map::Map(string arquivo) {
 	// creating matrix
 	this->_walkable = new unsigned char*[this->_hight];
 	for (int i = 0; i < this->_hight; i++) {
-		this->_walkable[i] = new unsigned char[this->_width]
+		this->_walkable[i] = new unsigned char[this->_width];
 	}
 	
 	char line[100];
@@ -26,13 +30,13 @@ Map::Map(string arquivo) {
 	for (int i = 0; i < this->_hight; i++) {
 		for (int j = 0; j < this->_width; j++) {
 			file.getline(line, '\n');
-			p[i][j] = (line[0] == '0') ? '0' : '1';
+			_walkable[i][j] = (line[0] == '0') ? '0' : '1';
 			file.ignore(100, '\n');	// ignoring second píxel
 			file.ignore(100, '\n');	// ignoring third pixel
 		}
 	}
 	
-	arquivo.close();
+	file.close();
 }
 
 Map::~Map() {

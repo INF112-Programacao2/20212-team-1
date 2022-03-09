@@ -21,15 +21,17 @@ class Position{
         void sub_x();
         void sub_y();
         
-        void add_x(int val);
-        void add_y(int val);
-        void sub_x(int val);
-        void sub_y(int val);
+        void add_x(int value);
+        void add_y(int value);
+        void sub_x(int value);
+        void sub_y(int value);
 
+        /*
         Position up();        
         Position right();
         Position down();
         Position left();
+        */
 };
 
 #endif /* INF112_POSITION_HPP */

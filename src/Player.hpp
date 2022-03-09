@@ -7,6 +7,7 @@
 #include "Personagem.hpp"
 #include "Object.hpp"
 #include "Position.hpp"
+#include "Map.hpp"
 
 class Player : public Personagem{
     private:
@@ -19,7 +20,7 @@ class Player : public Personagem{
     public:
         Player(std::string name, ALLEGRO_BITMAP *image,int x, int y, int tam_x, int tam_y);
         ~Player();
-        void walk(int direcao, char valPos);
+        void walk(int direcao, Map &mapa);
         
 };
 #endif
