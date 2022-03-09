@@ -3,7 +3,7 @@
 #include <allegro5/allegro_image.h>
 
 #include "Position.hpp"
-#include "object.hpp"
+#include "Object.hpp"
 
 Object::Object(ALLEGRO_BITMAP *image,int x, int y):
     _position(x,y), _image(image){};
