@@ -19,7 +19,7 @@ class Player : public Personagem{
     public:
         Player(std::string name, ALLEGRO_BITMAP *image,int x, int y, int tam_x, int tam_y);
         ~Player();
-        void walk(int direcao);
+        void walk(int direcao, char valPos);
         
 };
 #endif
