@@ -9,7 +9,7 @@
 
 class Map : public Object{
 	private:
-		const int _width, _hight;	// width and hight
+		int _width, _hight;	// width and hight
 		unsigned char **_walkable;
 		
 	public:

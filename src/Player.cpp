@@ -8,7 +8,7 @@
 #include "Player.hpp"
 
 
-int Player::_numSprites = 2;
+int Player::_numSprites = 4;
 int Player::_tamPixels = 16;
 
 Player::Player(std::string name, ALLEGRO_BITMAP *image,int x, int y, int tam_x, int tam_y):

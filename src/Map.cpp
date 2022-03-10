@@ -2,14 +2,14 @@
 #include <iostream>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include <fstream>
 
 #include "Map.hpp"
 #include "Object.hpp"
 #include "Position.hpp"
 
 
-Map::Map(std::string arquivo, ALLEGRO_BITMAP *image,int x, int y):		
-	Object(image, x, y){
+Map::Map(std::string arquivo, ALLEGRO_BITMAP *image,int x, int y) : Object(image, x, y){
 	std::ifstream file(arquivo);
 	
 	file.ignore(100, '\n');	// file type
@@ -37,7 +37,7 @@ Map::Map(std::string arquivo, ALLEGRO_BITMAP *image,int x, int y):
 	}
 	
 	file.close();
-}
+};
 
 Map::~Map() {
 	for (int i = 0; i < this->_hight; i++)
