@@ -45,11 +45,11 @@ Map::~Map() {
 	delete [] _walkable;
 }
 
-int Map::get_width(){
+int Map::get_width() const{
 	return this->_width;
 }
 
-int Map::get_hight(){
+int Map::get_hight() const{
 	return this->_hight;
 }
 
