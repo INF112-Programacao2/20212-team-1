@@ -60,32 +60,32 @@ void Position::sub_y(int value){
 
 Position Position::up() {
 	Position p;
-	p.set_x(this->_x++)
-	p.set_y(this->y);
+	p.get_x(this->_x++)
+	p.get_y(this->y);
 
 	return p;
 }
 
 Position Position::right() {
 	Position p;
-	p.set_x(this->_x)
-	p.set_y(this->y++);
+	p.get_x(this->_x)
+	p.get_y(this->y++);
 
 	return p;
 }
 
 Position Position::down() {
 	Position p;
-	p.set_x(this->_x--)
-	p.set_y(this->y);
+	p.get_x(this->_x--)
+	p.get_y(this->y);
 
 	return p;
 }
 
 Position Position::left() {
 	Position p;
-	p.set_x(this->_x)
-	p.set_y(this->y--);
+	p.get_x(this->_x)
+	p.get_y(this->y--);
 
 	return p;
 }
