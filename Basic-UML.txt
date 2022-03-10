@@ -1,8 +1,8 @@
 Position {
 	- position_x
 	- position_y
-	creat(int x, int y)
-	creat()
+	create(int x, int y)
+	create()
 	change_to(int x, int y)
 	change_x(int x)
 	change_y(int y)
