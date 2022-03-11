@@ -6,8 +6,8 @@
 #include "Capimon.hpp"
 #include "Object.hpp"
 
-#define BAR_VIDA_WIDTH	16.f
-#define BAR_VIDA_HEIGHT	16.f
+#define BAR_VIDA_WIDTH	18.f
+#define BAR_VIDA_HEIGHT	18.f
 
 class CapimonStatus
 	: public Object

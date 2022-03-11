@@ -4,7 +4,7 @@
 
 CapimonStatus::CapimonStatus(Capimon* _cap, int x, int y)
 	: Object(al_load_bitmap("img/StatusBox.bmp"), x, y),
-	_bar(al_load_bitmap("img/bar.bmp")),
+	_bar(al_load_bitmap("img/Bar.bmp")),
 	_cap(_cap),
 	_health(_cap->Get_Vida()),
 	_maxHealth(_cap->Get_Vida())
