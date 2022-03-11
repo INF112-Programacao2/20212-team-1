@@ -16,6 +16,7 @@ class Capimon : public Object{
         void Inimigo();
         int Get_Ataque();
         int Get_Vida();
+        std::string Habilidade[4];
     
     private:
         int _Vida;

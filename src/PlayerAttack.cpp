@@ -1,7 +1,7 @@
-/* PlayerAttack.cpp */
+#include "PlayerAttack.hpp"
 
 PlayerAttack::PlayerAttack()
-	: Object(ATTACK_BOX_PATH),
+	: Object(al_load_bitmap("img/PlayerAttackBox.bmp"), 0, 320),
 	m_nAtks(2)
 {
 	m_attacks = { { {"a", 13}, {"b", 1}, { }, { } } }; // inicializa com dois ataques
@@ -19,23 +19,33 @@ void PlayerAttack::addAttack(const Attack& _atk)
 
 void PlayerAttack::draw()
 {
-	Object::draw(); // Fundo
-
 	if (m_nAtks = 1)
-		; // TODO: desenha a caixa de selecao do ataque 1
+		al_draw_text(
+			Object::gblFont,
+			al_map_rgb(255, 2555, 255),
+			this->_position.get_x() + 14.f, this->_position.get_y() + 14.f, 0, m_attacks[0].nome);
 	
 	if (m_nAtks = 2)
-		; // TODO: desenha a caixa de selecao do ataque 2
+		al_draw_text(
+			Object::gblFont,
+			al_map_rgb(255, 2555, 255),
+			this->_position.get_x() + 14.f, this->_position.get_y() + 30.f, 0, m_attacks[1].nome);
 	
 	if (m_nAtks = 3)
-		; // TODO: desenha a caixa de selecao do ataque 3
+		al_draw_text(
+			Object::gblFont,
+			al_map_rgb(255, 2555, 255),
+			this->_position.get_x() + 70.f, this->_position.get_y() + 14.f, 0, m_attacks[2].nome);
 	
 	if (m_nAtks = 4)
-		; // TODO: desenha a caixa de selecao do ataque 4
+		al_draw_text(
+			Object::gblFont,
+			al_map_rgb(255, 2555, 255),
+			this->_position.get_x() + 70.f, this->_position.get_y() + 30.f, 0, m_attacks[3].nome);
 }
 
-void PlayerAttack::do_attack(int _n)
+int PlayerAttack::do_attack(int _n)
 {
 	Attack atk = m_attacks[_n - 1];
-	// Ataca o adversario
+	return atk.dano; // Retorna o dano
 }
