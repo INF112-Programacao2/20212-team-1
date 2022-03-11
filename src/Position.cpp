@@ -43,49 +43,49 @@ void Position::sub_y(){
 }
 
 void Position::add_x(int value){
-    this->_x += val;
+    this->_x += value;
 }
 
 void Position::add_y(int value){
-    this->_y += val;
+    this->_y += value;
 }
 
 void Position::sub_x(int value){
-    this->_x -= val;
+    this->_x -= value;
 }
 
 void Position::sub_y(int value){
-    this->_y -=val;
+    this->_y -= value;
 }
 
 Position Position::up() {
 	Position p;
-	p.get_x(this->_x++)
-	p.get_y(this->y);
+	p.get_x(this->_x++);
+	p.get_y(this->_y);
 
 	return p;
 }
 
 Position Position::right() {
 	Position p;
-	p.get_x(this->_x)
-	p.get_y(this->y++);
+	p.get_x(this->_x);
+	p.get_y(this->_y++);
 
 	return p;
 }
 
 Position Position::down() {
 	Position p;
-	p.get_x(this->_x--)
-	p.get_y(this->y);
+	p.get_x(this->_x--);
+	p.get_y(this->_y);
 
 	return p;
 }
 
 Position Position::left() {
 	Position p;
-	p.get_x(this->_x)
-	p.get_y(this->y--);
+	p.get_x(this->_x);
+	p.get_y(this->_y--);
 
 	return p;
 }
