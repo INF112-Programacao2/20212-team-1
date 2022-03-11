@@ -21,6 +21,6 @@ class Player : public Personagem{
         Player(std::string name, ALLEGRO_BITMAP *image,int x, int y, int tam_x, int tam_y);
         ~Player();
         void walk(int direcao, Map &mapa);
-        
+        void interact(Npc *npc);
 };
 #endif

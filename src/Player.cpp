@@ -48,3 +48,8 @@ void Player::walk(int direcao, Map &mapa){
     }
     
 }
+
+// TODO: Função interact()
+void Player::interact(Npc *npc) {
+	
+}
