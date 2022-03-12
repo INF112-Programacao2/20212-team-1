@@ -19,5 +19,6 @@ class Object{
         Object(ALLEGRO_BITMAP *image, int x, int y);
         ~Object();
         void change_image(ALLEGRO_BITMAP *image);
+        Position get_position();
 };
 #endif
