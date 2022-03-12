@@ -1,16 +1,15 @@
-/* Capimon.cpp */
-
 #include "Capimon.hpp"
 
 Capimon::~Capimon(){
 
 }
 
-Capimon::Capimon(int Tipo){
+Capimon::Capimon(int Tipo){         
 
-    this->_Tipo = Tipo;
-    if(Tipo==0)
-        this->set_sprite("Capimons.bmp");
+	this->C->_Tipo = Tipo;
+    //Define o tipo do capimon(Inimigo ou Aliado)   
+	if(Tipo==0)
+        this->>_image = al_load_bitmap("Capimons.bmp");
     else
         this->set_sprite("Capimons_costas.bmp");
     this->Indice = 2;
@@ -20,30 +19,38 @@ Capimon::Capimon(int Tipo){
     this->Sessao = 4;
     this->W = 112;
     this->_Vida = 100;
+
+    Habilidade[0] = "Ataque ";
+          //Habilidades do capimon    Habilidade[1] = "";
+    Habilidade[3] = "";
+    Habilidade[4] = "";
 }
 
-void Capimon::Mostrar_Capimon(){
+void Capimon::Mostrar_Capimon(){        //mostra o capimon na tela
     if(this->X>SCREEN_W-204)
         X -= 3;
 }
 
-void Capimon::Aliado(){
+
+oid Capimon::Aliado(){
     this->X = (SCREEN_W/2)-W;
     this->Y = SCREEN_H-180;
 }
 
-const void Capimon::Acao(){
+const void Capimon::Acao(){             //acão dcapimon a
     if(_Tipo==0)
         Inimigo();
     else
         Aliado();
+
+    this->animado(0);
 }
 
-void Capimon::Inimigo(){
+void Capimon::Inimigo(                //Mostra capimon inimigo){
     this->Mostrar_Capimon();
 }
 
-void Capimon::Set_DanoCausado(int Dano){
+vvod Capimon::Set_DanoCausado(int Dano){
     this->_Vida -= Dano;
 }
 

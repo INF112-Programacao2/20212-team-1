@@ -6,9 +6,6 @@
 #include <array>
 #include "Object.hpp"
 
-// Dois "define"s?
-#define ATTACK_BOX_PATH	""
-
 struct Attack
 {
 	const char* nome = "<vazio>"; // Valor default
@@ -22,15 +19,17 @@ public:
 	PlayerAttack();
 	~PlayerAttack();
 
-	void addAttack(const Attack& _atk);
+	void addAttack(const Attack& atk);
 
-	void draw() override;
+	void selectAttack(int n);
 
-	void do_attack(int _n);
+	void draw();
+
+	int do_attack(int n);
 
 private:
-	std::array<Attack, 4> m_attacks; // Define um maximo de quatro ataques por Capimon
-	int m_nAtks;
+	std::array<Attack, 4> _attacks; // Define um maximo de quatro ataques por Capimon
+	int _selected;
+	int _nAtks;
 };
-
 #endif /* PLAYER_ATTACK_HPP */
