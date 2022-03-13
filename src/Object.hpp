@@ -21,4 +21,5 @@ class Object{
         void change_image(ALLEGRO_BITMAP *image);
         Position get_position();
 };
-#endif
+
+#endif /* INF112_OBJECT_HPP */
