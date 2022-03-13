@@ -1,5 +1,5 @@
-#ifndef INF112_OBJECT_HPP
-#define INF112_OBJECT_HPP
+#ifndef OBJECT_HPP
+#define OBJECT_HPP
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -9,7 +9,7 @@
 
 #define DEF_FONT_SIZE	12
 
-class Object{
+class Object {
 	protected:
 		ALLEGRO_BITMAP *_image;
 		Position _position;
@@ -22,4 +22,4 @@ class Object{
 		Position get_position();
 };
 
-#endif /* INF112_OBJECT_HPP */
+#endif /* OBJECT_HPP */
