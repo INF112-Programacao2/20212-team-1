@@ -10,16 +10,16 @@
 #define DEF_FONT_SIZE	12
 
 class Object{
-    protected:
-        ALLEGRO_BITMAP *_image;
-        Position _position;
-    public:
+	protected:
+		ALLEGRO_BITMAP *_image;
+		Position _position;
+	public:
 		static ALLEGRO_FONT* gblFont;
 
-        Object(ALLEGRO_BITMAP *image, int x, int y);
-        ~Object();
-        void change_image(ALLEGRO_BITMAP *image);
-        Position get_position();
+		Object(ALLEGRO_BITMAP *image, int x, int y);
+		~Object();
+		void change_image(ALLEGRO_BITMAP *image);
+		Position get_position();
 };
 
 #endif /* INF112_OBJECT_HPP */
