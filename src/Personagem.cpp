@@ -8,3 +8,7 @@ Personagem::~Personagem() {}
 std::string Personagem::get_name() {
 	return this->_name;
 }
+
+Position Personagem::get_position() {
+	return this->_position;
+}

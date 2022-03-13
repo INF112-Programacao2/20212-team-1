@@ -15,5 +15,6 @@ class Personagem : public Object{
 		  Personagem(std::string name, ALLEGRO_BITMAP *image,int x, int y);
 		  ~Personagem();
 		  std::string get_name();
+		  Position get_position();
 };
 #endif
