@@ -21,7 +21,7 @@ public:
 
 	void addAttack(const Attack& atk);
 
-	void selectAttack(int n);
+	void selectAttack(int key);
 
 	void draw();
 
@@ -29,7 +29,7 @@ public:
 
 private:
 	std::array<Attack, 4> _attacks; // Define um maximo de quatro ataques por Capimon
-	int _selected;
+	int _selected; // 0 = cima-esquerda, 1 = baixo-esquerda, 2 = cima-direita, 3 = baixo-direita
 	int _nAtks;
 };
 #endif /* PLAYER_ATTACK_HPP */

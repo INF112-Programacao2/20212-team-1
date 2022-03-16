@@ -70,9 +70,61 @@ void PlayerAttack::draw()
 	}
 }
 
-void PlayerAttack::selectAttack(int n)
+void PlayerAttack::selectAttack(int key)
 {
-	this->_selected = n;
+	switch (key)
+	{
+	case ALLEGRO_KEY_LEFT:
+		switch (_selected)
+		{
+		case 2:
+			_selected = 0;
+			break;
+		case 3:
+			_selected = 1;
+			break;
+		default:
+			break;
+		}
+	case ALLEGRO_KEY_RIGHT:
+		switch (_selected)
+		{
+		case 0:
+			_selected = 2;
+			break;
+		case 1:
+			_selected = 3;
+			break;
+		default:
+			break;
+		}
+	case ALLEGRO_KEY_UP:
+		switch (_selected)
+		{
+		case 1:
+			_selected = 0;
+			break;
+		case 3:
+			_selected = 2;
+			break;
+		default:
+			break;
+		}
+	case ALLEGRO_KEY_DOWN:
+		switch (_selected)
+		{
+		case 0:
+			_selected = 1;
+			break;
+		case 2:
+			_selected = 3;
+			break;
+		default:
+			break;
+		}
+	default:
+		break;
+	}
 }
 
 int PlayerAttack::do_attack(int n)
