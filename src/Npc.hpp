@@ -15,7 +15,7 @@ class Npc : public Personagem {
 	public:
 		Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, ALLEGRO_BITMAP *dialog_image, std::string file_directory[]);
 		~Npc();
-		void interact(Position player_position);
+		bool can_interact(Position player_position);
 		void show_interaction(int n);
 		void draw_text(std::string name, std::string text);
 };

@@ -21,8 +21,7 @@ Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, ALLEGRO_BITMAP *
 	
 Npc::~Npc() {}
 
-// TODO: interact();
-void Npc::interact(Position player_position) {
+bool Npc::can_interact(Position player_position) {
 	int player_x = player_position.get_x();
 	int player_y = player_position.get_y();
 	int npc_x = this->get_position().get_x();
@@ -31,11 +30,10 @@ void Npc::interact(Position player_position) {
 	if ((player_x == (npc_x + 1) && player_y == npc_y) ||
 			(player_x == (npc_x - 1) && player_y == npc_y) ||
 			(player_x == npc_x && player_y == (npc_y + 1)) ||
-			(player_x == npc_x && player_y == (npc_y - 1))) {
+			(player_x == npc_x && player_y == (npc_y - 1)))
 		// TODO: change parameter
-		this->show_interaction(0);
-	
-	}
+		return true;
+	return false;
 }
 
 void Npc::show_interaction(int n) {
@@ -43,12 +41,13 @@ void Npc::show_interaction(int n) {
 	ALLEGRO_DISPLAY *display = NULL;
 	
 	if (!al_init()) {
-		std::cout << "Failed to initialize allegro." << std::endl;
+		std::cerr << "Failed to initialize allegro." << std::endl;
 		// TODO: throw
 		return;
 	}
 	
-	display = al_create_display(184, 137);
+	// TODO: Remove creating display
+	display = al_create_display(640, 480);
 	
 	if (!display) {
 		std::cout << "Failed to initialize display." << std::endl;
@@ -58,8 +57,7 @@ void Npc::show_interaction(int n) {
 	
 	al_init_image_addon();
 	
-	// TODO: Draw character image
-	ALLEGRO_BITMAP *character = al_load_bitmap("img/dialog-images/oak_complete.bmp");
+	ALLEGRO_BITMAP *character = al_load_bitmap("img/dialog-images/oak_.bmp");
 	al_draw_bitmap(character, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
 	al_flip_display();
 		
@@ -78,7 +76,7 @@ void Npc::show_interaction(int n) {
 		this->draw_text(this->_name, d[interaction->ANSWER]);
 	}
 	
-	//al_destroy_bitmap(character);
+	al_destroy_bitmap(character);
 	
 	// TODO: Remove destroying display
 	al_destroy_display(display);
@@ -91,11 +89,9 @@ void Npc::draw_text(std::string name, std::string text) {
 	char t[text.size()+name.size()+3] = "";
 	std::strcpy(t, (name + ": " + text).c_str());
 
-	std::cout << name << ": " << text << std::endl;
+	ALLEGRO_FONT *font = al_load_font("file/font.ttf", 18, 0);
 	
-	ALLEGRO_FONT *font = al_load_font("file/font.ttf", 4, 0);
-	
-	al_draw_text(font, al_map_rgb(0, 0, 0), 10, 100, 0, t);
+	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 330, 610, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, t);
 	al_flip_display();
 	al_rest(2.0);
 	
