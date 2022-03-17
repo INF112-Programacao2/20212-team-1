@@ -1,7 +1,7 @@
 #include "Position.hpp"
 #include "Object.hpp"
 
-ALLEGRO_FONT* Object::gblFont = al_load_font("img/fonte.bmp", DEF_FONT_SIZE, 0);
+ALLEGRO_FONT* Object::gblFont = al_load_font("file/fonte.ttf", DEF_FONT_SIZE, 0);
 
 Object::Object(ALLEGRO_BITMAP *image,int x, int y):
 	_position(x,y), _image(image){};

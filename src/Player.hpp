@@ -8,6 +8,7 @@
 #include "Object.hpp"
 #include "Position.hpp"
 #include "Map.hpp"
+#include "Npc.hpp"
 
 class Player : public Personagem{
     private:

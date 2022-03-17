@@ -15,8 +15,8 @@ class Map : public Object{
 	public:
 		Map(std::string arquivo, ALLEGRO_BITMAP *image,int x, int y);
 		~Map();
-		int get_width() const;
-		int get_hight() const;
+		int get_width();
+		int get_hight();
 		char get_val_walkable(int x, int y);
 		void draw_part();		
 };
