@@ -13,10 +13,11 @@ class Npc : public Personagem {
 		ALLEGRO_BITMAP *_dialog_image;
 		std::vector<Interaction*> _interactions;
 	public:
-		Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, ALLEGRO_BITMAP *dialog_image, std::string *file_directory);
+		Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, ALLEGRO_BITMAP *dialog_image, std::string file_directory[]);
 		~Npc();
-		void interact();
-		void show_interaction();
+		void interact(Position player_position);
+		void show_interaction(int n);
+		void draw_text(std::string name, std::string text);
 };
 
 #endif /* NPC_HPP */

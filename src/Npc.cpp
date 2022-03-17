@@ -1,73 +1,102 @@
 /* Npc.cpp */
 
 #include "Npc.hpp"
+#include "Personagem.hpp"
+#include "Object.hpp"
+#include <allegro5/allegro_color.h>
+#include <iostream>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
 
-Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, ALLEGRO_BITMAP *dialog_image, std::string *file_directory) {
-	Personagem(name, image, x, y);
+Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, ALLEGRO_BITMAP *dialog_image, std::string file_directory[]):
+	Personagem(name, image, x, y) {
 	this->_dialog_image = dialog_image;
-	for (std::string i : file_directory)
-		this->_interactions.push_back(&(Interaction(i));
-}
+	for (int i = 0; i < 1; i++) {
+		std::string t = file_directory[i];
+		Interaction *interaction = new Interaction(t);
+		this->_interactions.push_back(interaction);
+	}
+};
 	
 Npc::~Npc() {}
 
 // TODO: interact();
-void Npc::interact();
+void Npc::interact(Position player_position) {
+	int player_x = player_position.get_x();
+	int player_y = player_position.get_y();
+	int npc_x = this->get_position().get_x();
+	int npc_y = this->get_position().get_y();
+	// TODO: if key 'I' is pressed
+	if ((player_x == (npc_x + 1) && player_y == npc_y) ||
+			(player_x == (npc_x - 1) && player_y == npc_y) ||
+			(player_x == npc_x && player_y == (npc_y + 1)) ||
+			(player_x == npc_x && player_y == (npc_y - 1))) {
+		// TODO: change parameter
+		this->show_interaction(0);
+	
+	}
+}
 
-// TODO: Change place of typedef struct
-typedef struct DRAW_CUSTOM_LINE_EXTRA {
-   const ALLEGRO_FONT *font;
-   float x;
-   float y;
-   int tick;
-   float line_height;
-   int flags;
-} DRAW_CUSTOM_LINE_EXTRA;
-
-// TODO: Press I to interact
-// TODO: Draw interact screen
-// TODO: Show interaction
-// TODO: Exit interaction screen
-void show_interaction() {
-	// TODO: Change consts' place
-	ALLEGRO_FONT *font;
-	float max_width;
-	bool al_do_multiline_text_cb (int line_num, const char *line, int size, void *extra) {
-		DRAW_CUSTOM_LINE_EXTRA *s = (DRAW_CUSTOM_LINE_EXTRA *) extra;
-		 float x, y;
-		 ALLEGRO_USTR_INFO info;
-		 ALLEGRO_COLOR c =
-		 	al_color_hsv(fmod(360.0 * (float)line_num / 5.0 + s->tick, 360.0), 1.0, 1.0);
-		 x  = s->x + 10 + sin(line_num + s->tick * 0.05) * 10;
-		 y  = s->y + (s->line_height * line_num);
-		 al_draw_ustr(s->font, c, x, y, 0, al_ref_buffer(&info, line, size));
-		 return (line_num < 5);
+void Npc::show_interaction(int n) {
+	// TODO: Create screen
+	ALLEGRO_DISPLAY *display = NULL;
+	
+	if (!al_init()) {
+		std::cout << "Failed to initialize allegro." << std::endl;
+		// TODO: throw
+		return;
 	}
 	
-	DRAW_CUSTOM_LINE_EXTRA extra;
-	extra.font = font;
-	extra.x = 0;	// TODO: change text position (x)
-	extra.y = 0;	// TODO: change text position (y)
-	extra.line_height = al_get_font_line_height(font);
+	display = al_create_display(184, 137);
 	
-	// TODO: Change place
-	// Font definitions
-	font = al_init_font_addon();
-	al_create_builtin_font();
-   if (!font) {
-      abort_example("Error creating builtin font\n");
-   }
-
-	Interaction* interaction = this->_interactions.back();
-	this->_interactions.pop_back();
-	
-	int dialog_length = interaction->get_dialog_length();
-	int size = interaction->SIZE;
-	for (int d = 0; d < dialog_length; d++) {
-		std::string* dialog = interaction->get_dialog(d);
-		for (int i = 0; i < size; i++) {
-			const char *text[] = dialog[i];
-			al_do_multiline_text(font, max_width, text, al_do_multiline_text_cb, (void *)&extra);
-		}
+	if (!display) {
+		std::cout << "Failed to initialize display." << std::endl;
+		// TODO: throw
+		return;
 	}
+	
+	al_init_image_addon();
+	
+	// TODO: Draw character image
+	ALLEGRO_BITMAP *character = al_load_bitmap("img/dialog-images/oak_complete.bmp");
+	al_draw_bitmap(character, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
+	al_flip_display();
+		
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	
+	Interaction *interaction = this->_interactions[n];
+	for (int i = 0; i < interaction->get_dialog_length(); i++) {
+		std::string *d = interaction->get_dialog(i);
+		al_clear_to_color(al_map_rgb(0, 0, 0));
+		al_draw_bitmap(character, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
+		al_flip_display();
+		this->draw_text("NOME", d[interaction->SPEAK]);
+		al_clear_to_color(al_map_rgb(0, 0, 0));
+		al_draw_bitmap(character, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
+		al_flip_display();
+		this->draw_text(this->_name, d[interaction->ANSWER]);
+	}
+	
+	//al_destroy_bitmap(character);
+	
+	// TODO: Remove destroying display
+	al_destroy_display(display);
+}
+
+void Npc::draw_text(std::string name, std::string text) {
+	al_init_font_addon();
+	al_init_ttf_addon();
+	
+	char t[text.size()+name.size()+3] = "";
+	std::strcpy(t, (name + ": " + text).c_str());
+
+	std::cout << name << ": " << text << std::endl;
+	
+	ALLEGRO_FONT *font = al_load_font("file/font.ttf", 4, 0);
+	
+	al_draw_text(font, al_map_rgb(0, 0, 0), 10, 100, 0, t);
+	al_flip_display();
+	al_rest(2.0);
+	
 }
