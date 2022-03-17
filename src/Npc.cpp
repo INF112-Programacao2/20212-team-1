@@ -53,12 +53,13 @@ void Npc::draw_text(std::string name, std::string text) {
 	al_init_ttf_addon();
 	
 	// TODO: Change type of t
-	char t[text.size()+name.size()+3] = "";
-	std::strcpy(t, (name + ": " + text).c_str());
+	char name_c[name.size() + 1];	// + 1 because of '\0'
+	char text_c[text.size() + 1]	// + 1 because of '\0'
 
 	ALLEGRO_FONT *font = al_load_font("file/font.ttf", 18, 0);
 	
-	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 100, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, t);
+	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, name_c);
+	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394 + al_get_font_line_height(font), 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, text_c);
 	al_flip_display();
 	// TODO: Change to a press button verification
 	al_rest(2.0);
