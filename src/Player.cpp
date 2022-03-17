@@ -17,8 +17,8 @@ Player::Player(std::string name, ALLEGRO_BITMAP *image,int x, int y, int tam_x, 
 
 Player::~Player(){}
 
-void Player::walk(int direcao, Map &mapa){
-    
+bool Player::walk(int direcao, Map &mapa){
+    bool andou = false;
     if(direcao == -1){
         al_draw_bitmap_region(_image, 0, 0,this->_tam_x,this->_tam_y,_position.get_x() * _tamPixels,_position.get_y() * _tamPixels,0 );
         _numPasso = 0;
@@ -27,12 +27,16 @@ void Player::walk(int direcao, Map &mapa){
     }else{
         if(direcao == 0 && mapa.get_val_walkable(this->_position.get_x(), this->_position.get_y() + 1) == '1'){
             this->_position.add_y();
+            andou = true;
         }else if(direcao == 1 && mapa.get_val_walkable(this->_position.get_x(), this->_position.get_y() - 1) == '1'){
             this->_position.sub_y();
+            andou = true;
         }else if(direcao == 2 && mapa.get_val_walkable(this->_position.get_x() - 1, this->_position.get_y() ) == '1'){
             this->_position.sub_x();
+            andou = true;;
         }else if(direcao == 3 && mapa.get_val_walkable(this->_position.get_x() + 1, this->_position.get_y() ) == '1'){
             this->_position.add_x();
+            andou = true;
         }
         if(this->_direcao_anterior == direcao){
             this->_numPasso++;
@@ -46,6 +50,8 @@ void Player::walk(int direcao, Map &mapa){
 
         al_draw_bitmap_region(_image, this->_numPasso * this->_tam_x, direcao * this->_tam_y,this->_tam_x,this->_tam_y,_position.get_x() * _tamPixels,_position.get_y() * _tamPixels,0 );
     }
+
+    return andou;
     
 }
 

@@ -29,6 +29,13 @@ ALLEGRO_TIMER *timer = NULL;
 ALLEGRO_BITMAP *personagem = NULL;
 ALLEGRO_BITMAP *mapa = NULL;
 
+//variaveis para monitorar a camera
+ALLEGRO_TRANSFORM camera;
+int camera_x = 0;
+int camera_y = 0;
+int pos_x = 3;
+int pos_y = 4;
+
 bool key[4] = { false, false, false, false };
 bool redraw = true;
 bool sair = false;
@@ -120,7 +127,6 @@ int main(int argc, char **argv)
 
         if(ev.type == ALLEGRO_EVENT_TIMER)
         {
-
             redraw = true;
         }
         else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
@@ -185,19 +191,46 @@ int main(int argc, char **argv)
 
             if(key[KEY_UP])
             {
-                capivaristo.walk(1, map);
+                if(capivaristo.walk(1, map)){
+                   pos_y--; 
+                }
             }else if(key[KEY_DOWN])
             {
-                capivaristo.walk(0, map );
+                if(capivaristo.walk(0, map )){
+                    pos_y++;
+                }
             }else if(key[KEY_LEFT])
             {
-                capivaristo.walk(2, map );
+                if(capivaristo.walk(2, map )){
+                    pos_x--;
+                }
             }else if(key[KEY_RIGHT])
             {
-                capivaristo.walk(3, map);
+                if(capivaristo.walk(3, map)){
+                    pos_x++;
+                }
             }else{
                 capivaristo.walk(-1,map);
             }
+
+            if(pos_x < 0){
+                pos_x = 0;
+                camera_x--;
+            }else if(pos_x > 34){
+                pos_x = 34;
+                camera_x++;
+            }
+
+            if(pos_y < 0){
+                pos_y = 0;
+                camera_y--;
+            }else if(pos_y > 24){
+                pos_y = 24;
+                camera_y++;
+            }
+            al_identity_transform(&camera);
+            al_translate_transform(&camera, -camera_x * 16, -camera_y * 16);
+            al_use_transform(&camera);
 
             al_flip_display();
         }
