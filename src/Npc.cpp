@@ -1,12 +1,7 @@
 /* Npc.cpp */
 
 #include "Npc.hpp"
-#include "Personagem.hpp"
-#include "Object.hpp"
-#include <allegro5/allegro_color.h>
 #include <iostream>
-#include <cmath>
-#include <cstdio>
 #include <cstring>
 
 Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, ALLEGRO_BITMAP *dialog_image, std::string file_directory[]):
@@ -37,62 +32,34 @@ bool Npc::can_interact(Position player_position) {
 }
 
 void Npc::show_interaction(int n) {
-	// TODO: Create screen
-	ALLEGRO_DISPLAY *display = NULL;
-	
-	if (!al_init()) {
-		std::cerr << "Failed to initialize allegro." << std::endl;
-		// TODO: throw
-		return;
-	}
-	
-	// TODO: Remove creating display
-	display = al_create_display(640, 480);
-	
-	if (!display) {
-		std::cout << "Failed to initialize display." << std::endl;
-		// TODO: throw
-		return;
-	}
-	
+	// TODO: Change loading image place
 	al_init_image_addon();
-	
-	ALLEGRO_BITMAP *character = al_load_bitmap("img/dialog-images/oak_.bmp");
-	al_draw_bitmap(character, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
-	al_flip_display();
-		
-	al_clear_to_color(al_map_rgb(0, 0, 0));
+	ALLEGRO_BITMAP *dialog_box("img/dialog-images/dialog_box.bmp");
 	
 	Interaction *interaction = this->_interactions[n];
 	for (int i = 0; i < interaction->get_dialog_length(); i++) {
 		std::string *d = interaction->get_dialog(i);
-		al_clear_to_color(al_map_rgb(0, 0, 0));
-		al_draw_bitmap(character, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
+		al_draw_bitmap(dialog_box, 0, 384, ALLEGRO_FLIP_HORIZONTAL);
 		al_flip_display();
 		this->draw_text("NOME", d[interaction->SPEAK]);
-		al_clear_to_color(al_map_rgb(0, 0, 0));
-		al_draw_bitmap(character, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
+		al_draw_bitmap(dialog_box, 0, 384, ALLEGRO_FLIP_HORIZONTAL);
 		al_flip_display();
 		this->draw_text(this->_name, d[interaction->ANSWER]);
 	}
-	
-	al_destroy_bitmap(character);
-	
-	// TODO: Remove destroying display
-	al_destroy_display(display);
 }
 
 void Npc::draw_text(std::string name, std::string text) {
 	al_init_font_addon();
 	al_init_ttf_addon();
 	
+	// TODO: Change type of t
 	char t[text.size()+name.size()+3] = "";
 	std::strcpy(t, (name + ": " + text).c_str());
 
 	ALLEGRO_FONT *font = al_load_font("file/font.ttf", 18, 0);
 	
-	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 330, 610, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, t);
+	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 100, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, t);
 	al_flip_display();
+	// TODO: Change to a press button verification
 	al_rest(2.0);
-	
 }
