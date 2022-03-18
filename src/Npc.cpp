@@ -88,4 +88,5 @@ void Npc::draw_text(std::string name, std::string text) {
 				this->draw_text(name, text);
 		}
 	}
+	// TODO:: Throw initializer errors
 }
