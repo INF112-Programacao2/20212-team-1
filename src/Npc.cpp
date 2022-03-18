@@ -16,7 +16,7 @@ Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, std::string file
 	
 Npc::~Npc() {}
 
-bool Npc::can_interact(Position player_position) {
+bool Npc::interact(Position player_position) {
 	// TODO: Change variables of position
 	int player_x = player_position.get_x();
 	int player_y = player_position.get_y();
@@ -25,9 +25,10 @@ bool Npc::can_interact(Position player_position) {
 	if ((player_x == (npc_x + 1) && player_y == npc_y) ||
 			(player_x == (npc_x - 1) && player_y == npc_y) ||
 			(player_x == npc_x && player_y == (npc_y + 1)) ||
-			(player_x == npc_x && player_y == (npc_y - 1)))
-		// TODO: change parameter
+			(player_x == npc_x && player_y == (npc_y - 1))) {
+		this->show_interaction();		
 		return true;
+	}
 	return false;
 }
 
@@ -82,7 +83,7 @@ void Npc::draw_text(std::string name, std::string text) {
 			case ALLEGRO_KEY_N:	// The setted key is "N" (from word "next")
 				break;
 			default:
-				draw_text(name, text);
+				this->draw_text(name, text);
 		}
 	}
 	
