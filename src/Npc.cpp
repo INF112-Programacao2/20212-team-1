@@ -81,7 +81,8 @@ void Npc::draw_text(std::string name, std::string text) {
 				al_flip_display();
 				break;
 			default:
-				continue;
+				al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, name_c);
+				al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394 + al_get_font_line_height(font), 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, text_c);
 		}
 	}
 	
