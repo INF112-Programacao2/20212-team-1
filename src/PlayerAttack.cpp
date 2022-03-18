@@ -1,91 +1,88 @@
 #include "PlayerAttack.hpp"
+#include <cstdlib>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+#include <iostream>
 
-PlayerAttack::PlayerAttack()
-	: Object(al_load_bitmap("img/PlayerAttackBox.bmp"), 0, 320),
-	_nAtks(2),
-	_selected()
+/* PlayerAttack.cpp */
+
+PlayerAttack::PlayerAttack() 
+    : _selected()
+{ }
+
+// void PlayerAttack::set_habilidades(const std::string *hl)
+// {
+// 	this->m_attacks = hl;
+// }
+
+void PlayerAttack::draw(ALLEGRO_FONT *font, ALLEGRO_BITMAP *seta)
 {
-	_attacks = { { {"a", 13}, {"b", 1}, { }, { } } }; // inicializa com dois ataques
+    seta = al_load_bitmap("img/Cursor.bmp");
+    al_convert_mask_to_alpha(seta, al_map_rgb(255,0,255));
+    //al_draw_bitmap(seta, 420, 120, 0);
+    switch (_selected)
+    {
+    case 0: // CHOQUE DO TROVÃO
+        al_draw_bitmap(seta, 30, 420, 0);
+        break;
+    case 1: // Choque d
+        al_draw_bitmap(seta, 30, 450, 0);
+        break;
+    case 2: // Choque do 
+        al_draw_bitmap(seta, 190, 420, 0);
+        break;
+    case 3: // Choque do 
+        al_draw_bitmap(seta, 190, 450, 0);
+        break;
+    // default:
+    //     break;
+    }
+
+    al_draw_text(font, al_map_rgb(0,0,0), 40, 420, ALLEGRO_ALIGN_LEFT, "CHOQUE DO TROVÃO (3)"); // 0
+    al_draw_text(font, al_map_rgb(0,0,0), 40, 450, ALLEGRO_ALIGN_LEFT, "ATAQUE RÁPIDO (1)"); // 1
+    al_draw_text(font, al_map_rgb(0,0,0), 200, 420, ALLEGRO_ALIGN_LEFT, "INVESTIDA DO TROVÃO (5)"); // 2
+    al_draw_text(font, al_map_rgb(0,0,0), 200, 450, ALLEGRO_ALIGN_LEFT, "CAUDA DE FERRO (9)"); // 3
 }
 
-PlayerAttack::~PlayerAttack()
+int PlayerAttack::ataqueInimigo()
 {
-
-}
-
-void PlayerAttack::addAttack(const Attack& atk)
-{
-	_attacks[_nAtks - 1] = atk;
-}
-
-void PlayerAttack::draw()
-{
-	if (_nAtks = 1)
-	{
-		al_draw_text(
-			Object::gblFont,
-			al_map_rgb(255, 2555, 255),
-			this->_position.get_x() + 14.f, this->_position.get_y() + 14.f, 0, _attacks[0].nome);
-	}
-	
-	if (_nAtks = 2)
-	{
-		al_draw_text(
-			Object::gblFont,
-			al_map_rgb(255, 2555, 255),
-			this->_position.get_x() + 14.f, this->_position.get_y() + 30.f, 0, _attacks[1].nome);
-	}
-	
-	if (_nAtks = 3)
-	{
-		al_draw_text(
-			Object::gblFont,
-			al_map_rgb(255, 2555, 255),
-			this->_position.get_x() + 70.f, this->_position.get_y() + 14.f, 0, _attacks[2].nome);
-	}
-	
-	if (_nAtks = 4)
-	{
-		al_draw_text(
-			Object::gblFont,
-			al_map_rgb(255, 2555, 255),
-			this->_position.get_x() + 70.f, this->_position.get_y() + 30.f, 0, _attacks[3].nome);
-	}
-
-	// Desenha seleção na posição correta
-	switch (_selected)
+	int i = rand() % 4;
+	switch (i)
 	{
 	case 0:
-		/* code */
+		return 3;
 		break;
 	case 1:
-		/* code */
+		return 6;
 		break;
 	case 2:
-		/* code */
+		return 5;
 		break;
 	case 3:
-		/* code */
+		return 9;
 		break;
+	default:
+		return -1;
 	}
 }
 
 void PlayerAttack::selectAttack(int key)
 {
-	switch (key)
-	{
-	case ALLEGRO_KEY_LEFT:
-		switch (_selected)
-		{
-		case 2:
-			_selected = 0;
-			break;
-		case 3:
-			_selected = 1;
-			break;
-		default:
+ 	switch (key)
+ 	{
+ 	case ALLEGRO_KEY_LEFT:
+ 		switch (_selected)
+ 		{
+ 		case 2:
+ 			_selected = 0;
+ 			break;
+ 		case 3:
+ 			_selected = 1;
+ 			break;
+ 		default:
 			break;
 		}
+		break;
 	case ALLEGRO_KEY_RIGHT:
 		switch (_selected)
 		{
@@ -98,6 +95,7 @@ void PlayerAttack::selectAttack(int key)
 		default:
 			break;
 		}
+		break;
 	case ALLEGRO_KEY_UP:
 		switch (_selected)
 		{
@@ -110,6 +108,7 @@ void PlayerAttack::selectAttack(int key)
 		default:
 			break;
 		}
+		break;
 	case ALLEGRO_KEY_DOWN:
 		switch (_selected)
 		{
@@ -122,13 +121,32 @@ void PlayerAttack::selectAttack(int key)
 		default:
 			break;
 		}
+		break;
 	default:
 		break;
 	}
 }
 
-int PlayerAttack::do_attack(int n)
+int PlayerAttack::do_attack()
 {
-	Attack atk = _attacks[n - 1];
-	return atk.dano; // Retorna o dano
+	switch (_selected)
+	{
+	case 0:
+		return 3;
+		break;
+	case 1:
+		return 1;
+		break;
+	case 2:
+		return 5;
+		break;
+	case 3:
+		return 9;
+		break;
+	default:
+		return -1;
+	}
 }
+// void PlayerAttack::get_habilidades(){
+    
+// }
