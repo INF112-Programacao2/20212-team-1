@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstring>
 
-Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, ALLEGRO_BITMAP *dialog_image, std::string file_directory[]):
+Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, std::string file_directory[]):
 	Personagem(name, image, x, y) {
 	this->_dialog_image = dialog_image;
 	for (int i = 0; i < 1; i++) {
