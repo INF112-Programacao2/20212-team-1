@@ -71,6 +71,7 @@ void Npc::draw_text(std::string name, std::string text) {
 	
 	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, name_c);
 	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394 + al_get_font_line_height(font), 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, text_c);
+	al_flip_display();
 	
 	ALLEGRO_EVENT event;
 	al_wait_for_event(event_queue, &event);
@@ -78,7 +79,6 @@ void Npc::draw_text(std::string name, std::string text) {
 	if (events.type == ALLEGRO_EVENT_KEY_DOWN) {
 		switch (event.keyboard.keycode) {
 			case ALLEGRO_KEY_N:	// The setted key is "N" (from word "next")
-				al_flip_display();
 				break;
 			default:
 				draw_text(name, text);
