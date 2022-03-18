@@ -57,11 +57,13 @@ void Npc::show_interaction() {
 
 void Npc::draw_text(std::string name, std::string text) {
 	// TODO:: Change font initializers place
+	// TODO:: Throw initializer errors
 	al_init_font_addon();
 	al_init_ttf_addon();
 	ALLEGRO_FONT *font = al_load_font("file/font.ttf", 18, 0);
 	
 	// TODO:: Change keyboard initializers place
+	// TODO:: Throw initializer errors
 	al_install_keyboard();
 	ALLEGRO_EVENTS_QUEUE *event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -86,5 +88,4 @@ void Npc::draw_text(std::string name, std::string text) {
 				this->draw_text(name, text);
 		}
 	}
-	
 }
