@@ -31,12 +31,14 @@ bool Npc::can_interact(Position player_position) {
 	return false;
 }
 
-void Npc::show_interaction(int n) {
+// Show the last interection in the vector
+void Npc::show_interaction() {
 	// TODO: Change loading image place
 	al_init_image_addon();
 	ALLEGRO_BITMAP *dialog_box("img/dialog-images/dialog_box.bmp");
 	
-	Interaction *interaction = this->_interactions[n];
+	Interaction *interaction = this->_interactions.push_back();
+	this->_interactions.pop_back();
 		// TODO: Change drawing
 	for (int i = 0; i < interaction->get_dialog_length(); i++) {
 		std::string *d = interaction->get_dialog(i);
