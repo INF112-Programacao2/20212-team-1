@@ -69,6 +69,7 @@ void Npc::draw_text(std::string name, std::string text) {
 	char name_c[name.size() + 1];	// + 1 because of '\0'
 	char text_c[text.size() + 1]	// + 1 because of '\0'
 	
+	// TODO: Include possibilite of a text bigger than the box
 	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, name_c);
 	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394 + al_get_font_line_height(font), 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, text_c);
 	al_flip_display();
