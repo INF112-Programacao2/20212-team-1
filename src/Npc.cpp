@@ -17,11 +17,11 @@ Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, std::string file
 Npc::~Npc() {}
 
 bool Npc::can_interact(Position player_position) {
+	// TODO: Change variables of position
 	int player_x = player_position.get_x();
 	int player_y = player_position.get_y();
 	int npc_x = this->get_position().get_x();
 	int npc_y = this->get_position().get_y();
-	// TODO: if key 'I' is pressed
 	if ((player_x == (npc_x + 1) && player_y == npc_y) ||
 			(player_x == (npc_x - 1) && player_y == npc_y) ||
 			(player_x == npc_x && player_y == (npc_y + 1)) ||
@@ -37,6 +37,7 @@ void Npc::show_interaction(int n) {
 	ALLEGRO_BITMAP *dialog_box("img/dialog-images/dialog_box.bmp");
 	
 	Interaction *interaction = this->_interactions[n];
+		// TODO: Change drawing
 	for (int i = 0; i < interaction->get_dialog_length(); i++) {
 		std::string *d = interaction->get_dialog(i);
 		al_draw_bitmap(dialog_box, 0, 384, ALLEGRO_FLIP_HORIZONTAL);
@@ -46,21 +47,40 @@ void Npc::show_interaction(int n) {
 		al_flip_display();
 		this->draw_text(this->_name, d[interaction->ANSWER]);
 	}
+	
+	// TODO: Change destroying image place
+	al_destroy_bitmap(dialog_box);
 }
 
 void Npc::draw_text(std::string name, std::string text) {
+	// TODO:: Change font initializers place
 	al_init_font_addon();
 	al_init_ttf_addon();
+	ALLEGRO_FONT *font = al_load_font("file/font.ttf", 18, 0);
+	
+	// TODO:: Change keyboard initializers place
+	al_install_keyboard();
+	ALLEGRO_EVENTS_QUEUE *event_queue = al_create_event_queue();
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	
 	// TODO: Change type of t
 	char name_c[name.size() + 1];	// + 1 because of '\0'
 	char text_c[text.size() + 1]	// + 1 because of '\0'
-
-	ALLEGRO_FONT *font = al_load_font("file/font.ttf", 18, 0);
 	
 	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, name_c);
 	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394 + al_get_font_line_height(font), 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, text_c);
-	al_flip_display();
-	// TODO: Change to a press button verification
-	al_rest(2.0);
+	
+	ALLEGRO_EVENT event;
+	al_wait_for_event(event_queue, &event);
+	
+	if (events.type == ALLEGRO_EVENT_KEY_DOWN) {
+		switch (event.keyboard.keycode) {
+			case ALLEGRO_KEY_N:	// The setted key is "N" (from word "next")
+				al_flip_display();
+				break;
+			default:
+				continue;
+		}
+	}
+	
 }
