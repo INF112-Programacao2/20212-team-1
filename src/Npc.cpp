@@ -35,7 +35,7 @@ bool Npc::interact(Position player_position) {
 void Npc::show_interaction() {
 	// TODO: Change loading image place
 	al_init_image_addon();
-	ALLEGRO_BITMAP *dialog_box("img/dialog-images/dialog_box.bmp");
+	ALLEGRO_BITMAP *dialog_box = al_load_bitmap("img/dialog/dialog_box.bmp");
 	
 	Interaction *interaction = this->_interactions.push_back();
 	this->_interactions.pop_back();
@@ -64,7 +64,7 @@ void Npc::draw_text(std::string name, std::string text) {
 	// TODO:: Change keyboard initializers place
 	// TODO:: Throw initializer errors
 	al_install_keyboard();
-	ALLEGRO_EVENTS_QUEUE *event_queue = al_create_event_queue();
+	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	
 	// TODO: Change type of t
