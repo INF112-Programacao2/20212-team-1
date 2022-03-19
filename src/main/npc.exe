@@ -1,2 +1,1 @@
 g++ Position.cpp Npc.cpp main/npc.cpp Interaction.cpp Personagem.cpp Object.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf
-
