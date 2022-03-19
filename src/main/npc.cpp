@@ -20,9 +20,11 @@ int main() {
   al_install_keyboard();
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-	std::string file[] = {"file/Andre.txt"}
-	Npc npc("Andre", nullptr, 0, 0, {"file/Andre.txt"});	
+	
+	
+	Position player_position(0,0);
+	std::string file[] = {"file/Andre.txt"};
+	Npc npc("Andre", nullptr, 0, 1, file);	
 	ALLEGRO_EVENT event;
 	al_wait_for_event(event_queue, &event);
 	
@@ -30,13 +32,11 @@ int main() {
 	if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
 		switch (event.keyboard.keycode) {
 			case ALLEGRO_KEY_I:	// The setted key is "N" (from word "next")
-				bool interaction = npc.interact();
+				bool interaction = npc.interact(player_position);
 				if (!interaction) {
 					std::cout << "Error in interaction Allegro.\n";
 					return -1;
 				}
-				break;
-			default:
 				break;
 		}
 		std::cout << "Everything is ok!\n";
