@@ -37,7 +37,7 @@ void Npc::show_interaction() {
 	al_init_image_addon();
 	ALLEGRO_BITMAP *dialog_box = al_load_bitmap("img/dialog/dialog_box.bmp");
 	
-	Interaction *interaction = this->_interactions.push_back();
+	Interaction *interaction = this->_interactions.back();
 	this->_interactions.pop_back();
 		// TODO: Change drawing
 	for (int i = 0; i < interaction->get_dialog_length(); i++) {
@@ -68,8 +68,8 @@ void Npc::draw_text(std::string name, std::string text) {
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	
 	// TODO: Change type of t
-	char name_c[name.size() + 1];	// + 1 because of '\0'
-	char text_c[text.size() + 1]	// + 1 because of '\0'
+	const char *name_c = name.c_str();
+	const char *text_c = text.c_str();
 	
 	// TODO: Include possibilite of a text bigger than the box
 	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, name_c);
@@ -79,7 +79,7 @@ void Npc::draw_text(std::string name, std::string text) {
 	ALLEGRO_EVENT event;
 	al_wait_for_event(event_queue, &event);
 	
-	if (events.type == ALLEGRO_EVENT_KEY_DOWN) {
+	if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 		switch (event.keyboard.keycode) {
 			case ALLEGRO_KEY_N:	// The setted key is "N" (from word "next")
 				break;
