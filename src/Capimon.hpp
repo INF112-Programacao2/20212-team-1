@@ -1,4 +1,3 @@
-
 #ifndef CAPIMON_HPP
 #define CAPIMON_HPP
 

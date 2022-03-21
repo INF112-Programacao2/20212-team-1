@@ -3,12 +3,12 @@
 #ifndef NPC_HPP
 #define NPC_HPP
 
-#include "Personagem.hpp"
+#include "Character.hpp"
 #include "Interaction.hpp"
 
 #include <queue>
 
-class Npc : public Personagem {
+class Npc : public Character {
 	private:
 		ALLEGRO_BITMAP *_dialog_image;
 		std::queue<Interaction*> _interactions;

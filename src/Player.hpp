@@ -6,13 +6,13 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-#include "Personagem.hpp"
+#include "Character.hpp"
 #include "Object.hpp"
 #include "Position.hpp"
 #include "Map.hpp"
 #include "Npc.hpp"
 
-class Player : public Personagem{
+class Player : public Character{
     private:
         static int _numSprites;
         static int _tamPixels;

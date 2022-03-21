@@ -12,7 +12,7 @@
 #include "Position.hpp"
 #include "Map.hpp"
 #include "Object.hpp"
-#include "Personagem.hpp"
+#include "Character.hpp"
 #include "Player.hpp"
 #include "PlayerAttack.hpp"
 #include "Capimon.hpp"
