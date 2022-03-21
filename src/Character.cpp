@@ -10,3 +10,7 @@ Character::~Character() {}
 std::string Character::get_name() {
 	return this->_name;
 }
+
+void Character::add_capimon(Capimon *capimon) {
+	this->_deck.push_back(capimon);
+}

@@ -5,19 +5,19 @@
 
 #include "Position.hpp"
 #include "Object.hpp"
+#include "Capimon.hpp"
 
 #include <string>
 
 class Character : public Object {
     protected:
       std::string _name;
-      // TODO: Adicionar vetor de Capimons
-      //vector<*Capimon> _deck
+      vector<*Capimon> _deck
     public:
-    	// TODO: Incluir deck
 		  Character(std::string name, ALLEGRO_BITMAP *image,int x, int y);
 		  ~Character();
 		  std::string get_name();
+		  void add_capimon(Capimon *capimon);
 };
 
 #endif /* CHARACTER_HPP */
