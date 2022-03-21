@@ -1,5 +1,7 @@
-#ifndef INF112_PERSONAGEM_HPP
-#define INF112_PERSONAGEM_HPP
+/* Personagem.hpp */
+
+#ifndef PERSONAGEM_HPP
+#define PERSONAGEM_HPP
 
 #include "Position.hpp"
 #include "Object.hpp"
@@ -18,4 +20,4 @@ class Personagem : public Object {
 		  std::string get_name();
 };
 
-#endif
+#endif /* PERSONAGEM_HPP */

@@ -1,7 +1,7 @@
 /* Position.hpp */
 
-#ifndef INF112_POSITION_HPP
-#define INF112_POSITION_HPP
+#ifndef POSITION_HPP
+#define POSITION_HPP
 
 class Position{
     private:

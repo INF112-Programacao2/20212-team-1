@@ -1,7 +1,7 @@
 /* Map.hpp */
 
-#ifndef INF112_MAP_HPP
-#define INF12_MAP_HPP
+#ifndef MAP_HPP
+#define MAP_HPP
 
 #include "Object.hpp"
 #include "Position.hpp"

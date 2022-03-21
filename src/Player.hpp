@@ -1,5 +1,7 @@
-#ifndef INF112_PLAYER_HPP
-#define INF112_PLAYER_HPP
+/* Player.hpp */
+
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -24,4 +26,4 @@ class Player : public Personagem{
         bool walk(int direcao, Map &mapa);
         void interact(Npc *npc);
 };
-#endif
+#endif /* PLAYER_HPP */
