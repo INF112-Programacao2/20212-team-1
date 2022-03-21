@@ -15,4 +15,3 @@ Um aluno do curso de Ciência da Computação da UFV está cansado da pandemia e
 </ul>
 
 ![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/LEGENDS%20OF%20CPP.gif)
->>>>>>> 060518d51194f8f048093ab8d42ef69b223030b6
