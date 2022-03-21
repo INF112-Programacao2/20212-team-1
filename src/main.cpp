@@ -1,18 +1,22 @@
 <<<<<<< HEAD
 #include <iostream>
+#include <fstream>
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
-#include <fstream>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #include "Position.hpp"
+#include "Map.hpp"
 #include "Object.hpp"
 #include "Personagem.hpp"
 #include "Player.hpp"
-//s#include "Map.hpp"
-
-using namespace std;
+#include "PlayerAttack.hpp"
+#include "Capimon.hpp"
+#include "CapimonStatus.hpp"
 
 const float FPS = 5;
 const int SCREEN_W = 640;
@@ -29,6 +33,18 @@ ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 ALLEGRO_TIMER *timer = NULL;
 ALLEGRO_BITMAP *personagem = NULL;
 ALLEGRO_BITMAP *mapa = NULL;
+ALLEGRO_FONT *font = al_load_font("font.ttf", 11, 0);
+ALLEGRO_FONT *fonteFinal = al_load_font("font.ttf", 30, 0);
+ALLEGRO_SAMPLE *musica = NULL;
+ALLEGRO_SAMPLE_INSTANCE *musicaInstancia = NULL;
+ALLEGRO_BITMAP *background;
+ALLEGRO_BITMAP *options;
+ALLEGRO_BITMAP *capimonJulio;
+ALLEGRO_BITMAP *capimonAndre;
+ALLEGRO_BITMAP *capimonAliado;
+ALLEGRO_BITMAP *seta;
+ALLEGRO_BITMAP *vida;
+ALLEGRO_BITMAP *bar;
 
 //variaveis para monitorar a camera
 ALLEGRO_TRANSFORM camera;
@@ -44,63 +60,86 @@ bool sair = false;
 int inicializa() {
     if(!al_init())
     {
-        cout << "Falha ao carregar Allegro" << endl;
-        return 0;
+        std::cerr << "Falha ao carregar Allegro" << std::endl;
+        return -1;
     }
 
     if(!al_install_keyboard())
     {
-        cout << "Falha ao inicializar o teclado" << endl;
-        return 0;
+        std::cerr << "Falha ao inicializar o teclado" << std::endl;
+        return -1;
     }
 
     timer = al_create_timer(1.0 / FPS);
     if(!timer)
     {
-        cout << "Falha ao inicializar o temporizador" << endl;
-        return 0;
+        std::cerr << "Falha ao inicializar o temporizador" << std::endl;
+        return -1;
     }
 
     if(!al_init_image_addon())
     {
-        cout <<"Falha ao iniciar al_init_image_addon!" << endl;
-        return 0;
+        std::cerr <<"Falha ao iniciar al_init_image_addon!" << std::endl;
+        return -1;
     }
-
+    
+    if(!al_font_addon_initialized())
+    {
+        std::cerr <<"Falha ao iniciar al_font_addon!" << std::endl;
+        return -1;
+    }
+    
+    if(!al_init_ttf_addon())
+    {
+        std::cerr <<"Falha ao iniciar al_init_ttf_addon!" << std::endl;
+        return -1;
+    }
+    
+    if(!al_install_audio())
+    {
+        std::cerr <<"Falha ao iniciar al_install_audio!" << std::endl;
+        return -1;
+    }
+    
+    if(!al_init_acodec_addon();)
+    {
+        std::cerr <<"Falha ao iniciar al_init_acodec_addon!" << std::endl;
+        return -1;
+    }
+    
     display = al_create_display(SCREEN_W, SCREEN_H);
     if(!display)
     {
-        cout << "Falha ao inicializar a tela" << endl;
+        std::cerr << "Falha ao inicializar a tela" << std::endl;
         al_destroy_timer(timer);
-        return 0;
+        return -1;
     }
-
 
     event_queue = al_create_event_queue();
     if(!event_queue)
     {
-        cout << "Falha ao criar a fila de eventos" << endl;
+        std::cerr << "Falha ao criar a fila de eventos" << std::endl;
         al_destroy_display(display);
         al_destroy_timer(timer);
-        return 0;
+        return -1;
     }
 
     personagem = al_load_bitmap("img/personagem1.bmp");
     if(!personagem)
     {
-        cout << "Falha ao carregar o personagem!" << endl;
+        std::cerr << "Falha ao carregar o personagem!" << std::endl;
         al_destroy_display(display);
         al_destroy_timer(timer);
-        return 0;
+        return -1;
     }
     
     mapa = al_load_bitmap("img/map.bmp");
     if(!mapa)
     {
-        cout << "Falha ao carregar o mapa!" << endl;
+        std::cerr << "Falha ao carregar o mapa!" << std::endl;
         al_destroy_display(display);
         al_destroy_timer(timer);
-        return 0;
+        return -1;
     }
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -111,6 +150,25 @@ int inicializa() {
     al_flip_display();
     al_start_timer(timer);
 
+    al_reserve_samples(10);
+
+    musica = al_load_sample("audios/musica.ogg");
+    musicaInstancia = al_create_sample_instance(musica);
+    al_set_sample_instance_playmode(musicaInstancia, ALLEGRO_PLAYMODE_LOOP);
+
+    al_attach_sample_instance_to_mixer(musicaInstancia, al_get_default_mixer());
+    
+    //Desenha cenário
+    background = al_load_bitmap("img/TileBatalla.bmp");
+    options = al_load_bitmap("img/DialogBar.bmp");
+    vida = al_load_bitmap("img/Vida.bmp");
+    bar = al_load_bitmap("img/Bar.bmp");
+    
+    Capimon Julio(capimonJulio, "Julio", " ", " ", " ", " ");
+    Capimon Andre(capimonAndre, "Andre", " ", " ", " ", " ");
+    CapimonStatus Jul(Julio.Get_Vida(), 14.f, 14.f);
+    CapimonStatus Cap(Capivaristo.Get_Vida(), 420.f, 350.f);
+
     return 1;
 }
 
@@ -119,6 +177,8 @@ int main(int argc, char **argv)
     if(!inicializa()) return -1;
 
     Player capivaristo("Capivaristo", personagem,5, 6, 16, 16);
+    Capimon Capivaristo(capimonAliado, "Capivaristo", "Choque do Trovão", "Ataque Rápido", "Investida Trovão", "Cauda de Ferro");
+    PlayerAttack a;
     Map map("img/walkable_map.pnm", mapa, 0, 0);
 
     while(!sair)
@@ -235,85 +295,8 @@ int main(int argc, char **argv)
 
             al_flip_display();
 =======
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_font.h>
-#include <iostream>
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
-#include "CapimonStatus.hpp"
-#include "Capimon.hpp"
-#include "PlayerAttack.hpp"
-
-const int SCREEN_W = 640;
-const int SCREEN_H = 480;
 
 int main(){
-
-    bool exit = false;
-
-    ALLEGRO_DISPLAY *display = NULL;
-    ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-    ALLEGRO_BITMAP *background;
-    ALLEGRO_BITMAP *options;
-    ALLEGRO_BITMAP *capimonJulio;
-    ALLEGRO_BITMAP *capimonAndre;
-    ALLEGRO_BITMAP *capimonAliado;
-    ALLEGRO_BITMAP *seta;
-    ALLEGRO_BITMAP *vida;
-    ALLEGRO_BITMAP *bar;
-
-    //Inicio do programa
-    if(!al_init())
-        return -1;
-
-    display = al_create_display(SCREEN_W,SCREEN_H);
-
-    if(!display)
-        return -1;
-
-    al_init_font_addon();
-    al_init_ttf_addon();
-    al_install_keyboard();
-    al_init_image_addon();
-    al_install_audio();
-    al_init_acodec_addon();
-    
-    if(!al_is_font_addon_initialized()){
-        std::cerr << "Font Addon nao foi inicializado!" << std::endl;
-    }
-
-    ALLEGRO_FONT *font = al_load_font("font.ttf", 11, 0);
-    ALLEGRO_FONT *fonteFinal = al_load_font("font.ttf", 30, 0);
-    ALLEGRO_SAMPLE *musica = NULL;
-    ALLEGRO_SAMPLE_INSTANCE *musicaInstancia = NULL;
-
-    al_reserve_samples(10);
-
-    musica = al_load_sample("audios/musica.ogg");
-    musicaInstancia = al_create_sample_instance(musica);
-    al_set_sample_instance_playmode(musicaInstancia, ALLEGRO_PLAYMODE_LOOP);
-
-    al_attach_sample_instance_to_mixer(musicaInstancia, al_get_default_mixer());
-
-    //Desenha cenário
-    background = al_load_bitmap("img/TileBatalla.bmp");
-    options = al_load_bitmap("img/DialogBar.bmp");
-    vida = al_load_bitmap("img/Vida.bmp");
-    bar = al_load_bitmap("img/Bar.bmp");
-
-    Capimon Capivaristo(capimonAliado, "Capivaristo", "Choque do Trovão", "Ataque Rápido", "Investida Trovão", "Cauda de Ferro");
-    PlayerAttack a;
-
-    event_queue = al_create_event_queue();
-    al_register_event_source(event_queue, al_get_keyboard_event_source());
-    Capimon Julio(capimonJulio, "Julio", " ", " ", " ", " ");
-
-    CapimonStatus Jul(Julio.Get_Vida(), 14.f, 14.f);
-    CapimonStatus Cap(Capivaristo.Get_Vida(), 420.f, 350.f);
-
-    Capimon Andre(capimonAndre, "Andre", " ", " ", " ", " ");
 
     while(!exit){
 
@@ -389,23 +372,17 @@ int main(){
         al_flip_display();
     }
 
-<<<<<<< HEAD
     al_destroy_bitmap(personagem);
     al_destroy_bitmap(mapa);
     al_destroy_timer(timer);
     al_destroy_display(display);
     al_destroy_event_queue(event_queue);
-
-    return 0;
-}
-=======
     al_destroy_bitmap(background);
     al_destroy_font(fonteFinal);
     al_destroy_font(font);
     al_destroy_bitmap(seta);
     al_destroy_sample(musica);
     al_destroy_sample_instance(musicaInstancia);
-    al_destroy_event_queue(event_queue);
-    al_destroy_display(display);
+
+    return 0;
 }
->>>>>>> batalha
