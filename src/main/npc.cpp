@@ -7,13 +7,13 @@
 
 int main() {
 	if (!al_init()) {
-		std::cout << "Error initialising Allegro.\n";
+		std::cerr << "Error initialising Allegro.\n";
 		return -1;
   }
   
   ALLEGRO_DISPLAY *display = al_create_display(640, 480);
   if (!display) {
-  	std::cout << "Error creating displays.\n";
+  	std::cerr << "Error creating displays.\n";
 		return -1;
   }
   
@@ -32,14 +32,18 @@ int main() {
 	if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
 		switch (event.keyboard.keycode) {
 			case ALLEGRO_KEY_I:	// The setted key is "N" (from word "next")
-				bool interaction = npc.interact(player_position);
-				if (!interaction) {
-					std::cout << "Error in interaction Allegro.\n";
+				if (npc.can_interact(player_position)) {
+					npc.show_interaction();
+					std::cout << "Everything is ok!\n";
+				}
+				else {
+					std::cerr << "Error in interaction Allegro.\n";
 					return -1;
 				}
 				break;
+			default:
+				std::cerr << "Other key pressed.\n";
 		}
-		std::cout << "Everything is ok!\n";
 	}
 	
 	al_destroy_event_queue(event_queue);

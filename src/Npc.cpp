@@ -15,7 +15,7 @@ Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, std::string file
 	
 Npc::~Npc() {}
 
-bool Npc::interact(Position player_position) {
+bool Npc::can_interact(Position player_position) {
 	// TODO: Change variables of position
 	int player_x = player_position.get_x();
 	int player_y = player_position.get_y();
@@ -25,7 +25,6 @@ bool Npc::interact(Position player_position) {
 			(player_x == (npc_x - 1) && player_y == npc_y) ||
 			(player_x == npc_x && player_y == (npc_y + 1)) ||
 			(player_x == npc_x && player_y == (npc_y - 1))) {
-		this->show_interaction();		
 		return true;
 	}
 	return false;
