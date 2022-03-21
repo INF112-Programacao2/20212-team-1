@@ -10,10 +10,9 @@
 
 class Npc : public Character {
 	private:
-		ALLEGRO_BITMAP *_dialog_image;
 		std::queue<Interaction*> _interactions;
 	public:
-		Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, std::string file_directory[]);
+		Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, std::string file_directory[]);	// the order metter
 		~Npc();
 		bool can_interact(Position player_position);
 		void show_interaction();
