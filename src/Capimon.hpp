@@ -1,3 +1,5 @@
+/* Capimon.hpp */
+
 #ifndef CAPIMON_HPP
 #define CAPIMON_HPP
 
@@ -7,7 +9,7 @@ using std::string;
 
 class Capimon{
     public:
-        Capimon(ALLEGRO_BITMAP *capimon, string treinadorPokemon, string habilidade1, string habilidade2, string habilidade3, string habilidade4);
+        Capimon(ALLEGRO_BITMAP *capimon, string treinadorPokemon);
         ~Capimon();
         void Mostrar_Capimon();
         void Mostrar_Capimon_Aliado();
@@ -15,7 +17,6 @@ class Capimon{
         int Get_Ataque();
         int Get_Vida();
         void desenharHabilidades();
-        string Habilidade[4];
         const string *get_habilidade();
     
     private:
@@ -26,4 +27,4 @@ class Capimon{
     
 };
 
-#endif
+#endif /* CAPIMON_HPP */
