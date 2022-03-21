@@ -5,16 +5,10 @@ Capimon::~Capimon(){
     al_destroy_bitmap(capimon);
 }
 
-Capimon::Capimon(ALLEGRO_BITMAP *capimon, string treinadorPokemon, string habilidade1, string habilidade2, string habilidade3, string habilidade4){
+Capimon::Capimon(ALLEGRO_BITMAP *capimon, string treinadorPokemon){
     this->capimon = capimon;
     this->treinadorPokemon = treinadorPokemon;
     this->Vida = 100;
-    this->Ataque = 5;
-
-    Habilidade[0] = habilidade1;
-    Habilidade[1] = habilidade2;
-    Habilidade[2] = habilidade3;
-    Habilidade[3] = habilidade4;
 }
 
 void Capimon::Mostrar_Capimon(){
@@ -41,8 +35,4 @@ const std::string *Capimon::get_habilidade(){
 
 int Capimon::Get_Vida(){
     return Vida;
-}
-
-int Capimon::Get_Ataque(){
-    return Ataque;
 }
