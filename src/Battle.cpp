@@ -3,9 +3,8 @@
 #include "Battle.hpp"
 
 // TODO: Change construct to the easier way
-Battle::Battle(Npc *enemy) {
-	this->_enemy = enemy;
-}
+Battle::Battle(Npc *enemy):
+	_enemy(enemy) {};
 
 Battle::~Battle() {}
 
@@ -24,15 +23,20 @@ Battle::start_battle() {
 	ALLEGRO_BITMAP *vida;
 	ALLEGRO_BITMAP *bar;
 
+	/*
 	//Inicio do programa
 	if(!al_init())
 		  return -1;
-
+	*/
+	
+	/*
 	display = al_create_display(SCREEN_W,SCREEN_H);
 
 	if(!display)
 		  return -1;
+	*/
 
+	// TODO: Check if there is somethig repeated
 	al_init_font_addon();
 	al_init_ttf_addon();
 	al_install_keyboard();
@@ -56,8 +60,8 @@ Battle::start_battle() {
 	al_set_sample_instance_playmode(musicaInstancia, ALLEGRO_PLAYMODE_LOOP);
 
 	al_attach_sample_instance_to_mixer(musicaInstancia, al_get_default_mixer());
-
-	//Desenha cenário
+	
+	// Fixo
 	background = al_load_bitmap("img/TileBatalla.bmp");
 	options = al_load_bitmap("img/DialogBar.bmp");
 	vida = al_load_bitmap("img/Vida.bmp");
