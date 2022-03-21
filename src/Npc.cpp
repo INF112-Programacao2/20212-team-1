@@ -1,17 +1,11 @@
 /* Npc.cpp */
 
 #include "Npc.hpp"
-#include "Personagem.hpp"
-#include "Object.hpp"
-#include <allegro5/allegro_color.h>
 #include <iostream>
-#include <cmath>
-#include <cstdio>
 #include <cstring>
 
-Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, ALLEGRO_BITMAP *dialog_image, std::string file_directory[]):
+Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, std::string file_directory[]):
 	Personagem(name, image, x, y) {
-	this->_dialog_image = dialog_image;
 	for (int i = 0; i < 1; i++) {
 		std::string t = file_directory[i];
 		Interaction *interaction = new Interaction(t);
@@ -22,77 +16,76 @@ Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, ALLEGRO_BITMAP *
 Npc::~Npc() {}
 
 bool Npc::can_interact(Position player_position) {
+	// TODO: Change variables of position
 	int player_x = player_position.get_x();
 	int player_y = player_position.get_y();
 	int npc_x = this->get_position().get_x();
 	int npc_y = this->get_position().get_y();
-	// TODO: if key 'I' is pressed
 	if ((player_x == (npc_x + 1) && player_y == npc_y) ||
 			(player_x == (npc_x - 1) && player_y == npc_y) ||
 			(player_x == npc_x && player_y == (npc_y + 1)) ||
-			(player_x == npc_x && player_y == (npc_y - 1)))
-		// TODO: change parameter
+			(player_x == npc_x && player_y == (npc_y - 1))) {
 		return true;
+	}
 	return false;
 }
 
-void Npc::show_interaction(int n) {
-	// TODO: Create screen
-	ALLEGRO_DISPLAY *display = NULL;
-	
-	if (!al_init()) {
-		std::cerr << "Failed to initialize allegro." << std::endl;
-		// TODO: throw
-		return;
-	}
-	
-	// TODO: Remove creating display
-	display = al_create_display(640, 480);
-	
-	if (!display) {
-		std::cout << "Failed to initialize display." << std::endl;
-		// TODO: throw
-		return;
-	}
-	
+// Show the last interection in the vector
+void Npc::show_interaction() {
+	// TODO: Change loading image place
 	al_init_image_addon();
+	ALLEGRO_BITMAP *dialog_box = al_load_bitmap("img/dialog/dialog_box.bmp");
 	
-	ALLEGRO_BITMAP *character = al_load_bitmap("img/dialog-images/oak_.bmp");
-	al_draw_bitmap(character, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
-	al_flip_display();
-		
-	al_clear_to_color(al_map_rgb(0, 0, 0));
-	
-	Interaction *interaction = this->_interactions[n];
+	Interaction *interaction = this->_interactions.back();
+	this->_interactions.pop_back();
+		// TODO: Change drawing
 	for (int i = 0; i < interaction->get_dialog_length(); i++) {
 		std::string *d = interaction->get_dialog(i);
-		al_clear_to_color(al_map_rgb(0, 0, 0));
-		al_draw_bitmap(character, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
+		al_draw_bitmap(dialog_box, 0, 384, ALLEGRO_FLIP_HORIZONTAL);
 		al_flip_display();
 		this->draw_text("NOME", d[interaction->SPEAK]);
-		al_clear_to_color(al_map_rgb(0, 0, 0));
-		al_draw_bitmap(character, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
+		al_draw_bitmap(dialog_box, 0, 384, ALLEGRO_FLIP_HORIZONTAL);
 		al_flip_display();
 		this->draw_text(this->_name, d[interaction->ANSWER]);
 	}
 	
-	al_destroy_bitmap(character);
-	
-	// TODO: Remove destroying display
-	al_destroy_display(display);
+	// TODO: Change destroying image place
+	al_destroy_bitmap(dialog_box);
 }
 
 void Npc::draw_text(std::string name, std::string text) {
+	// TODO:: Change font initializers place
+	// TODO:: Throw initializer errors
 	al_init_font_addon();
 	al_init_ttf_addon();
-	
-	char t[text.size()+name.size()+3] = "";
-	std::strcpy(t, (name + ": " + text).c_str());
-
 	ALLEGRO_FONT *font = al_load_font("file/font.ttf", 18, 0);
 	
-	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 330, 610, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, t);
-	al_flip_display();
-	al_rest(2.0);
+	// TODO:: Change keyboard initializers place
+	// TODO:: Throw initializer errors
+	al_install_keyboard();
+	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	
+	// TODO: Change type of t
+	const char *name_c = name.c_str();
+	const char *text_c = text.c_str();
+	
+	// TODO: Include possibilite of a text bigger than the box
+	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, name_c);
+	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394 + al_get_font_line_height(font), 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, text_c);
+	al_flip_display();
+	
+	ALLEGRO_EVENT event;
+	al_wait_for_event(event_queue, &event);
+	
+	if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+		switch (event.keyboard.keycode) {
+			case ALLEGRO_KEY_N:	// The setted key is "N" (from word "next")
+				break;
+			default:
+				this->draw_text(name, text);
+		}
+	}
+	
+	al_destroy_event_queue(event_queue);
 }
