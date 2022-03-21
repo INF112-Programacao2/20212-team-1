@@ -9,7 +9,7 @@ Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, std::string file
 	for (int i = 0; i < 1; i++) {
 		std::string t = file_directory[i];
 		Interaction *interaction = new Interaction(t);
-		this->_interactions.push_back(interaction);
+		this->_interactions.push(interaction);
 	}
 };
 	
@@ -30,14 +30,14 @@ bool Npc::can_interact(Position player_position) {
 	return false;
 }
 
-// Show the last interection in the vector
+// Show the next interaction in the queue
 void Npc::show_interaction() {
 	// TODO: Change loading image place
 	al_init_image_addon();
 	ALLEGRO_BITMAP *dialog_box = al_load_bitmap("img/dialog/dialog_box.bmp");
 	
-	Interaction *interaction = this->_interactions.back();
-	this->_interactions.pop_back();
+	Interaction *interaction = this->_interactions.front();
+	this->_interactions.pop();
 		// TODO: Change drawing
 	for (int i = 0; i < interaction->get_dialog_length(); i++) {
 		std::string *d = interaction->get_dialog(i);
