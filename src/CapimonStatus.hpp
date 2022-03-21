@@ -1,29 +1,28 @@
-/* CapimonStatus.hpp */
+#ifndef _CAPIMON_STATUS_HPP_
+#define _CAPIMON_STATUS_HPP_
 
-#ifndef CAPIMON_STATUS_HPP
-#define CAPIMON_STATUS_HPP
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_font.h>
+#include <iostream>
 
-#include "Capimon.hpp"
-#include "Object.hpp"
-
-#define BAR_VIDA_WIDTH	18.f
-#define BAR_VIDA_HEIGHT	18.f
-
-class CapimonStatus
-	: public Object
-{
+class CapimonStatus{
 public:
-	CapimonStatus(Capimon* cap, int x, int y);
+	CapimonStatus(int maxVida, float x, float y);
 
-	void decrementHealth(int d);
+	void decrementHealth(int dano);
 
-	void draw();
+	bool looser();
+
+	void draw(const char* capname, ALLEGRO_BITMAP* img, ALLEGRO_BITMAP* bar, ALLEGRO_FONT* font);
 
 private:
-	ALLEGRO_BITMAP* _bar;
-	Capimon* _cap;
-	int _health;
 	int _maxHealth;
+	int _curHealth;
+	ALLEGRO_BITMAP* _img;
+	float _x;
+	float _y;
 };
 
-#endif /* CAPIMON_STATUS_HPP */
+#endif // !_CAPIMON_STATUS_HPP_

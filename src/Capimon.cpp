@@ -1,63 +1,48 @@
 #include "Capimon.hpp"
+using std::string;
 
 Capimon::~Capimon(){
-
+    al_destroy_bitmap(capimon);
 }
 
-Capimon::Capimon(int Tipo){         
+Capimon::Capimon(ALLEGRO_BITMAP *capimon, string treinadorPokemon, string habilidade1, string habilidade2, string habilidade3, string habilidade4){
+    this->capimon = capimon;
+    this->treinadorPokemon = treinadorPokemon;
+    this->Vida = 100;
+    this->Ataque = 5;
 
-	this->C->_Tipo = Tipo;
-    //Define o tipo do capimon(Inimigo ou Aliado)   
-	if(Tipo==0)
-        this->>_image = al_load_bitmap("Capimons.bmp");
-    else
-        this->set_sprite("Capimons_costas.bmp");
-    this->Indice = 2;
-    this->X = SCREEN_W+124;
-    this->H = 112;
-    this->_Ataque = 5;
-    this->Sessao = 4;
-    this->W = 112;
-    this->_Vida = 100;
-
-    Habilidade[0] = "Ataque ";
-          //Habilidades do capimon    Habilidade[1] = "";
-    Habilidade[3] = "";
-    Habilidade[4] = "";
+    Habilidade[0] = habilidade1;
+    Habilidade[1] = habilidade2;
+    Habilidade[2] = habilidade3;
+    Habilidade[3] = habilidade4;
 }
 
-void Capimon::Mostrar_Capimon(){        //mostra o capimon na tela
-    if(this->X>SCREEN_W-204)
-        X -= 3;
+void Capimon::Mostrar_Capimon(){
+    if(treinadorPokemon=="Capivaristo"){
+        capimon = al_load_bitmap("img/pikachu.bmp");
+        al_convert_mask_to_alpha(capimon, al_map_rgb(255,0,255));
+        al_draw_bitmap(capimon, 200, 295, 0);
+    }
+    else if(treinadorPokemon=="Julio"){
+        capimon = al_load_bitmap("img/charizard.bmp");
+        al_convert_mask_to_alpha(capimon, al_map_rgb(255,0,255));
+        al_draw_bitmap(capimon, 420, 120, 0);
+    }
+    else if(treinadorPokemon=="Andre"){
+        capimon = al_load_bitmap("img/primeape.bmp");
+        al_convert_mask_to_alpha(capimon, al_map_rgb(255,0,255));
+        al_draw_bitmap(capimon, 400, 110, 0);
+    }
 }
 
-
-oid Capimon::Aliado(){
-    this->X = (SCREEN_W/2)-W;
-    this->Y = SCREEN_H-180;
-}
-
-const void Capimon::Acao(){             //acão dcapimon a
-    if(_Tipo==0)
-        Inimigo();
-    else
-        Aliado();
-
-    this->animado(0);
-}
-
-void Capimon::Inimigo(                //Mostra capimon inimigo){
-    this->Mostrar_Capimon();
-}
-
-vvod Capimon::Set_DanoCausado(int Dano){
-    this->_Vida -= Dano;
+const std::string *Capimon::get_habilidade(){
+    return Habilidade;
 }
 
 int Capimon::Get_Vida(){
-    return _Vida;
+    return Vida;
 }
 
 int Capimon::Get_Ataque(){
-    return _Ataque;
+    return Ataque;
 }

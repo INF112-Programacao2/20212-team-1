@@ -3,33 +3,27 @@
 #ifndef PLAYER_ATTACK_HPP
 #define PLAYER_ATTACK_HPP
 
-#include <array>
-#include "Object.hpp"
+#include <string>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 
-struct Attack
-{
-	const char* nome = "<vazio>"; // Valor default
-	int dano = 0;
-};
-
-class PlayerAttack
-	: public Object
-{
+class PlayerAttack{
 public:
 	PlayerAttack();
-	~PlayerAttack();
 
-	void addAttack(const Attack& atk);
+    //void set_habilidades(const string* hl);
 
-	void selectAttack(int n);
+	void draw(ALLEGRO_FONT *font, ALLEGRO_BITMAP *seta);
 
-	void draw();
+	int ataqueInimigo();
 
-	int do_attack(int n);
+	void selectAttack(int key);
+
+	int do_attack();
 
 private:
-	std::array<Attack, 4> _attacks; // Define um maximo de quatro ataques por Capimon
-	int _selected;
-	int _nAtks;
+	//const string* m_attacks; // Define um maximo de quatro ataques por Capimon
+	int _selected; // 0 = cima-esquerda, 1 = baixo-esquerda, 2 = cima-direita, 3 = baixo-direita
 };
+
 #endif /* PLAYER_ATTACK_HPP */

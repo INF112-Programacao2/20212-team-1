@@ -1,27 +1,30 @@
-/* Capimon.hpp */
 
 #ifndef CAPIMON_HPP
 #define CAPIMON_HPP
 
-#include "Object.hpp"
+#include <allegro5/allegro.h>
+#include <string>
+using std::string;
 
-class Capimon : public Object{
+class Capimon{
     public:
-        Capimon(int Tipo);
+        Capimon(ALLEGRO_BITMAP *capimon, string treinadorPokemon, string habilidade1, string habilidade2, string habilidade3, string habilidade4);
         ~Capimon();
         void Mostrar_Capimon();
-        const void Acao();
-        void Aliado();
+        void Mostrar_Capimon_Aliado();
         void Set_DanoCausado(int Dano);
-        void Inimigo();
         int Get_Ataque();
         int Get_Vida();
-        std::string Habilidade[4];
+        void desenharHabilidades();
+        string Habilidade[4];
+        const string *get_habilidade();
     
     private:
-        int _Vida;
-        int _Tipo;
-        int _Ataque;
+        int Vida;
+        int Ataque;
+        string treinadorPokemon;
+        ALLEGRO_BITMAP *capimon;
+    
 };
 
-#endif /* CAPIMON_HPP */
+#endif
