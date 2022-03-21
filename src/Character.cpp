@@ -1,12 +1,12 @@
-/* Personagem.cpp */
+/* Character.cpp */
 
-#include "Personagem.hpp"
+#include "Character.hpp"
 
-Personagem::Personagem(std::string name, ALLEGRO_BITMAP *image,int x, int y):
+Character::Character(std::string name, ALLEGRO_BITMAP *image,int x, int y):
     _name(name), Object(image, x, y) {};
 
-Personagem::~Personagem() {}
+Character::~Character() {}
 
-std::string Personagem::get_name() {
+std::string Character::get_name() {
 	return this->_name;
 }
