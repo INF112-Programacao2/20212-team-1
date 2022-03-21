@@ -9,6 +9,7 @@
 
 #include <string>
 
+// Maybe this is a virtual class, because it's impossible to exist an object of type Character
 class Character : public Object {
     protected:
       std::string _name;
