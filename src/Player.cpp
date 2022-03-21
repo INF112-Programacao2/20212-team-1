@@ -2,11 +2,6 @@
 
 #include <iostream>
 
-#include "Object.hpp"
-#include "Character.hpp"
-#include "Player.hpp"
-
-
 int Player::_numSprites = 4;
 int Player::_tamPixels = 16;
 
@@ -54,7 +49,32 @@ bool Player::walk(int direcao, Map &mapa){
     
 }
 
-// TODO: Função interact()
+// TODO: Correct interact()
 void Player::interact(Npc *npc) {
+	al_install_keyboard();	// TODO: Verify if it's not duplicate
 	
+	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();	// TODO: Verify if it's not duplicate
+	al_register_event_source(event_queue, al_get_keyboard_event_source());	// TODO: Verify if it's not duplicate
+	
+	ALLEGRO_EVENT event;
+	al_wait_for_event(event_queue, &event);
+	
+	// TODO: Include time to press the key
+	if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
+		switch (event.keyboard.keycode) {
+			case ALLEGRO_KEY_I:	// The setted key is "N" (from word "next")
+				if (npc->can_interact(player_position)) {
+					npc->show_interaction();
+					std::cout << "Successful interaction.\n";
+				}
+				else {
+					std::cerr << "Error in interaction.\n";
+					return -1;
+				}
+				break;
+			default:
+				std::cerr << "Interaction wasn't called.\n";
+				break;
+		}
+	}
 }

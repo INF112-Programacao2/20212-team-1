@@ -3,10 +3,10 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "Character.hpp"
 #include "Object.hpp"
 #include "Position.hpp"
 #include "Map.hpp"
+#include "Character.hpp"
 #include "Npc.hpp"
 
 class Player : public Character{
