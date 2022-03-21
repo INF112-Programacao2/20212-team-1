@@ -1,8 +1,6 @@
 /* Map.cpp */
 
 #include <iostream>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
 #include <fstream>
 
 #include "Map.hpp"

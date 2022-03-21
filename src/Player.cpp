@@ -1,10 +1,7 @@
 /* Player.cpp */
 
 #include <iostream>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
 
-#include "Position.hpp"
 #include "Object.hpp"
 #include "Character.hpp"
 #include "Player.hpp"

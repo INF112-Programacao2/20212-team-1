@@ -3,9 +3,6 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-
 #include "Character.hpp"
 #include "Object.hpp"
 #include "Position.hpp"
