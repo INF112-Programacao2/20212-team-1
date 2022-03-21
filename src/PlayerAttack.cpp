@@ -1,10 +1,10 @@
+/* PlayerAttack.cpp */
+
 #include "PlayerAttack.hpp"
 #include <cstdlib>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <iostream>
-
-/* PlayerAttack.cpp */
 
 PlayerAttack::PlayerAttack() 
     : _selected()
