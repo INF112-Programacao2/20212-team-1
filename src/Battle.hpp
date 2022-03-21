@@ -19,9 +19,10 @@ const int SCREEN_H = 480;
 
 class Battle {
 	private:
+		Player *_hero;
 		Npc *_enemy;
 	public:
-		Battle(Npc *enemy);
+		Battle(Player *hero, Npc *enemy);
 		~Battle();
 		void start_battle();
-}
+};
