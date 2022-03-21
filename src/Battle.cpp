@@ -3,8 +3,8 @@
 #include "Battle.hpp"
 
 // TODO: Change construct to the easier way
-Battle::Battle(Npc *enemy):
-	_enemy(enemy) {};
+Battle::Battle(Player *hero, Npc *enemy):
+	_hero(hero), _enemy(enemy) {};
 
 Battle::~Battle() {}
 
@@ -16,9 +16,6 @@ Battle::start_battle() {
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_BITMAP *background;
 	ALLEGRO_BITMAP *options;
-	ALLEGRO_BITMAP *capimonJulio;
-	ALLEGRO_BITMAP *capimonAndre;
-	ALLEGRO_BITMAP *capimonAliado;
 	ALLEGRO_BITMAP *seta;
 	ALLEGRO_BITMAP *vida;
 	ALLEGRO_BITMAP *bar;
@@ -61,23 +58,23 @@ Battle::start_battle() {
 
 	al_attach_sample_instance_to_mixer(musicaInstancia, al_get_default_mixer());
 	
-	// Fixo
+	/* Fixo */
 	background = al_load_bitmap("img/TileBatalla.bmp");
 	options = al_load_bitmap("img/DialogBar.bmp");
 	vida = al_load_bitmap("img/Vida.bmp");
 	bar = al_load_bitmap("img/Bar.bmp");
 
-	Capimon Capivaristo(capimonAliado, "Capivaristo");
+	//Capimon Capivaristo(capimonAliado, "Capivaristo");
 	PlayerAttack a;
 
 	event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
-	Capimon Julio(capimonJulio, "Julio");
+	//Capimon Julio(capimonJulio, "Julio");
 
 	CapimonStatus Jul(Julio.Get_Vida(), 14.f, 14.f);
 	CapimonStatus Cap(Capivaristo.Get_Vida(), 420.f, 350.f);
 
-	Capimon Andre(capimonAndre, "Andre");
+	//Capimon Andre(capimonAndre, "Andre");
 
 	while(!exit){
 

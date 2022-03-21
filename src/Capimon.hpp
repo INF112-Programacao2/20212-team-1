@@ -5,26 +5,19 @@
 
 #include <allegro5/allegro.h>
 #include <string>
-using std::string;
 
 class Capimon{
-    public:
-        Capimon(ALLEGRO_BITMAP *capimon, string treinadorPokemon);
-        ~Capimon();
-        void Mostrar_Capimon();
-        void Mostrar_Capimon_Aliado();
-        void Set_DanoCausado(int Dano);
-        int Get_Ataque();
-        int Get_Vida();
-        void desenharHabilidades();
-        const string *get_habilidade();
-    
-    private:
-        int Vida;
-        int Ataque;
-        string treinadorPokemon;
-        ALLEGRO_BITMAP *capimon;
-    
+	private:
+		std::string _name;
+    ALLEGRO_BITMAP *_image;
+    int _life;
+    Skill _skills[AMOUNT_SKILLS];	// Or maybe Skill *_skills[4]
+    const int AMOUNT_SKILLS = 4;
+  public:
+		Capimon(std::string name, ALLEGRO_BITMAP *image, int life, Skill skills[]);
+		~Capimon();
+		int get_life();
+		void show_capimon();
 };
 
 #endif /* CAPIMON_HPP */

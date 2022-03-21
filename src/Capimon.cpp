@@ -1,15 +1,21 @@
+/* Capimon.cpp */
+
 #include "Capimon.hpp"
-using std::string;
 
 Capimon::~Capimon(){
     al_destroy_bitmap(capimon);
 }
 
-Capimon::Capimon(ALLEGRO_BITMAP *capimon, string treinadorPokemon){
-    this->capimon = capimon;
-    this->treinadorPokemon = treinadorPokemon;
-    this->Vida = 100;
+Capimon::Capimon(string name, ALLEGRO_BITMAP *image, int life, Skill skills[]){
+	this->_name = name;
+	this->_image = image;
+	this->_life = life;
+	
+	for (int i = 0; i < this->AMOUNT_SKILLS; i++)
+		this->_skills[i] = skills[i];
 }
+
+void
 
 void Capimon::Mostrar_Capimon(){
     if(treinadorPokemon=="Capivaristo"){

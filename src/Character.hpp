@@ -13,7 +13,7 @@
 class Character : public Object {
     protected:
       std::string _name;
-      vector<*Capimon> _deck
+      vector<*Capimon> _deck;
     public:
 		  Character(std::string name, ALLEGRO_BITMAP *image,int x, int y);
 		  ~Character();
