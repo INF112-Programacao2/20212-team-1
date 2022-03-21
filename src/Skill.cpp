@@ -14,10 +14,10 @@ Skill::Skill(std::string name, int min_damage, int max_damage) {
 Skill::~Skill() {}
 
 std::string Skill::get_name() {
-	this->_name = name;
+	return this->_name;
 }
 
 int Skill::select_damage() {
 	srand(time(NULL));
-	return (this->_damage_interval[this->MIN_DAMAGE] + (rand() % this->_damage_interval[this->MAX_DAMAGE]));
+	return (this->_damage_interval[this->MIN_DAMAGE] + (rand() % this->_damage_interval[this->MAX_DAMAGE]));	// select a rand value between min and max damage
 }

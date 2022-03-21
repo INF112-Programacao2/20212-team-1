@@ -12,6 +12,6 @@ class Skill {
 	public:
 		Skill(std::string name, int min_damage, int max_damage);
 		~Skill();
-		int get_name();
+		std::string get_name();
 		int select_damage();
 };

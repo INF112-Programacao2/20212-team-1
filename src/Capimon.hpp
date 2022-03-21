@@ -16,6 +16,7 @@ class Capimon{
   public:
 		Capimon(std::string name, ALLEGRO_BITMAP *image, int life, Skill skills[]);
 		~Capimon();
+		std::string get_name();
 		int get_life();
 		void show_capimon();
 };
