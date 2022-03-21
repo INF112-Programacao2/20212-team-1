@@ -8,3 +8,6 @@ Battle::Battle(Npc *enemy) {
 }
 
 Battle::~Battle() {}
+
+// TODO: start_battle()
+Battle::start_battle() {}

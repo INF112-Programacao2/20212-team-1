@@ -8,4 +8,5 @@ class Battle {
 	public:
 		Battle(Npc *enemy);
 		~Battle();
+		void start_battle();
 }
