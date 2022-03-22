@@ -59,10 +59,10 @@ Battle::start_battle() {
 	al_attach_sample_instance_to_mixer(musicaInstancia, al_get_default_mixer());
 	
 	/* Fixo */
-	background = al_load_bitmap("img/TileBatalla.bmp");
-	options = al_load_bitmap("img/DialogBar.bmp");
-	life_bar = al_load_bitmap("img/Vida.bmp");
-	bar = al_load_bitmap("img/Bar.bmp");
+	background = al_load_bitmap("img/battle/TileBatalla.bmp");
+	options = al_load_bitmap("img/battle/DialogBar.bmp");
+	life_bar = al_load_bitmap("img/battle/Vida.bmp");
+	bar = al_load_bitmap("img/battle/Bar.bmp");
 
 	//Capimon Capivaristo(capimonAliado, "Capivaristo");
 	PlayerAttack a;
