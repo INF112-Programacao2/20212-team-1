@@ -16,8 +16,8 @@ Battle::start_battle() {
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_BITMAP *background;
 	ALLEGRO_BITMAP *options;
-	ALLEGRO_BITMAP *seta;
-	ALLEGRO_BITMAP *vida;
+	ALLEGRO_BITMAP *selector;
+	ALLEGRO_BITMAP *life_bar;
 	ALLEGRO_BITMAP *bar;
 
 	/*
@@ -61,7 +61,7 @@ Battle::start_battle() {
 	/* Fixo */
 	background = al_load_bitmap("img/TileBatalla.bmp");
 	options = al_load_bitmap("img/DialogBar.bmp");
-	vida = al_load_bitmap("img/Vida.bmp");
+	life_bar = al_load_bitmap("img/Vida.bmp");
 	bar = al_load_bitmap("img/Bar.bmp");
 
 	//Capimon Capivaristo(capimonAliado, "Capivaristo");
@@ -116,7 +116,7 @@ Battle::start_battle() {
 		  al_draw_bitmap(background, 0, 0, 0);
 		  al_draw_bitmap(options,0,407,0);
 
-		  a.draw(font, seta);
+		  a.draw(font, selector);
 		  Jul.draw("CHARIZARD",vida,bar,font);
 		  Cap.draw("PIKACHU",vida,bar,font);
 
@@ -156,7 +156,7 @@ Battle::start_battle() {
 	al_destroy_bitmap(capimonJulio);
 	al_destroy_bitmap(capimonAndre);
 	al_destroy_bitmap(capimonAliado);
-	al_destroy_bitmap(seta);
+	al_destroy_bitmap(selector);
 	al_destroy_sample(musica);
 	al_destroy_bitmap(bar);
 	al_destroy_bitmap(vida);

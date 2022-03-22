@@ -1,5 +1,7 @@
-#ifndef _CAPIMON_STATUS_HPP_
-#define _CAPIMON_STATUS_HPP_
+/* CapimonStatus.hpp */
+
+#ifndef CAPIMON_STATUS_HPP
+#define CAPIMON_STATUS_HPP
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_ttf.h>
@@ -7,21 +9,17 @@
 #include <iostream>
 
 class CapimonStatus{
-public:
-	CapimonStatus(int maxVida, float x, float y);
-
-	void decrementHealth(int dano);
-
-	bool looser();
-
-	void draw(const char* capname, ALLEGRO_BITMAP* img, ALLEGRO_BITMAP* bar, ALLEGRO_FONT* font);
-
-private:
-	int _maxHealth;
-	int _curHealth;
-	ALLEGRO_BITMAP* _img;
-	float _x;
-	float _y;
+	private:
+		int _maxHealth;
+		int _curHealth;
+		ALLEGRO_BITMAP* _img;
+		float _x;
+		float _y;
+	public:
+		CapimonStatus(int maxVida, float x, float y);
+		void decrementHealth(int dano);
+		bool looser();
+		void draw(const char* capname, ALLEGRO_BITMAP* img, ALLEGRO_BITMAP* bar, ALLEGRO_FONT* font);
 };
 
-#endif // !_CAPIMON_STATUS_HPP_
+#endif /* CAPIMON_STATUS_HPP */

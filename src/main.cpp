@@ -164,7 +164,7 @@ int inicializa() {
     vida = al_load_bitmap("img/Vida.bmp");
     bar = al_load_bitmap("img/Bar.bmp");
     
-    Capimon Julio(capimonJulio, "Julio", " ", " ", " ", " ");
+    Npc Julio
     Capimon Andre(capimonAndre, "Andre", " ", " ", " ", " ");
     CapimonStatus Jul(Julio.Get_Vida(), 14.f, 14.f);
     CapimonStatus Cap(Capivaristo.Get_Vida(), 420.f, 350.f);
