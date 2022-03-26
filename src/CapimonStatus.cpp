@@ -1,27 +1,20 @@
 #include <iostream>
 #include "CapimonStatus.hpp"
 
-CapimonStatus::CapimonStatus(int maxVida, float x, float y)
-	: _maxHealth(maxVida),
-	_curHealth(maxVida),
-	_x(x),
-	_y(y)
-{}
+CapimonStatus::CapimonStatus(int maxVida, float x, float y):
+	_maxHealth(maxVida),_curHealth(maxVida),_x(x),_y(y){};
 
-void CapimonStatus::decrementHealth(int dano)
-{
+void CapimonStatus::decrementHealth(int dano){
 	_curHealth -= dano;
 	if (_curHealth <= 0)
 		_curHealth = 0;
 }
 
-bool CapimonStatus::looser()
-{
+bool CapimonStatus::looser(){
 	return _curHealth == 0;
 }
 
-void CapimonStatus::draw(const char* capname, ALLEGRO_BITMAP* img, ALLEGRO_BITMAP* bar, ALLEGRO_FONT* font)
-{
+void CapimonStatus::draw(const char* capname, ALLEGRO_BITMAP* img, ALLEGRO_BITMAP* bar, ALLEGRO_FONT* font){
 	al_convert_mask_to_alpha(img, al_map_rgb(255,0,255));
 	al_draw_bitmap(img, _x, _y, 0);
 	al_draw_text(font, al_map_rgb(0,0,0), _x + 14.f, _y + 5.f, ALLEGRO_ALIGN_LEFT, capname);
