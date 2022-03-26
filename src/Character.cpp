@@ -14,3 +14,7 @@ std::string Character::get_name() {
 void Character::add_capimon(Capimon *capimon) {
 	this->_deck.push_back(capimon);
 }
+
+vector<Capimon> Character::getCapimons(){
+	return _deck;
+}

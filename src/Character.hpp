@@ -19,6 +19,6 @@ class Character : public Object {
 		  ~Character();
 		  std::string get_name();
 		  void add_capimon(Capimon *capimon);
+      vector<Capimon> getCapimons();
 };
-
 #endif /* CHARACTER_HPP */
