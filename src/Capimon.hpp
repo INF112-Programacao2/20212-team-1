@@ -31,12 +31,13 @@ class Capimon{
 		~Capimon();
 		std::string get_name();
 		int get_maxHealth();
-		void show_capimonNpc();//alterar ainda 
-		void show_capimonPlayer();//alterar ainda
+		void show_npc_capimon();//alterar ainda 
+		void show_player_capimon();//alterar ainda
 		void decrementHealth(int dano);
 		bool looser();
 		void draw_Status_Player();
 		void draw_Status_NPC();
+
 };
 
 #endif /* CAPIMON_HPP */

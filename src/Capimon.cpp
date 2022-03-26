@@ -35,12 +35,12 @@ int Capimon::get_maxHealth() {
 	return this->_maxHealth;
 }
 
-void Capimon::show_capimonPlayer(){
+void Capimon::show_player_capimon(){
 	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
 	al_draw_bitmap(this->_image, 200, 295, 0); 	//the position is changed if it's a player or and NPC
 }
 
-void Capimon::show_capimonNpc(){
+void Capimon::show_npc_capimon(){
 	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
 	al_draw_bitmap(this->_image, 200, 295, 0); 	//the position is changed if it's a player or and NPC 
 	//alterar posicao da imagem
