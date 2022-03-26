@@ -15,9 +15,9 @@ class Capimon{
 		std::string _name;
 		ALLEGRO_BITMAP *_image;
 		Skill _skills[AMOUNT_SKILLS];	// Or maybe Skill *_skills[4]
-		static int AMOUNT_SKILLS
-		int _maxHealth;
-		int _curHealth;
+		static int AMOUNT_SKILLS;
+		int _max_health;
+		int _cur_health;
 		ALLEGRO_BITMAP* _lifeBar;
 		ALLEGRO_BITMAP* _colorBar;
 		ALLEGRO_FONT *_font;
@@ -27,16 +27,16 @@ class Capimon{
 		static float _y_bar_player;
 
   public:
-		Capimon(std::string name, ALLEGRO_BITMAP *image, int maxHealth, Skill skills[AMOUNT_SKILLS]);
+		Capimon(std::string name, ALLEGRO_BITMAP *image, int max_health, Skill skills[AMOUNT_SKILLS]);
 		~Capimon();
 		std::string get_name();
-		int get_maxHealth();
-		void show_npc_capimon();//alterar ainda 
+		int get_max_health();
 		void show_player_capimon();//alterar ainda
-		void decrementHealth(int dano);
+		void show_npc_capimon();//alterar ainda 
+		void decrement_health(int dano);
 		bool looser();
-		void draw_Status_Player();
-		void draw_Status_NPC();
+		void draw_player_status();
+		void draw_npc_status();
 
 };
 
