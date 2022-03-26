@@ -39,7 +39,11 @@ void PlayerAttack::draw(ALLEGRO_FONT *font, ALLEGRO_BITMAP *cursor)
     }
 		
 		
-		//draw_skill_in_battle(int i);
+		/*
+		for (int s = 0; s < capimon.AMOUNT_SKILLS; s++) {
+			capimon.skill[s].draw_skill_in_battle();
+		}
+		*/
     al_draw_text(font, al_map_rgb(0,0,0), 40, 420, ALLEGRO_ALIGN_LEFT, "CHOQUE DO TROVÃO"); // 0
     al_draw_text(font, al_map_rgb(0,0,0), 40, 450, ALLEGRO_ALIGN_LEFT, "ATAQUE RÁPIDO"); // 1
     al_draw_text(font, al_map_rgb(0,0,0), 200, 420, ALLEGRO_ALIGN_LEFT, "INVESTIDA DO TROVÃO"); // 2
