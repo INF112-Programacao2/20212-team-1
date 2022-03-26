@@ -15,24 +15,24 @@ PlayerAttack::PlayerAttack()
 // 	this->m_attacks = hl;
 // }
 
-void PlayerAttack::draw(ALLEGRO_FONT *font, ALLEGRO_BITMAP *seta)
+void PlayerAttack::draw(ALLEGRO_FONT *font, ALLEGRO_BITMAP *cursor)
 {
-    seta = al_load_bitmap("img/Cursor.bmp");
-    al_convert_mask_to_alpha(seta, al_map_rgb(255,0,255));
-    //al_draw_bitmap(seta, 420, 120, 0);
+    cursor = al_load_bitmap("img/Cursor.bmp");
+    al_convert_mask_to_alpha(cursor, al_map_rgb(255,0,255));
+    //al_draw_bitmap(cursor, 420, 120, 0);
     switch (_selected)
     {
     case 0: // CHOQUE DO TROVÃO
-        al_draw_bitmap(seta, 30, 420, 0);
+        al_draw_bitmap(cursor, 30, 420, 0);
         break;
     case 1: // Choque d
-        al_draw_bitmap(seta, 30, 450, 0);
+        al_draw_bitmap(cursor, 30, 450, 0);
         break;
     case 2: // Choque do 
-        al_draw_bitmap(seta, 190, 420, 0);
+        al_draw_bitmap(cursor, 190, 420, 0);
         break;
     case 3: // Choque do 
-        al_draw_bitmap(seta, 190, 450, 0);
+        al_draw_bitmap(cursor, 190, 450, 0);
         break;
     // default:
     //     break;
