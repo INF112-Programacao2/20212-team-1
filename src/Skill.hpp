@@ -14,4 +14,5 @@ class Skill {
 		~Skill();
 		std::string get_name();
 		int select_damage();
+		void draw_skill_in_battle(int i);
 };
