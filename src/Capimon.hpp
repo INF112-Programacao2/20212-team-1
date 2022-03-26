@@ -31,8 +31,8 @@ class Capimon{
 		~Capimon();
 		std::string get_name();
 		int get_max_health();
-		void show_player_capimon();//alterar ainda
-		void show_npc_capimon();//alterar ainda 
+		void draw_player_capimon();//alterar ainda
+		void draw_npc_capimon();//alterar ainda 
 		void decrement_health(int dano);
 		bool looser();
 		void draw_player_status();
