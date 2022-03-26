@@ -18,8 +18,8 @@ class Capimon{
 		~Capimon();
 		std::string get_name();
 		int get_life();
-		void show_capimonNpc();
-		void show_capimonPlayer();
+		void show_player_capimon();
+		void show_npc_capimon();
 };
 
 #endif /* CAPIMON_HPP */
