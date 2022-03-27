@@ -34,6 +34,7 @@ class Capimon{
 		unsigned int get_cur_health();
 		vector<Skill> get_skills();
 		Skil get_skill(int index);
+		void select_skill();
 		Skill* get_selected_skill();
 		ALLEGRO_BITMAP* get_image();
 		

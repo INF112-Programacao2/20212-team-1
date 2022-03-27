@@ -3,6 +3,7 @@
 #include "Capimon.hpp"
 
 #include <iostream>
+#include <cstdlib>
 
 int Capimon::AMOUNT_SKILLS = 4;
 //float Capimon::_x_bar_npc = 14;
@@ -96,6 +97,11 @@ ALLEGRO_BITMAP* Capimon::get_image(){
 	return this->_image;
 }
 
-Skill* get_selected_skill() {
+void Skill:select_skill() {
+	srand(time(NULL));
+	this->_selected_skill = this->_skills.at(rand() % this->AMOUNT_SKILLS);
+}
+
+Skill* Skill::get_selected_skill() {
 	return this->_selected_skill;
 }
