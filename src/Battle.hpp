@@ -26,18 +26,20 @@ class Battle {
 		/*const*/ ALLEGRO_BITMAP* _health_bar /* = al_load_bitmap("img/battle/health_bar.bmp") */;	// this variable is like a const
 		/*const*/ ALLEGRO_BITMAP* _colored_bar /* = al_load_bitmap("img/battle/colored_bar.bmp") */;	// this varible is like a const
 		/*const*/ ALLEGRO_FONT* _font /* = al_load_font("font.ttf", 11, 0) */;	// this varible is like a const
+		ALLEGRO_BITMAP *background; 
+		ALLEGRO_BITMAP *options;
 		static float _x_bar_npc;	// this varible is like a const
 		static float _y_bar_npc;	// this varible is like a const
 		static float _x_bar_player;	// this varible is like a const
 		static float _y_bar_player;	// this varible is like a const
 
-		//metodos privados que serao usados em start_battle para realizar todas as acoes da batalha
+		//metodos privados que seCapimon *capimonNpcrao usados em start_battle para realizar todas as acoes da batalha
 		// TODO: Unificate draw_player_capimon() and draw_npc_capimon()
-		void draw_player_capimon();
-		void draw_npc_capimon();
+		void draw_player_capimon(Capimon *capimonPlayer);
+		void draw_npc_capimon(Capimon *capimonNpc);
 		// TODO: Unificate draw_player_status() and draw_npc_status()
-		void draw_player_status();
-		void draw_npc_status();
+		void draw_player_status(Capimon *capimonPlayer);
+		void draw_npc_status(Capimon *capimonNpc);
 		
 		/* PLAYER_ATTACK_HPP ATRIBUTES - BEGIN */
 		// TODO: Change position of consts
@@ -52,14 +54,15 @@ class Battle {
 		Skill* _selected_player_skill = nullptr;
 		Capimon* _selected_npc_capimon = nullptr;
 		Skill* _selected_npc_skill = nullptr;
+		unsigned int _selected_player_skill_index_position[2];
 		/* NEW ATRIBUTES - END */
 
 	public:
-		Battle(Player *hero, Npc *enemy, ALLEGRO_FONT *font, std::string endereco_life_bar, std::endereco_color_bar);
+		Battle( ALLEGRO_FONT *font,std::string endereco_background, std::string endereco_options, std::string endereco_life_bar, std::string endereco_color_bar);
 		//	Alternative constructor considering _health_bar, _colored_bat and _font like consts
 		Battle(Player *hero, Npc *enemy);
 		~Battle();
-		void start_battle();
+		void start_battle(Player *hero , NPC *enemy);
 		
 		/* PLAYER_ATTACK_HPP FUNCTIONS - BEGIN */
 		void draw_cursor(); //void draw(); // TODO: This will be a private function latter

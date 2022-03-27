@@ -87,3 +87,11 @@ bool Capimon::looser(){
 	al_draw_text(_font, al_map_rgb(0,0,0), _x_bar_npc + 14.f, _y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(this->_name));
 	al_draw_scaled_bitmap(_colorBar, 0.f, 0.f, 18.f, 10.f, _x_bar_npc + 78.f, _y_bar_npc + 32.f, ((float)_cur_health / (float)_max_health) * 96.f, 10.f, 0);
 }*/
+
+void Capimon::heal_health(){ // funcao que ira restaurar a vida de um capimon pos batalha
+	this->_cur_health = this->_max_health;
+}
+
+ALLEGRO_BITMAP* Capimon::get_image(){
+	return this->_image;
+}

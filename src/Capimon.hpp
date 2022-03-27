@@ -33,8 +33,10 @@ class Capimon{
 		unsigned int get_cur_health();
 		vector<Skill> get_skills(int index);
 		Skil get_skill();
+		ALLEGRO_BITMAP* get_image();
 		
 		void decrement_health(int damage);
+		void heal_health();
 		//bool looser();
 		
 		//void draw_player_capimon();//alterar ainda

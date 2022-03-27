@@ -8,10 +8,12 @@ float Battle::_x_bar_player = 420;
 float Battle::_y_bar_player = 350;
 
 // TODO: Change construct to the easier way
-Battle::Battle(Player *hero, Npc *enemy, ALLEGRO_FONT *font, std::string endereco_life_bar, std::string endereco_color_bar) :
-	_hero(hero), _enemy(enemy), _font(font) {
+Battle::Battle( ALLEGRO_FONT *font, std::string endereco_background, std::string endereco_options, std::string endereco_life_bar, std::string endereco_color_bar) :
+	_font(font) {
 	this->_health_bar = al_load_bitmap(endereco_life_bar);
 	this->_colored_bar = al_load_bitmap(endereco_color_bar);
+	this->background = al_load_bitmap(endereco_background);
+	this->options = al_load_bitmap(endereco_options);
 };
 
 //	Alternative constructor considering _health_bar, _colored_bat and _font like consts
@@ -22,23 +24,24 @@ Battle::~Battle() {
 	al_destroy_bitmap(this->_health_bar);
 	al_destroy_bitmap(this->_color_bar);
 	al_destroy_font(this->_font);
+	al_destroy_bitmap(this->background);
+	al_destroy_bitmap(this->options);
 }
 
 // TODO: start_battle()
-Battle::start_battle() {
+Battle::start_battle(Player *hero , NPC *enemy) {
 	bool exit = false;
 
-	ALLEGRO_DISPLAY *display = NULL;
+	//ALLEGRO_DISPLAY *display = NULL; //rever isso, pois já existe uma tela criada
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-	ALLEGRO_BITMAP *background;
-	ALLEGRO_BITMAP *options;
-	ALLEGRO_BITMAP *selector;
-	ALLEGRO_BITMAP *life_bar;
-	ALLEGRO_BITMAP *bar;
+	//ALLEGRO_BITMAP *background;
+	//ALLEGRO_BITMAP *options;
+	//ALLEGRO_BITMAP *selector;
+	//ALLEGRO_BITMAP *bar;
 	
 	/* Fixo */
-	background = al_load_bitmap("img/battle/TileBatalla.bmp");
-	options = al_load_bitmap("img/battle/DialogBar.bmp");
+	//background = al_load_bitmap("img/battle/TileBatalla.bmp");
+	//options = al_load_bitmap("img/battle/PlayerAttackBox.bmp");
 
 	/*
 	//Inicio do programa
@@ -54,10 +57,10 @@ Battle::start_battle() {
 	*/
 
 	// TODO: Check if there is somethig repeated
-	al_init_font_addon();
-	al_init_ttf_addon();
-	al_install_keyboard();
-	al_init_image_addon();
+	//al_init_font_addon();
+	//al_init_ttf_addon();
+	//al_install_keyboard();
+	//al_init_image_addon();
 	al_install_audio();
 	al_init_acodec_addon();
 
@@ -85,11 +88,14 @@ Battle::start_battle() {
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	//Capimon Julio(capimonJulio, "Julio");
 
-	CapimonStatus Jul(Julio.Get_Vida(), 14.f, 14.f);
-	CapimonStatus Cap(Capivaristo.Get_Vida(), 420.f, 350.f);
+	//CapimonStatus Jul(Julio.Get_Vida(), 14.f, 14.f);
+	//CapimonStatus Cap(Capivaristo.Get_Vida(), 420.f, 350.f);
 
 	//Capimon Andre(capimonAndre, "Andre");
 
+	
+	_selected_player_skill_index_position[0] = 0;
+	_selected_player_skill_index_position[1] = 0;
 	while(!exit){
 
 		  ALLEGRO_EVENT ev;
@@ -100,28 +106,23 @@ Battle::start_battle() {
 		      {
 		          case ALLEGRO_KEY_ESCAPE:
 		              exit = true;
-		              break;
-
-		          case ALLEGRO_KEY_LEFT:
-		              a.selectAttack(ALLEGRO_KEY_LEFT);
-		              break;
-
-		          case ALLEGRO_KEY_RIGHT:
-		              a.selectAttack(ALLEGRO_KEY_RIGHT);
-		              break;
-
-		          case ALLEGRO_KEY_UP:
-		              a.selectAttack(ALLEGRO_KEY_UP);
-		              break;
-		          
-		          case ALLEGRO_KEY_DOWN:
-		              a.selectAttack(ALLEGRO_KEY_DOWN);
-		              break;
-		          
-		          case ALLEGRO_KEY_ENTER:
-		              Cap.decrementHealth(a.ataqueInimigo());
-		              Jul.decrementHealth(a.do_attack());
-		              break;
+		              break;		          
+					case ALLEGRO_KEY_LEFT:
+						(_selected_player_skill_index_position[0] == 1) ? _selected_player_skill_index_position[0]--;
+						break;
+					case ALLEGRO_KEY_RIGHT:
+						(_selected_player_skill_index_position[0] == 0) ? _selected_player_skill_index_position[0]++;
+						break;
+					case ALLEGRO_KEY_UP:
+						(_selected_player_skill_index_position[1] == 1) ? (_selected_player_skill_index_position[1]--);
+						break;
+					case ALLEGRO_KEY_DOWN:
+						(_selected_player_skill_index_position[1] == 0) ? _selected_player_skill_index_position[1]++;
+						break;
+					case ALLEGRO_KEY_ENTER:
+						selected_player_capimon->decrementHealth(selected_npc_skill->select_damage()); //criar algo para pegar um skill aleatoria
+						selected_npc_capimon->decrement_health(selected_player_skill->select_damage()); //criar algo para selecionar a skill ainda
+						break;
 		      }
 		  }
 
@@ -132,15 +133,20 @@ Battle::start_battle() {
 
 		  //a.draw(font, selector);
 		  //Jul.draw("CHARIZARD",vida,bar,font);
+		  draw_npc_status(selected_npc_capimon);
 		  //Cap.draw("PIKACHU",vida,bar,font);
+		  draw_player_status(selected_player_capimon);
 
-		  Capivaristo.Mostrar_Capimon();
-		  if(i==1){
-		      Julio.Mostrar_Capimon();
-		  }
-		  else{
-		      Andre.Mostrar_Capimon();
-		  }
+		  draw_npc_capimon(selected_npc_capimon);
+		  draw_player_capimon(selected_player_capimon);
+
+		//   Capivaristo.Mostrar_Capimon();
+		//   if(i==1){
+		//       Julio.Mostrar_Capimon();
+		//   }
+		//   else{
+		//       Andre.Mostrar_Capimon();
+		//   }
 
 		  if (Jul.looser())
 		  {
@@ -163,16 +169,16 @@ Battle::start_battle() {
 		  al_flip_display();
 	}
 
-	al_destroy_bitmap(background);
+	//al_destroy_bitmap(background);
 	al_destroy_font(fonteFinal);
 	//al_destroy_font(font);
-	al_destroy_bitmap(options);
+	//al_destroy_bitmap(options);
 	al_destroy_bitmap(capimonJulio);
 	al_destroy_bitmap(capimonAndre);
 	al_destroy_bitmap(capimonAliado);
-	al_destroy_bitmap(selector);
+	//al_destroy_bitmap(selector);
 	al_destroy_sample(musica);
-	al_destroy_bitmap(bar);
+	//al_destroy_bitmap(bar);
 	al_destroy_bitmap(vida);
 	al_destroy_sample_instance(musicaInstancia);
 	al_destroy_event_queue(event_queue);
@@ -182,66 +188,67 @@ Battle::start_battle() {
 
 
 
-void Battle::draw_player_capimon(){ //alterar para pegar a imagem do capimon certo
-	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
-	al_draw_bitmap(this->_image, 200, 295, 0); 	// TODO: Add right values in image position
+void Battle::draw_player_capimon(Capimon *capimonPlayer){ //alterar para pegar a imagem do capimon certo
+	al_convert_mask_to_alpha(capimonPlayer->get_image(), al_map_rgb(255,0,255));
+	al_draw_bitmap(capimonPlayer->get_image(), 200, 295, 0); 	// TODO: Add right values in image position
 }
 
-void Battle::draw_npc_capimon(){ //alterar para pegar a imagem do capimon certo
-	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
-	al_draw_bitmap(this->_image, 200, 295, 0); 	// TODO: Add right values in image position (considering this is an Capimon's NPC)
+void Battle::draw_npc_capimon(Capimon *capimonNpc){ //alterar para pegar a imagem do capimon certo
+	al_convert_mask_to_alpha(capimonNpc->get_image(), al_map_rgb(255,0,255));
+	al_draw_bitmap(capimonNpc->get_image(), 200, 295, 0); 	// TODO: Add right values in image position (considering this is an Capimon's NPC)
 }
 
-void Battle::draw_player_status(){ //alterar ainda
+void Battle::draw_player_status(Capimon *capimonPlayer){ //alterar ainda
 	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
 	al_draw_bitmap(this->_health_bar, this->_x_bar_player, this->_y_bar_player, 0);
-	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_player + 14.f, this->_y_bar_player + 5.f, ALLEGRO_ALIGN_LEFT, c_str(this->_name));
-	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_player + 78.f, this->_y_bar_player + 32.f, ((float)this->_cur_health / (float)this->_max_health) * 96.f, 10.f, 0);
+	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_player + 14.f, this->_y_bar_player + 5.f, ALLEGRO_ALIGN_LEFT, c_str(capimonPlayer->get_name()));
+	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_player + 78.f, this->_y_bar_player + 32.f, ((float)capimonPlayer->get_cur_health() / (float)capimonPlayer->get_max_health()) * 96.f, 10.f, 0);
 }
 
-void Battle::draw_npc_status(){//alterar ainda
+void Battle::draw_npc_status(Capimon *capimonNpc){//alterar ainda
 	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
 	al_draw_bitmap(this->_health_bar, this->_x_bar_npc, this->_y_bar_npc, 0);
-	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_npc + 14.f, this->_y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(this->_name));
-	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_npc + 78.f, this->_y_bar_npc + 32.f, ((float)this->_cur_health / (float)this->_max_health) * 96.f, 10.f, 0);
+	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_npc + 14.f, this->_y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(capimonNpc->get_name()));
+	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_npc + 78.f, this->_y_bar_npc + 32.f, ((float)capimonNpc->get_cur_health() / (float)capimonNpc->get_max_health()) * 96.f, 10.f, 0);
 }
 
 /* PLAYER_ATTACK_HPP FUNCTIONS - BEGIN */
-void draw_cursor() {
+void draw_cursor() { //draw cursor and capimon skills 
 	ALLEGRO_FONT *font = al_load_font("file/font.ttf");
 	ALLEGRO_BITMAP *cursor = al_load_bitmap("img/cursor.bmp");
-  al_convert_mask_to_alpha(cursor, al_map_rgb(255,0,255));
+	al_convert_mask_to_alpha(cursor, al_map_rgb(255,0,255));
   
-  switch (_selected)
-  {
-  case 0:
-      al_draw_bitmap(cursor, 30, 420, 0);
-      break;
-  case 1:
-      al_draw_bitmap(cursor, 30, 450, 0);
-      break;
-  case 2:
-      al_draw_bitmap(cursor, 190, 420, 0);
-      break;
-  case 3:
-      al_draw_bitmap(cursor, 190, 450, 0);
-      break;
-  // default:
-  //     break;
- 	}
-	
-	
-	/*
-	for (int s = 0; s < capimon.AMOUNT_SKILLS; s++) {
-		capimon.skill[s].draw_skill_in_battle();
-	}
-	*/
-  al_draw_text(font, al_map_rgb(0,0,0), 40, 420, ALLEGRO_ALIGN_LEFT, "CHOQUE DO TROVÃO"); // 0
-  al_draw_text(font, al_map_rgb(0,0,0), 40, 450, ALLEGRO_ALIGN_LEFT, "ATAQUE RÁPIDO"); // 1
-  al_draw_text(font, al_map_rgb(0,0,0), 200, 420, ALLEGRO_ALIGN_LEFT, "INVESTIDA DO TROVÃO"); // 2
-  al_draw_text(font, al_map_rgb(0,0,0), 200, 450, ALLEGRO_ALIGN_LEFT, "CAUDA DE FERRO"); // 3
+	switch (_selected)
+	{
+	case 0:
+		al_draw_bitmap(cursor, 30, 420, 0);
+		break;
+	case 1:
+		al_draw_bitmap(cursor, 30, 450, 0);
+		break;
+	case 2:
+		al_draw_bitmap(cursor, 190, 420, 0);
+		break;
+	case 3:
+		al_draw_bitmap(cursor, 190, 450, 0);
+		break;
+	// default:
+	//     break;
+		}
+		
+		
+		/*
+		for (int s = 0; s < capimon.AMOUNT_SKILLS; s++) {
+			capimon.skill[s].draw_skill_in_battle();
+		}
+		*/
+	//al_draw_text(font, al_map_rgb(0,0,0), 40, 420, ALLEGRO_ALIGN_LEFT, "CHOQUE DO TROVÃO"); // 0
+	//al_draw_text(font, al_map_rgb(0,0,0), 40, 450, ALLEGRO_ALIGN_LEFT, "ATAQUE RÁPIDO"); // 1
+	//al_draw_text(font, al_map_rgb(0,0,0), 200, 420, ALLEGRO_ALIGN_LEFT, "INVESTIDA DO TROVÃO"); // 2
+	//al_draw_text(font, al_map_rgb(0,0,0), 200, 450, ALLEGRO_ALIGN_LEFT, "CAUDA DE FERRO"); // 3
 
-
+	for(Skill skill : this->_selected_player_capimon->get_skills())
+		draw_skill(&skill);
 
 
 }
@@ -266,7 +273,7 @@ void Battle::draw_skill(Skill* skill) {
 bool there_is_a_looser() {
 	unsigned int player_capimon_health = this->_select_player_capimon->get_cur_health;
 	unsigned int npc_capimon_health = this->_select_npc_capimon->get_cur_health;
-	return (player_capimon_health == 0 || npc_capimon_health == 0)
+	return (player_capimon_health == 0 || npc_capimon_health == 0);
 }
 
 
