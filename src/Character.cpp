@@ -29,7 +29,3 @@ void Character::select_capimon() {
 Capimon* Character::get_selected_capimon() {
 	return this->_selected_capimon;
 }
-
-Position Character::get_CAPIMON_DRAW_POSITION() {
-	return this->CAPIMON_DRAW_POSITION;	
-}

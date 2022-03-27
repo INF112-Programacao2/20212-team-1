@@ -11,6 +11,7 @@
 class Npc : public Character {
 	private:
 		const Position CAPIMON_DRAW_POSITION(420, 120);
+		const Position CAPIMON_STATUS_POSITION(14, 14);
 		std::queue<Interaction*> _interactions;
 	public:
 		Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, std::string file_directory[]);	// the order metter

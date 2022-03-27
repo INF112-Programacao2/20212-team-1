@@ -10,10 +10,6 @@ Battle::Battle(std::string background_directory) {
 	this->background = al_load_bitmap(background_directory);
 	this->options = al_load_bitmap(options_directory);
 	
-	this->_selected_player_capimon = nullptr;
-	this->_selected_player_skill = nullptr;
-	this->_selected_npc_capimon = nullptr;
-	this->_selected_npc_skill = nullptr;
 	this->_selected_display_skill = Position(0,0);
 }
 
@@ -104,7 +100,7 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 	while(!exit){
 		verify_action();
 
-		if(redraw && al_is_event_queue_empty(event_queue)){
+		if(){
 
 			redraw = false;
 			int i=1;
@@ -119,7 +115,9 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 			draw_player_status(selected_player_capimon);
 
 			draw_capimon(hero);
+			draw_capimon_status(hero);
 			draw_capimon(enemy);
+			draw_capimon_status(enemy);
 
 			//   Capivaristo.Mostrar_Capimon();
 			//   if(i==1){
@@ -176,6 +174,16 @@ void Battle::draw_capimon(Character *character) {
 	al_draw_bitmap(character->get_selected_capimon()->get_image(), draw_position.get_x(), draw_position.get_y, 0);
 }
 
+void Battle::draw_capimon_status(Character *character){//alterar ainda
+	ALLEGRO_BITMAP
+	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
+	al_draw_bitmap(this->_health_bar, this->_x_bar_npc, this->_y_bar_npc, 0);
+	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_npc + 14.f, this->_y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(capimonNpc->get_name()));
+	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_npc + 78.f, this->_y_bar_npc + 32.f, ((float)capimonNpc->get_cur_health() / (float)capimonNpc->get_max_health()) * 96.f, 10.f, 0);
+}
+
+
+/*
 void Battle::draw_player_capimon(Capimon *capimon){ //alterar para pegar a imagem do capimon certo
 	al_convert_mask_to_alpha(capimonPlayer->get_image(), al_map_rgb(255,0,255));
 	al_draw_bitmap(capimonPlayer->get_image(), 200, 295, 0); 	// TODO: Add right values in image position
@@ -185,6 +193,7 @@ void Battle::draw_npc_capimon(Capimon *capimon){ //alterar para pegar a imagem d
 	al_convert_mask_to_alpha(capimonNpc->get_image(), al_map_rgb(255,0,255));
 	al_draw_bitmap(capimonNpc->get_image(), 200, 295, 0); 	// TODO: Add right values in image position (considering this is an Capimon's NPC)
 }
+*/
 
 void Battle::draw_player_status(Capimon *capimon){ //alterar ainda
 	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
@@ -264,47 +273,14 @@ bool there_is_a_looser() {
 	return (player_capimon_health == 0 || npc_capimon_health == 0);
 }
 
-
-Capimon* Battle::get_selected_player_capimon() {
-	return this->_selected_player_capimon;
-}
-
-Skill* Battle::get_selected_player_skill() {
-	return this->_selected_player_capimon;
-}
-
-void Battle::set_selected_npc_capimon(Capimon* selected_npc_capimon) {
-	this->_selected_npc_capimon = selected_npc_capimon;
-}
-
-void Battle::set_selected_npc_skill(Skill* selected_npc_skill) {
-	this->_selected_npc_capimon = selected_npc_skill;
-}
-
-Capimon* Battle::get_selected_npc_capimon() {
-	return this->_selected_npc_capimon;
-}
-
-Skill* Battle::get_selected_npc_skill() {
-	return this->_selected_npc_capimon;
-}
-
-void Battle::set_selected_npc_capimon(Capimon* selected_npc_capimon) {
-	this->_selected_npc_capimon = selected_npc_capimon;
-}
-
-void Battle::set_selected_npc_skill(Skill* selected_npc_skill) {
-	this->_selected_npc_capimon = selected_npc_skill;
-}
-
-void Battle::verify_action() {
+bool Battle::verify_action() {
 	ALLEGRO_EVENT ev;
 	al_wait_for_event(event_queue,&ev);
 
   if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
 		switch(ev.keyboard.keycode) {
 		  case ALLEGRO_KEY_ESCAPE:
-		  	exit = true;
+		  	exit_battle();
 		  	break;		          
 			case ALLEGRO_KEY_LEFT:
 				if (this->selected_display_skill.get_x() > 0)
@@ -327,11 +303,14 @@ void Battle::verify_action() {
 				verify_selected_display_skill();
 				break;
 			case ALLEGRO_KEY_ENTER:
+				// TODO: Create attack function
 				hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill->select_damage());
 				enemy->get_selected_capimon()->decrement_health(hero->get_selected_capimon()->get_selected_skill->select_damage());
 				break;
     }
   }
+  
+  return (redraw && al_is_event_queue_empty(event_queue));
 }
 
 void Battle::verify_selected_display_skill(Character *character) {

@@ -46,6 +46,12 @@ class Battle {
 		void draw_player_status(Capimon *capimon);
 		void draw_npc_status(Capimon *capimon);
 		
+		// NEW PRIVATE METHODS
+		bool there_is_a_looser();
+		void verify_action();
+		void verify_selected_display_skill();
+		void exit_battle();
+		
 		/* PLAYER_ATTACK_HPP ATRIBUTES - BEGIN */
 		// TODO: Change position of consts
 		const int UP_LEFT = 0;
@@ -54,11 +60,11 @@ class Battle {
 		const int DOWN_RIGHT = 3;
 		/* PLAYER_ATTACK_HPP ATRIBUTES - END */
 		
+		/* SKILL FUNCTIONS - BEGIN */
+		void draw_skill(Skill* skill);	// void draw_skill_in_battle()	// TODO: This will be a private function latter
+		/* SKILL FUNCTIONS - END */
+		
 		/* NEW ATRIBUTES - BEGIN */
-		Capimon* _selected_player_capimon;
-		Skill* _selected_player_skill;
-		Capimon* _selected_npc_capimon;
-		Skill* _selected_npc_skill;
 		Position _selected_display_skill;
 		/* NEW ATRIBUTES - END */
 
@@ -73,26 +79,4 @@ class Battle {
 		int select_player_attack(); //void selectAttack(int key);
 		int do_attack();
 		/* PLAYER_ATTACK_HPP FUNCTIONS - END */
-		
-		/* SKILL FUNCTIONS - BEGIN */
-		void draw_skill(Skill* skill);	// void draw_skill_in_battle()	// TODO: This will be a private function latter
-		/* SKILL FUNCTIONS - END */
-		
-		/* NEW FUNCTIONS - BEGIN */
-		bool there_is_a_looser();
-		
-		// TODO: Unificate _selected_player_[...] with _selected_npc_[...]
-		Capimon* get_selected_player_capimon();
-		Skill* get_selected_player_skill();
-		void set_selected_player_capimon(Capimon* selected_player_capimon);
-		void set_selected_player_skill(Skill* selected_player_skill);
-		
-		Capimon* get_selected_npc_capimon();
-		Skill* get_selected_npc_skill();
-		void set_selected_npc_capimon(Capimon* selected_npc_capimon);
-		void set_selected_npc_skill(Skill* selected_npc_skill);
-		
-		void verify_action();
-		void verify_selected_display_skill();
-		/* NEW FUNCTIONS - END */
 };
