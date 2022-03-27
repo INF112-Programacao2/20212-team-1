@@ -11,7 +11,7 @@ int Capimon::AMOUNT_SKILLS = 4;
 //float Capimon::_x_bar_player = 420;
 //float Capimon::_y_bar_player = 350;
 
-Capimon::Capimon(string name, ALLEGRO_BITMAP *image, int max_health, Skill skills[AMOUNT_SKILLS]){
+Capimon::Capimon(std::string name, ALLEGRO_BITMAP *image, int max_health, Skill skills[]){
 	this->_name = name;
 	this->_image = image;
 	this->_max_health = max_health;
@@ -42,11 +42,11 @@ unsigned int Capimon::get_cur_health() {
 	return this->_cur_health;
 }
 
-vector<Skill> Capimon::get_skills() {
+std::vector<Skill> Capimon::get_skills() {
 	return this->_skills;
 }
 
-Skil Capimon::get_skill(int index) {
+Skill Capimon::get_skill(int index) {
 	return this->_skills.at(index);
 }
 
@@ -99,7 +99,7 @@ ALLEGRO_BITMAP* Capimon::get_image(){
 
 void Capimon::select_skill() {
 	srand(time(NULL));
-	this->_selected_skill = this->_skills.at(rand() % this->AMOUNT_SKILLS);
+	this->_selected_skill = &(this->_skills.at(rand() % this->AMOUNT_SKILLS));
 }
 
 Skill* Capimon::get_selected_skill() {
@@ -107,9 +107,9 @@ Skill* Capimon::get_selected_skill() {
 }
 
 void Capimon::set_selected_skill(Skill *selected_skill) {
-	this->_selected_skill(selected_skill);
+	this->_selected_skill = selected_skill;
 }
 
 void Capimon::set_selected_skill(int index) {
-	this->_selected_skill(this->_skills.at(index));
+	this->_selected_skill = &(this->_skills.at(index));
 }

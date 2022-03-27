@@ -3,26 +3,28 @@
 #include "Battle.hpp"
 
 // TODO: Change construct to the easier way
-Battle::Battle(std::string background_directory) {
+Battle::Battle(std::string background_directory):
+	_selected_display_skill(0,0) {
 	this->_health_bar = al_load_bitmap("img/battle/health_bar.bmp");
 	this->_colored_bar = al_load_bitmap("img/battle/colored_bar.bmp");
 	this->_font = al_load_font("font.ttf", 11, 0);
-	this->background = al_load_bitmap(background_directory);
-	this->options = al_load_bitmap("img/battle/PlayerAttackBox.bmp");
+	this->_background = al_load_bitmap(background_directory.c_str());
+	this->_options = al_load_bitmap("img/battle/PlayerAttackBox.bmp");
+	this->_cursor = al_load_bitmap("img/cursor.bmp");
 	
-	this->_selected_display_skill = Position(0,0);
 }
 
 Battle::~Battle() {
 	al_destroy_bitmap(this->_health_bar);
-	al_destroy_bitmap(this->_color_bar);
+	al_destroy_bitmap(this->_colored_bar);
 	al_destroy_font(this->_font);
-	al_destroy_bitmap(this->background);
-	al_destroy_bitmap(this->options);
+	al_destroy_bitmap(this->_background);
+	al_destroy_bitmap(this->_options);
+	al_destroy_bitmap(this->_cursor);
 }
 
 // TODO: start_battle()
-void Battle::start_battle(Player *hero , NPC *enemy) {
+void Battle::start_battle(Player *hero , Npc *enemy) {
 	bool exit = false;
 	float fps = 5;
 	bool redraw = true;
@@ -121,7 +123,7 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 				exit = true;
 				break;		          
 			case ALLEGRO_KEY_LEFT:
-				if (this->selected_display_skill.get_x() > 0)
+				if (this->_selected_display_skill.get_x() > 0)
 					this->_selected_display_skill.sub_x();
 				verify_selected_display_skill(hero);
 				break;
@@ -151,12 +153,12 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 			//int i=1;
 			if(pressed_enter){
 				pressed_enter = false;
-				hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill->select_damage())
-				enemy->get_selected_capimon()->decrement_health(hero->get_selected_capimon()->get_selected_skill->select_damage());
+				hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill()->select_damage());
+				enemy->get_selected_capimon()->decrement_health(hero->get_selected_capimon()->get_selected_skill()->select_damage());
 			}
 			//al_play_sample_instance(musicaInstancia);
-			al_draw_bitmap(background, 0, 0, 0);
-			al_draw_bitmap(options,0,407,0);
+			al_draw_bitmap(_background, 0, 0, 0);
+			al_draw_bitmap(_options,0,407,0);
 
 			//a.draw(font, selector);
 			//Jul.draw("CHARIZARD",vida,bar,font);
@@ -182,14 +184,14 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 			//       Andre.Mostrar_Capimon();
 			//   }
 
-			if (there_is_a_looser() && enemy->get_select_capimon()->get_cur_health() == 0){
+			if (there_is_a_looser(hero,enemy) && enemy->get_selected_capimon()->get_cur_health() == 0){
 				al_clear_to_color(al_map_rgb(0,0,0));
 				al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  APROVADO!!!!");
 				al_flip_display();
 				al_rest(5.0);
 				exit = true;
 				// Player ganhou, NPC perde
-			} else if (there_is_a_looser() && hero->get_select_capimon()->get_cur_health() == 0)
+			} else if (there_is_a_looser(hero,enemy) && hero->get_selected_capimon()->get_cur_health() == 0)
 			{
 				al_clear_to_color(al_map_rgb(0,0,0));
 				al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  REPROVADO!!!!");
@@ -226,7 +228,7 @@ void Battle::draw_capimon(Character *character) {
 	//character->get_select_capimon();
 	Position draw_position = character->get_CAPIMON_DRAW_POSITION();
 	al_convert_mask_to_alpha(character->get_selected_capimon()->get_image(), al_map_rgb(255,0,255));
-	al_draw_bitmap(character->get_selected_capimon()->get_image(), draw_position.get_x(), draw_position.get_y, 0);
+	al_draw_bitmap(character->get_selected_capimon()->get_image(), draw_position.get_x(), draw_position.get_y(), 0);
 }
 
 void Battle::draw_capimon_status(Character *character){//alterar ainda
@@ -234,9 +236,9 @@ void Battle::draw_capimon_status(Character *character){//alterar ainda
 	Capimon *selected_capimon = character->get_selected_capimon();
 	
 	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
-	al_draw_bitmap(health_bar, status_position.get_x(), status_position.get_y(), 0);
-	al_draw_text(this->_font, al_map_rgb(0,0,0), status_positon.get_x() + 14.f, status_positon.get_y() + 5.f, ALLEGRO_ALIGN_LEFT, c_str(selected_capimon->get_name());
-	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, status_positon.get_x() + 78.f, status_positon.get_y() + 32.f, ((float)selected_capimon->get_cur_health() / (float)selected_capimon->get_max_health()) * 96.f, 10.f, 0);
+	al_draw_bitmap(_health_bar, status_position.get_x(), status_position.get_y(), 0);
+	al_draw_text(this->_font, al_map_rgb(0,0,0), status_position.get_x() + 14.f, status_position.get_y() + 5.f, ALLEGRO_ALIGN_LEFT, selected_capimon->get_name().c_str() );
+	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, status_position.get_x() + 78.f, status_position.get_y() + 32.f, ((float)selected_capimon->get_cur_health() / (float)selected_capimon->get_max_health()) * 96.f, 10.f, 0);
 }
 
 
@@ -269,15 +271,14 @@ void Battle::draw_npc_status(Capimon *capimon){//alterar ainda
 */
 
 /* PLAYER_ATTACK_HPP FUNCTIONS - BEGIN */
-void draw_cursor() { //draw cursor and capimon skills 
+void Battle::draw_cursor() { //draw cursor and capimon skills 
 	// ALLEGRO_FONT *font = al_load_font("file/font.ttf");
-	ALLEGRO_BITMAP *cursor = al_load_bitmap("img/cursor.bmp");
-	al_convert_mask_to_alpha(cursor, al_map_rgb(255,0,255));
+	al_convert_mask_to_alpha(_cursor, al_map_rgb(255,0,255));
   
 	
-	al_draw_bitmap(cursor, this->_selected_display_skill.get_x(), this->_selected_display_skill.get_y(), 0);
+	al_draw_bitmap(_cursor, this->_selected_display_skill.get_x(), this->_selected_display_skill.get_y(), 0);
 	//     break;
-		}
+		
 		
 		
 		/*
@@ -293,8 +294,6 @@ void draw_cursor() { //draw cursor and capimon skills
 	// for(Skill skill : hero->get_selected_capimon()->get_skills())
 	// 	draw_skill(&skill);
 
-	al_destroy_bitmap(cursor);
-
 }
 // int select_enemy_attack(); //int ataqueInimigo();
 // int select_player_attack(); //void selectAttack(int key);
@@ -307,17 +306,17 @@ void Battle::draw_skill(Skill* skill) {
 	
 	int index = skill->get_index();
 	
-	al_draw_text(this->_font, al_map_rgb(0,0,0), (index == 0 || index == 1) ? 40 : 200, (index == 0 || index == 2) ? 420 : 450, ALLEGRO_ALIGN_LEFT, this->_name);	// TODO: Confirme ternary operator use 
+	al_draw_text(this->_font, al_map_rgb(0,0,0), (index == 0 || index == 1) ? 40 : 200, (index == 0 || index == 2) ? 420 : 450, ALLEGRO_ALIGN_LEFT, skill->get_name().c_str());	// TODO: Confirme ternary operator use 
 	
 	//al_destroy_font(font);	// TODO: Remove when unificate fonts
 }
 /* SKILL FUNCTIONS - END */
 
 /* NEW FUNCTIONS - BEGIN */
-bool there_is_a_looser(Player *hero, NPC *enemy) {
+bool Battle::there_is_a_looser(Player *hero, Npc *enemy) {
 	// unsigned int player_capimon_health = hero->get_select_capimon()->get_cur_health();
 	// unsigned int npc_capimon_health = enemy->get_select_capimon()->get_cur_health();
-	return (hero->get_select_capimon()->get_cur_health() == 0 || enemy->get_select_capimon()->get_cur_health() == 0);
+	return (hero->get_selected_capimon()->get_cur_health() == 0 || enemy->get_selected_capimon()->get_cur_health() == 0);
 }
 
 void Battle::verify_selected_display_skill(Character *character) {

@@ -8,10 +8,11 @@
 #include <allegro5/allegro_font.h>
 #include <string>
 #include <vector>
+#include "Skill.hpp"
 
 class Capimon{
 	private:
-		const unsigned int AMOUNT_SKILLS = 4;
+		static int AMOUNT_SKILLS;
 		std::string _name;
 		ALLEGRO_BITMAP *_image;
 		std::vector<Skill> _skills;
@@ -27,13 +28,13 @@ class Capimon{
 		Skill* _selected_skill = nullptr;
 
   public:
-		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int max_health, Skill skills[AMOUNT_SKILLS]);	// TODO: Check if parameter skills can cause a bug
+		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int max_health, Skill skills[]);	// TODO: Check if parameter skills can cause a bug
 		~Capimon();
 		std::string get_name();
 		unsigned int get_max_health();
 		unsigned int get_cur_health();
 		std::vector<Skill> get_skills();
-		Skil get_skill(int index);
+		Skill get_skill(int index);
 		void select_skill();
 		Skill* get_selected_skill();
 		void set_selected_skill(Skill *selected_skill);

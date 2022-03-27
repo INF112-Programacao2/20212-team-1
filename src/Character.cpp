@@ -17,7 +17,7 @@ void Character::add_capimon(Capimon *capimon) {
 	this->_deck.push_back(capimon);
 }
 
-vector<Capimon> Character::get_deck() {
+std::vector<Capimon*> Character::get_deck() {
 	return this->_deck;
 }
 
@@ -26,7 +26,7 @@ void Character::select_capimon() {
 	this->_selected_capimon = this->_deck.at(rand() % this->AMOUNT_DECK);
 }
 
-void set_selected_capimon(int index) [
+void Character::set_selected_capimon(int index) {
 	this->_selected_capimon = this->_deck.at(index);
 }
 

@@ -1,6 +1,13 @@
 /* Battle.hpp */
+#ifndef BATTLE_HPP
+#define BATTLE_HPP
 
 #include "Npc.hpp"
+#include "Capimon.hpp"
+#include "Character.hpp"
+#include "Player.hpp"
+#include "Skill.hpp"
+#include "Position.hpp"
 
 // TODO: Check if there is something repeated
 #include <allegro5/allegro.h>
@@ -10,9 +17,8 @@
 #include <iostream>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-#include "CapimonStatus.hpp"
-#include "Capimon.hpp"
-#include "PlayerAttack.hpp"
+#include <vector>
+#include <string>
 
 const int SCREEN_W = 640;
 const int SCREEN_H = 480;
@@ -29,16 +35,18 @@ class Battle {
 		const float X_HERO_BAR = 420;	// TODO: Maybe move to other class
 		const float Y_HERO_BAR = 350;	// TODO: Maybe move to other class
 		
-		ALLEGRO_BITMAP* _health_bar;	// TODO: Maybe declare like a const
-		ALLEGRO_BITMAP* _colored_bar;	// TODO: Maybe declare like a const
+		ALLEGRO_BITMAP *_health_bar;	// TODO: Maybe declare like a const
+		ALLEGRO_BITMAP *_colored_bar;	// TODO: Maybe declare like a const
 		ALLEGRO_BITMAP *_options;	// TODO: Maybe declare like a const
-		ALLEGRO_FONT* _font;	// TODO: Maybe declare like a const
+		ALLEGRO_FONT *_font;	// TODO: Maybe declare like a const
+		ALLEGRO_BITMAP *_cursor;
 		
 		ALLEGRO_BITMAP *_background; 
 		
 
 		//metodos privados que seCapimon *capimonNpcrao usados em start_battle para realizar todas as acoes da batalha
 		void draw_capimon(Character *character);
+		void draw_capimon_status(Character *character);
 		// TODO: Unificate draw_player_capimon() and draw_npc_capimon()
 		void draw_player_capimon(Capimon *capimon);
 		void draw_npc_capimon(Capimon *capimon);
@@ -47,8 +55,8 @@ class Battle {
 		void draw_npc_status(Capimon *capimon);
 		
 		// NEW PRIVATE METHODS
-		bool there_is_a_looser();
-		void verify_selected_display_skill();
+		bool there_is_a_looser(Player *hero, Npc *enemy);
+		void verify_selected_display_skill(Character *character);
 		void exit_battle();
 		
 		/* PLAYER_ATTACK_HPP ATRIBUTES - BEGIN */
@@ -68,9 +76,9 @@ class Battle {
 		/* NEW ATRIBUTES - END */
 
 	public:
-		Battle(std::string options_directory);
+		Battle(std::string background_directory);
 		~Battle();
-		void start_battle(Player *hero , NPC *enemy);
+		void start_battle(Player *hero , Npc *enemy);
 		
 		/* PLAYER_ATTACK_HPP FUNCTIONS - BEGIN */
 		void draw_cursor(); //void draw(); // TODO: This will be a private function latter
@@ -79,3 +87,4 @@ class Battle {
 		// int do_attack();
 		/* PLAYER_ATTACK_HPP FUNCTIONS - END */
 };
+#endif

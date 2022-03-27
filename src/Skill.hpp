@@ -1,4 +1,6 @@
 /* Skill.hpp */
+#ifndef SKILL_HPP
+#define SKILL_HPP
 
 #include <string>
 
@@ -16,5 +18,5 @@ class Skill {
 		int get_index();
 		std::string get_name();
 		int select_damage();
-		void draw_skill_in_battle();
 };
+#endif

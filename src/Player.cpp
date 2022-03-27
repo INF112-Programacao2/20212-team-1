@@ -2,11 +2,13 @@
 
 #include <iostream>
 
+#include "Player.hpp"
+
 int Player::_numSprites = 4;
 int Player::_tamPixels = 16;
 
 Player::Player(std::string name, ALLEGRO_BITMAP *image,int x, int y, int tam_x, int tam_y):
-    Personagem(name, image,x, y), _tam_x(tam_x), _tam_y(tam_y),_direcao_anterior(0), _numPasso(0) {};
+    Character(name, image,x, y), _tam_x(tam_x), _tam_y(tam_y),_direcao_anterior(0), _numPasso(0) {};
 
 
 Player::~Player(){}
@@ -63,13 +65,13 @@ void Player::interact(Npc *npc) {
 	if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
 		switch (event.keyboard.keycode) {
 			case ALLEGRO_KEY_I:	// The setted key is "N" (from word "next")
-				if (npc->can_interact(player_position)) {
+				if (npc->can_interact(this->_position)) {
 					npc->show_interaction();
 					std::cout << "Successful interaction.\n";
 				}
 				else {
 					std::cerr << "Error in interaction.\n";
-					return -1;
+					return ;
 				}
 				break;
 			default:
