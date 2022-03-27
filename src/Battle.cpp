@@ -32,7 +32,10 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 	if(!timer){
         std::cerr << "Falha ao inicializar o temporizador" << std::endl;
         return;
-    }
+  }
+  
+  hero->select_capimon();
+  
 
 	
 
@@ -203,21 +206,21 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 			//       Andre.Mostrar_Capimon();
 			//   }
 
-			if (Jul.looser()){
+			if (there_is_a_looser() && enemy->get_select_capimon()->get_cur_health() == 0){
 				al_clear_to_color(al_map_rgb(0,0,0));
 				al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  APROVADO!!!!");
 				al_flip_display();
 				al_rest(5.0);
 				exit = true;
-				// Julio ganhou, Capivaristo perde
-			} else if (Cap.looser())
+				// Player ganhou, NPC perde
+			} else if (there_is_a_looser() && hero->get_select_capimon()->get_cur_health() == 0)
 			{
 				al_clear_to_color(al_map_rgb(0,0,0));
 				al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  REPROVADO!!!!");
 				al_flip_display();
 				al_rest(5.0);
 				exit = true;
-				// Capivaristo ganhou, Julio perde
+				// NPC ganhou, Player perde
 			}
 			al_flip_display();
 		}

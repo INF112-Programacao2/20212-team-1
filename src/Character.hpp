@@ -24,6 +24,7 @@ class Character : public Object {
       vector<Capimon> get_deck();
       void select_capimon();
       Capimon* get_selected_capimon();
+      void set_selected_capimon(int index);
       Position get_CAPIMON_DRAW_POSITION() = 0;
       Position get_CAPIMON_STATUS_POSITION() = 0;
 };

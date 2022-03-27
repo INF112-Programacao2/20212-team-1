@@ -26,6 +26,10 @@ void Character::select_capimon() {
 	this->_selected_capimon = this->_deck.at(rand() % this->AMOUNT_DECK);
 }
 
+void set_selected_capimon(int index) [
+	this->_selected_capimon = this->_deck.at(index);
+}
+
 Capimon* Character::get_selected_capimon() {
 	return this->_selected_capimon;
 }
