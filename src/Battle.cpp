@@ -334,9 +334,9 @@ void Battle::draw_skill(Skill* skill) {
 /* SKILL FUNCTIONS - END */
 
 /* NEW FUNCTIONS - BEGIN */
-bool there_is_a_looser() {
-	unsigned int player_capimon_health = this->_select_player_capimon->get_cur_health;
-	unsigned int npc_capimon_health = this->_select_npc_capimon->get_cur_health;
+bool there_is_a_looser(Player *hero, NPC *enemy) {
+	unsigned int player_capimon_health = hero->get_select_capimon()->get_cur_health();
+	unsigned int npc_capimon_health = enemy->get_select_capimon()->get_cur_health();
 	return (player_capimon_health == 0 || npc_capimon_health == 0);
 }
 
