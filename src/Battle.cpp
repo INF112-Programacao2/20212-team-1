@@ -8,7 +8,7 @@ Battle::Battle(std::string background_directory) {
 	this->_colored_bar = al_load_bitmap("img/battle/colored_bar.bmp");
 	this->_font = al_load_font("font.ttf", 11, 0);
 	this->background = al_load_bitmap(background_directory);
-	this->options = al_load_bitmap(options_directory);
+	this->options = al_load_bitmap("img/battle/PlayerAttackBox.bmp");
 	
 	this->_selected_display_skill = Position(0,0);
 }
@@ -34,8 +34,8 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
         return;
   }
   
-  hero->set_selected_capimon(0);
-  enemy->set_selected_capimon(0);
+	hero->set_selected_capimon(0);
+	enemy->set_selected_capimon(0);
 
 	
 
@@ -82,14 +82,14 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 
 	al_reserve_samples(10);
 
-	musica = al_load_sample("audios/musica.ogg");
+	musica = al_load_sample("audios/music.ogg");
 	musicaInstancia = al_create_sample_instance(musica);
 	al_set_sample_instance_playmode(musicaInstancia, ALLEGRO_PLAYMODE_LOOP);
 
 	al_attach_sample_instance_to_mixer(musicaInstancia, al_get_default_mixer());
 
 	//Capimon Capivaristo(capimonAliado, "Capivaristo");
-	PlayerAttack a;
+	//PlayerAttack a;
 
 	event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -102,6 +102,7 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 
 	//Capimon Andre(capimonAndre, "Andre");
 
+	al_play_sample_instance(musicaInstancia);
 	
 	while(!exit){
 
@@ -113,72 +114,47 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
             redraw = true;
         }
 
-		if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
-		    switch(ev.keyboard.keycode)
-		    {
-		        case ALLEGRO_KEY_ESCAPE:
-		            exit = true;
-		            break;		          
-				case ALLEGRO_KEY_LEFT:
-					(_selected_player_skill_index_position[0] == 1) ? _selected_player_skill_index_position[0]--;
-					break;
-				case ALLEGRO_KEY_RIGHT:
-					(_selected_player_skill_index_position[0] == 0) ? _selected_player_skill_index_position[0]++;
-					break;
-				case ALLEGRO_KEY_UP:
-					(_selected_player_skill_index_position[1] == 1) ? (_selected_player_skill_index_position[1]--);
-					break;
-				case ALLEGRO_KEY_DOWN:
-					(_selected_player_skill_index_position[1] == 0) ? _selected_player_skill_index_position[1]++;
-					break;
-				case ALLEGRO_KEY_ENTER:
-					pressed_enter = true;
-					break;
-		    }
-		}
 		
 		if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
 		switch(ev.keyboard.keycode) {
-		  case ALLEGRO_KEY_ESCAPE:
-		  	exit_battle();
-		  	break;		          
+			case ALLEGRO_KEY_ESCAPE:
+				exit = true;
+				break;		          
 			case ALLEGRO_KEY_LEFT:
 				if (this->selected_display_skill.get_x() > 0)
 					this->_selected_display_skill.sub_x();
-				verify_selected_display_skill();
+				verify_selected_display_skill(hero);
 				break;
 			case ALLEGRO_KEY_RIGHT:
 				if (this->_selected_display_skill.get_x() < 1)
 					this->_selected_display_skill.add_x();
-				verify_selected_display_skill();
+				verify_selected_display_skill(hero);
 				break;
 			case ALLEGRO_KEY_UP:
 				if (this->_selected_display_skill.get_y() > 0)
 					this->_selected_display_skill.sub_y();
-				verify_selected_display_skill();
+				verify_selected_display_skill(hero);
 				break;
 			case ALLEGRO_KEY_DOWN:
 				if (this->_selected_display_skill.get_y() < 1)
 					this->_selected_display_skill.add_x();
-				verify_selected_display_skill();
+				verify_selected_display_skill(hero);
 				break;
 			case ALLEGRO_KEY_ENTER:
 				// TODO: Create attack function
 				pressed_enter = true;
-				//hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill->select_damage());
-				//enemy->get_selected_capimon()->decrement_health(hero->get_selected_capimon()->get_selected_skill->select_damage());
 				break;
-    }
-  }
+    	}
+  	}
 		if(redraw && al_is_event_queue_empty(event_queue)){
 			redraw = false;
-			int i=1;
+			//int i=1;
 			if(pressed_enter){
 				pressed_enter = false;
 				hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill->select_damage())
 				enemy->get_selected_capimon()->decrement_health(hero->get_selected_capimon()->get_selected_skill->select_damage());
 			}
-			al_play_sample_instance(musicaInstancia);
+			//al_play_sample_instance(musicaInstancia);
 			al_draw_bitmap(background, 0, 0, 0);
 			al_draw_bitmap(options,0,407,0);
 
@@ -230,24 +206,24 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 	al_destroy_font(fonteFinal);
 	//al_destroy_font(font);
 	//al_destroy_bitmap(options);
-	al_destroy_bitmap(capimonJulio);
-	al_destroy_bitmap(capimonAndre);
-	al_destroy_bitmap(capimonAliado);
+	// al_destroy_bitmap(capimonJulio);
+	// al_destroy_bitmap(capimonAndre);
+	// al_destroy_bitmap(capimonAliado);
 	//al_destroy_bitmap(selector);
 	al_destroy_sample(musica);
 	//al_destroy_bitmap(bar);
-	al_destroy_bitmap(vida);
+	// al_destroy_bitmap(vida);
 	al_destroy_sample_instance(musicaInstancia);
 	al_destroy_event_queue(event_queue);
-	al_destroy_display(display);
+	//al_destroy_display(display);
 	al_destroy_timer(timer); //destrutor para o tempo
-	return 0;
+	return;
 }
 
 
 // TODO: Creat draw_capimon()
 void Battle::draw_capimon(Character *character) {
-	character->get_select_capimon();
+	//character->get_select_capimon();
 	Position draw_position = character->get_CAPIMON_DRAW_POSITION();
 	al_convert_mask_to_alpha(character->get_selected_capimon()->get_image(), al_map_rgb(255,0,255));
 	al_draw_bitmap(character->get_selected_capimon()->get_image(), draw_position.get_x(), draw_position.get_y, 0);
@@ -317,6 +293,7 @@ void draw_cursor() { //draw cursor and capimon skills
 	// for(Skill skill : hero->get_selected_capimon()->get_skills())
 	// 	draw_skill(&skill);
 
+	al_destroy_bitmap(cursor);
 
 }
 // int select_enemy_attack(); //int ataqueInimigo();
@@ -326,21 +303,21 @@ void draw_cursor() { //draw cursor and capimon skills
 
 /* SKILL FUNCTIONS - BEGIN */
 void Battle::draw_skill(Skill* skill) {
-	ALLEGRO_FONT* font = al_load_font("file/font.ttf", 11, 0); // TODO: Unificate fonts
+	//ALLEGRO_FONT* font = al_load_font("file/font.ttf", 11, 0); // TODO: Unificate fonts
 	
 	int index = skill->get_index();
 	
-	al_draw_text(font, al_map_rgb(0,0,0), (index == 0 || index == 1) ? 40 : 200, (index == 0 || index == 2) ? 420 : 450, ALLEGRO_ALIGN_LEFT, this->_name);	// TODO: Confirme ternary operator use 
+	al_draw_text(this->_font, al_map_rgb(0,0,0), (index == 0 || index == 1) ? 40 : 200, (index == 0 || index == 2) ? 420 : 450, ALLEGRO_ALIGN_LEFT, this->_name);	// TODO: Confirme ternary operator use 
 	
-	al_destroy_font(font);	// TODO: Remove when unificate fonts
+	//al_destroy_font(font);	// TODO: Remove when unificate fonts
 }
 /* SKILL FUNCTIONS - END */
 
 /* NEW FUNCTIONS - BEGIN */
 bool there_is_a_looser(Player *hero, NPC *enemy) {
-	unsigned int player_capimon_health = hero->get_select_capimon()->get_cur_health();
-	unsigned int npc_capimon_health = enemy->get_select_capimon()->get_cur_health();
-	return (player_capimon_health == 0 || npc_capimon_health == 0);
+	// unsigned int player_capimon_health = hero->get_select_capimon()->get_cur_health();
+	// unsigned int npc_capimon_health = enemy->get_select_capimon()->get_cur_health();
+	return (hero->get_select_capimon()->get_cur_health() == 0 || enemy->get_select_capimon()->get_cur_health() == 0);
 }
 
 void Battle::verify_selected_display_skill(Character *character) {
