@@ -38,6 +38,19 @@ class Battle {
 		// TODO: Unificate draw_player_status() and draw_npc_status()
 		void draw_player_status();
 		void draw_npc_status();
+		
+		/* PLAYER_ATTACK_HPP ATRIBUTES - BEGIN */
+		// TODO: Change position of consts
+		const int UP_LEFT = 0;
+		const int DOWN_LEFT = 1;
+		const int UP_RIGHT = 2;
+		const int DOWN_RIGHT = 3;
+		/* PLAYER_ATTACK_HPP ATRIBUTES - END */
+		
+		/* NEW ATRIBUTES - BEGIN */
+		Capimon* _selected_capimon = nullptr;
+		Skill* _selected_skill = nullptr;
+		/* NEW ATRIBUTES - END */
 
 	public:
 		Battle(Player *hero, Npc *enemy, ALLEGRO_FONT *font, std::string endereco_life_bar, std::endereco_color_bar);
@@ -45,4 +58,22 @@ class Battle {
 		Battle(Player *hero, Npc *enemy);
 		~Battle();
 		void start_battle();
+		
+		/* PLAYER_ATTACK_HPP FUNCTIONS - BEGIN */
+		void draw_cursor(); //void draw(); // TODO: This will be a private function latter
+		int select_enemy_attack(); //int ataqueInimigo();
+		int select_player_attack(); //void selectAttack(int key);
+		int do_attack();
+		/* PLAYER_ATTACK_HPP FUNCTIONS - END */
+		
+		/* SKILL FUNCTIONS - BEGIN */
+		void draw_skill(Skill* skill);	// void draw_skill_in_battle()	// TODO: This will be a private function latter
+		/* SKILL FUNCTIONS - END */
+		
+		/* NEW FUNCTIONS - BEGIN */
+		void set_selected_capimon(Capimon* selected_capimon);
+		void set_selected_skill(Skill* selected_skill);
+		Capimon* get_selected_capimon();
+		Skill* get_selected_skill();
+		/* NEW FUNCTIONS - END */
 };

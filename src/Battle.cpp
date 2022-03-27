@@ -205,3 +205,77 @@ void Battle::draw_npc_status(){//alterar ainda
 	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_npc + 14.f, this->_y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(this->_name));
 	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_npc + 78.f, this->_y_bar_npc + 32.f, ((float)this->_cur_health / (float)this->_max_health) * 96.f, 10.f, 0);
 }
+
+/* PLAYER_ATTACK_HPP FUNCTIONS - BEGIN */
+void draw_cursor() {
+	ALLEGRO_FONT *font = al_load_font("file/font.ttf");
+	ALLEGRO_BITMAP *cursor = al_load_bitmap("img/cursor.bmp");
+  al_convert_mask_to_alpha(cursor, al_map_rgb(255,0,255));
+  
+  switch (_selected)
+  {
+  case 0:
+      al_draw_bitmap(cursor, 30, 420, 0);
+      break;
+  case 1:
+      al_draw_bitmap(cursor, 30, 450, 0);
+      break;
+  case 2:
+      al_draw_bitmap(cursor, 190, 420, 0);
+      break;
+  case 3:
+      al_draw_bitmap(cursor, 190, 450, 0);
+      break;
+  // default:
+  //     break;
+ 	}
+	
+	
+	/*
+	for (int s = 0; s < capimon.AMOUNT_SKILLS; s++) {
+		capimon.skill[s].draw_skill_in_battle();
+	}
+	*/
+  al_draw_text(font, al_map_rgb(0,0,0), 40, 420, ALLEGRO_ALIGN_LEFT, "CHOQUE DO TROVÃO"); // 0
+  al_draw_text(font, al_map_rgb(0,0,0), 40, 450, ALLEGRO_ALIGN_LEFT, "ATAQUE RÁPIDO"); // 1
+  al_draw_text(font, al_map_rgb(0,0,0), 200, 420, ALLEGRO_ALIGN_LEFT, "INVESTIDA DO TROVÃO"); // 2
+  al_draw_text(font, al_map_rgb(0,0,0), 200, 450, ALLEGRO_ALIGN_LEFT, "CAUDA DE FERRO"); // 3
+
+
+
+
+}
+int select_enemy_attack(); //int ataqueInimigo();
+int select_player_attack(); //void selectAttack(int key);
+int do_attack();
+/* PLAYER_ATTACK_HPP FUNCTIONS - END */
+
+/* SKILL FUNCTIONS - BEGIN */
+void Battle::draw_skill(Skill* skill) {
+	ALLEGRO_FONT* font = al_load_font("file/font.ttf", 11, 0); // TODO: Unificate fonts
+	
+	int index = skill->get_index();
+	
+	al_draw_text(font, al_map_rgb(0,0,0), (index == 0 || index == 1) ? 40 : 200, (index == 0 || index == 2) ? 420 : 450, ALLEGRO_ALIGN_LEFT, this->_name);	// TODO: Confirme ternary operator use 
+	
+	al_destroy_font(font);	// TODO: Remove when unificate fonts
+}
+/* SKILL FUNCTIONS - END */
+
+/* NEW FUNCTIONS - BEGIN */
+void Battle::set_selected_capimon(Capimon* selected_capimon) {
+	this->_selected_capimon = selected_capimon;
+}
+
+void Battle::set_selected_skill(Skill* selected_skill) {
+	this->_selected_capimon = selected_skill;
+}
+
+Capimon* Battle::get_selected_capimon() {
+	return this->_selected_capimon;
+}
+
+Skill* Battle::get_selected_skill() {
+	return this->_selected_capimon;
+}
+/* NEW FUNCTIONS - END */
