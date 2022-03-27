@@ -25,8 +25,16 @@ Battle::~Battle() {
 }
 
 // TODO: start_battle()
-Battle::start_battle(Player *hero , NPC *enemy) {
+void Battle::start_battle(Player *hero , NPC *enemy) {
 	bool exit = false;
+	float fps = 5;
+	bool redraw = true;
+	ALLEGRO_TIMER *timer = NULL;
+	timer = al_create_timer(1.0 / fps);
+	if(!timer){
+        std::cerr << "Falha ao inicializar o temporizador" << std::endl;
+        return;
+    }
 
 	//ALLEGRO_DISPLAY *display = NULL; //rever isso, pois já existe uma tela criada
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -82,6 +90,8 @@ Battle::start_battle(Player *hero , NPC *enemy) {
 
 	event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
+	al_register_event_source(event_queue, al_get_timer_event_source(timer)); //adicionando a contagem de tempo na fila
+	al_start_timer(timer); //iniciando a contagem de tempo
 	//Capimon Julio(capimonJulio, "Julio");
 
 	//CapimonStatus Jul(Julio.Get_Vida(), 14.f, 14.f);
@@ -94,98 +104,106 @@ Battle::start_battle(Player *hero , NPC *enemy) {
 	_selected_player_skill_index_position[1] = 0;
 	while(!exit){
 
-		  ALLEGRO_EVENT ev;
-		  al_wait_for_event(event_queue,&ev);
+		ALLEGRO_EVENT ev;
+		al_wait_for_event(event_queue,&ev);
 
-		  if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
-		      switch(ev.keyboard.keycode)
-		      {
-		          case ALLEGRO_KEY_ESCAPE:
-		              exit = true;
-		              break;		          
-					case ALLEGRO_KEY_LEFT:
-						(_selected_player_skill_index_position[0] == 1) ? _selected_player_skill_index_position[0]--;
-						break;
-					case ALLEGRO_KEY_RIGHT:
-						(_selected_player_skill_index_position[0] == 0) ? _selected_player_skill_index_position[0]++;
-						break;
-					case ALLEGRO_KEY_UP:
-						(_selected_player_skill_index_position[1] == 1) ? (_selected_player_skill_index_position[1]--);
-						break;
-					case ALLEGRO_KEY_DOWN:
-						(_selected_player_skill_index_position[1] == 0) ? _selected_player_skill_index_position[1]++;
-						break;
-					case ALLEGRO_KEY_ENTER:
-						selected_player_capimon->decrementHealth(selected_npc_skill->select_damage()); //criar algo para pegar um skill aleatoria
-						selected_npc_capimon->decrement_health(selected_player_skill->select_damage()); //criar algo para selecionar a skill ainda
-						break;
-		      }
-		  }
+		if(ev.type == ALLEGRO_EVENT_TIMER)
+        {
+            redraw = true;
+        }
+
+		if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
+		    switch(ev.keyboard.keycode)
+		    {
+		        case ALLEGRO_KEY_ESCAPE:
+		            exit = true;
+		            break;		          
+				case ALLEGRO_KEY_LEFT:
+					(_selected_player_skill_index_position[0] == 1) ? _selected_player_skill_index_position[0]--;
+					break;
+				case ALLEGRO_KEY_RIGHT:
+					(_selected_player_skill_index_position[0] == 0) ? _selected_player_skill_index_position[0]++;
+					break;
+				case ALLEGRO_KEY_UP:
+					(_selected_player_skill_index_position[1] == 1) ? (_selected_player_skill_index_position[1]--);
+					break;
+				case ALLEGRO_KEY_DOWN:
+					(_selected_player_skill_index_position[1] == 0) ? _selected_player_skill_index_position[1]++;
+					break;
+				case ALLEGRO_KEY_ENTER:
+					selected_player_capimon->decrementHealth(selected_npc_skill->select_damage()); //criar algo para pegar um skill aleatoria
+					selected_npc_capimon->decrement_health(selected_player_skill->select_damage()); //criar algo para selecionar a skill ainda
+					break;
+		    }
+		}
 		  
-		  // TODO: Confirm if the skills are correctly selected
-			switch (selected_player_skill_index[0]) {
-				case 0:
-					switch (selected_player_skill_index[1]) {
-						case 0:
-							selected_player_skill = selected_player_capimon -> get.skill(0);
-							break;
-						case 1:
-							selected_player_skill = selected_player_capimon -> get.skill(1);
-							break;
-					}
+		// TODO: Confirm if the skills are correctly selected
+		switch (selected_player_skill_index[0]) {
+			case 0:
+				switch (selected_player_skill_index[1]) {
+					case 0:
+						selected_player_skill = selected_player_capimon -> get.skill(0);
+						break;
+					case 1:
+						selected_player_skill = selected_player_capimon -> get.skill(1);
+						break;
+				}
 						
-				case 1:
-					switch (selected_player_skill_index[1]) {
-						case 0:
-							selected_player_skill = selected_player_capimon -> get.skill(2);
-							break;
-						case 1:
-							selected_player_skill = selected_player_capimon -> get.skill(3);
-							break;
-					}
+			case 1:
+				switch (selected_player_skill_index[1]) {
+					case 0:
+						selected_player_skill = selected_player_capimon -> get.skill(2);
+						break;
+					case 1:
+						selected_player_skill = selected_player_capimon -> get.skill(3);
+						break;
+				}
+		}
+
+		if(redraw && al_is_event_queue_empty(event_queue)){
+
+			redraw = false;
+			int i=1;
+			al_play_sample_instance(musicaInstancia);
+			al_draw_bitmap(background, 0, 0, 0);
+			al_draw_bitmap(options,0,407,0);
+
+			//a.draw(font, selector);
+			//Jul.draw("CHARIZARD",vida,bar,font);
+			draw_npc_status(selected_npc_capimon);
+			//Cap.draw("PIKACHU",vida,bar,font);
+			draw_player_status(selected_player_capimon);
+
+			draw_capimon(hero);
+			draw_capimon(enemy);
+
+			//   Capivaristo.Mostrar_Capimon();
+			//   if(i==1){
+			//       Julio.Mostrar_Capimon();
+			//   }
+			//   else{
+			//       Andre.Mostrar_Capimon();
+			//   }
+
+			if (Jul.looser()){
+				al_clear_to_color(al_map_rgb(0,0,0));
+				al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  APROVADO!!!!");
+				al_flip_display();
+				al_rest(5.0);
+				exit = true;
+				// Julio ganhou, Capivaristo perde
+			} else if (Cap.looser())
+			{
+				al_clear_to_color(al_map_rgb(0,0,0));
+				al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  REPROVADO!!!!");
+				al_flip_display();
+				al_rest(5.0);
+				exit = true;
+				// Capivaristo ganhou, Julio perde
 			}
 
-		  int i=1;
-		  al_play_sample_instance(musicaInstancia);
-		  al_draw_bitmap(background, 0, 0, 0);
-		  al_draw_bitmap(options,0,407,0);
-
-		  //a.draw(font, selector);
-		  //Jul.draw("CHARIZARD",vida,bar,font);
-		  draw_npc_status(selected_npc_capimon);
-		  //Cap.draw("PIKACHU",vida,bar,font);
-		  draw_player_status(selected_player_capimon);
-
-		  draw_capimon(hero);
-		  draw_capimon(enemy);
-
-		//   Capivaristo.Mostrar_Capimon();
-		//   if(i==1){
-		//       Julio.Mostrar_Capimon();
-		//   }
-		//   else{
-		//       Andre.Mostrar_Capimon();
-		//   }
-
-		  if (Jul.looser())
-		  {
-		      al_clear_to_color(al_map_rgb(0,0,0));
-		      al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  APROVADO!!!!");
-		      al_flip_display();
-		      al_rest(5.0);
-		      exit = true;
-		      // Julio ganhou, Capivaristo perde
-		  } else if (Cap.looser())
-		  {
-		      al_clear_to_color(al_map_rgb(0,0,0));
-		      al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  REPROVADO!!!!");
-		      al_flip_display();
-		      al_rest(5.0);
-		      exit = true;
-		      // Capivaristo ganhou, Julio perde
-		  }
-
-		  al_flip_display();
+			al_flip_display();
+		}
 	}
 
 	//al_destroy_bitmap(background);
@@ -202,6 +220,7 @@ Battle::start_battle(Player *hero , NPC *enemy) {
 	al_destroy_sample_instance(musicaInstancia);
 	al_destroy_event_queue(event_queue);
 	al_destroy_display(display);
+	al_destroy_timer(timer); //destrutor para o tempo
 	return 0;
 }
 
