@@ -11,11 +11,10 @@
 
 class Capimon{
 	private:
-		
+		const int AMOUNT_SKILLS = 4;
 		std::string _name;
 		ALLEGRO_BITMAP *_image;
 		Skill _skills[AMOUNT_SKILLS];	// Or maybe Skill *_skills[4]
-		static int AMOUNT_SKILLS;
 		int _max_health;
 		int _cur_health;
 		//ALLEGRO_BITMAP* _lifeBar;
