@@ -48,7 +48,6 @@ class Battle {
 		
 		// NEW PRIVATE METHODS
 		bool there_is_a_looser();
-		void verify_action();
 		void verify_selected_display_skill();
 		void exit_battle();
 		

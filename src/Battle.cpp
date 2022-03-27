@@ -26,12 +26,15 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 	bool exit = false;
 	float fps = 5;
 	bool redraw = true;
+	bool pressed_enter = false;
 	ALLEGRO_TIMER *timer = NULL;
 	timer = al_create_timer(1.0 / fps);
 	if(!timer){
         std::cerr << "Falha ao inicializar o temporizador" << std::endl;
         return;
     }
+
+	
 
 	//ALLEGRO_DISPLAY *display = NULL; //rever isso, pois já existe uma tela criada
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -98,12 +101,80 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 
 	
 	while(!exit){
-		verify_action();
 
-		if(){
+		ALLEGRO_EVENT ev;
+		al_wait_for_event(event_queue,&ev);
 
+		if(ev.type == ALLEGRO_EVENT_TIMER)
+        {
+            redraw = true;
+        }
+
+		if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
+		    switch(ev.keyboard.keycode)
+		    {
+		        case ALLEGRO_KEY_ESCAPE:
+		            exit = true;
+		            break;		          
+				case ALLEGRO_KEY_LEFT:
+					(_selected_player_skill_index_position[0] == 1) ? _selected_player_skill_index_position[0]--;
+					break;
+				case ALLEGRO_KEY_RIGHT:
+					(_selected_player_skill_index_position[0] == 0) ? _selected_player_skill_index_position[0]++;
+					break;
+				case ALLEGRO_KEY_UP:
+					(_selected_player_skill_index_position[1] == 1) ? (_selected_player_skill_index_position[1]--);
+					break;
+				case ALLEGRO_KEY_DOWN:
+					(_selected_player_skill_index_position[1] == 0) ? _selected_player_skill_index_position[1]++;
+					break;
+				case ALLEGRO_KEY_ENTER:
+					pressed_enter = true;
+					break;
+		    }
+		}
+		
+		if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
+		switch(ev.keyboard.keycode) {
+		  case ALLEGRO_KEY_ESCAPE:
+		  	exit_battle();
+		  	break;		          
+			case ALLEGRO_KEY_LEFT:
+				if (this->selected_display_skill.get_x() > 0)
+					this->_selected_display_skill.sub_x();
+				verify_selected_display_skill();
+				break;
+			case ALLEGRO_KEY_RIGHT:
+				if (this->_selected_display_skill.get_x() < 1)
+					this->_selected_display_skill.add_x();
+				verify_selected_display_skill();
+				break;
+			case ALLEGRO_KEY_UP:
+				if (this->_selected_display_skill.get_y() > 0)
+					this->_selected_display_skill.sub_y();
+				verify_selected_display_skill();
+				break;
+			case ALLEGRO_KEY_DOWN:
+				if (this->_selected_display_skill.get_y() < 1)
+					this->_selected_display_skill.add_x();
+				verify_selected_display_skill();
+				break;
+			case ALLEGRO_KEY_ENTER:
+				// TODO: Create attack function
+				pressed_enter = true;
+				//hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill->select_damage());
+				//enemy->get_selected_capimon()->decrement_health(hero->get_selected_capimon()->get_selected_skill->select_damage());
+				break;
+    }
+  }
+		if(redraw && al_is_event_queue_empty(event_queue)){
 			redraw = false;
 			int i=1;
+			if(pressed_enter){
+				pressed_enter = false;
+				selected_player_capimon->decrementHealth(selected_npc_skill->select_damage()); //criar algo para pegar um skill aleatoria
+				selected_npc_capimon->decrement_health(selected_player_skill->select_damage()); //criar algo para selecionar a skill ainda
+			}
 			al_play_sample_instance(musicaInstancia);
 			al_draw_bitmap(background, 0, 0, 0);
 			al_draw_bitmap(options,0,407,0);
@@ -271,46 +342,6 @@ bool there_is_a_looser() {
 	unsigned int player_capimon_health = this->_select_player_capimon->get_cur_health;
 	unsigned int npc_capimon_health = this->_select_npc_capimon->get_cur_health;
 	return (player_capimon_health == 0 || npc_capimon_health == 0);
-}
-
-bool Battle::verify_action() {
-	ALLEGRO_EVENT ev;
-	al_wait_for_event(event_queue,&ev);
-
-  if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
-		switch(ev.keyboard.keycode) {
-		  case ALLEGRO_KEY_ESCAPE:
-		  	exit_battle();
-		  	break;		          
-			case ALLEGRO_KEY_LEFT:
-				if (this->selected_display_skill.get_x() > 0)
-					this->_selected_display_skill.sub_x();
-				verify_selected_display_skill();
-				break;
-			case ALLEGRO_KEY_RIGHT:
-				if (this->_selected_display_skill.get_x() < 1)
-					this->_selected_display_skill.add_x();
-				verify_selected_display_skill();
-				break;
-			case ALLEGRO_KEY_UP:
-				if (this->_selected_display_skill.get_y() > 0)
-					this->_selected_display_skill.sub_y();
-				verify_selected_display_skill();
-				break;
-			case ALLEGRO_KEY_DOWN:
-				if (this->_selected_display_skill.get_y() < 1)
-					this->_selected_display_skill.add_x();
-				verify_selected_display_skill();
-				break;
-			case ALLEGRO_KEY_ENTER:
-				// TODO: Create attack function
-				hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill->select_damage());
-				enemy->get_selected_capimon()->decrement_health(hero->get_selected_capimon()->get_selected_skill->select_damage());
-				break;
-    }
-  }
-  
-  return (redraw && al_is_event_queue_empty(event_queue));
 }
 
 void Battle::verify_selected_display_skill(Character *character) {
