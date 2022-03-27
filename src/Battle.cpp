@@ -263,6 +263,13 @@ void Battle::draw_skill(Skill* skill) {
 /* SKILL FUNCTIONS - END */
 
 /* NEW FUNCTIONS - BEGIN */
+bool there_is_a_looser() {
+	unsigned int player_capimon_health = this->_select_player_capimon->get_cur_health;
+	unsigned int npc_capimon_health = this->_select_npc_capimon->get_cur_health;
+	return (player_capimon_health == 0 || npc_capimon_health == 0)
+}
+
+
 Capimon* Battle::get_selected_player_capimon() {
 	return this->_selected_player_capimon;
 }

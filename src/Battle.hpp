@@ -73,8 +73,9 @@ class Battle {
 		/* SKILL FUNCTIONS - END */
 		
 		/* NEW FUNCTIONS - BEGIN */
-		// TODO: Add bool there_is_a_looser();
+		bool there_is_a_looser();
 		
+		// TODO: Unificate _selected_player_[...] with _selected_npc_[...]
 		Capimon* get_selected_player_capimon();
 		Skill* get_selected_player_skill();
 		void set_selected_player_capimon(Capimon* selected_player_capimon);
