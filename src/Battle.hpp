@@ -48,8 +48,10 @@ class Battle {
 		/* PLAYER_ATTACK_HPP ATRIBUTES - END */
 		
 		/* NEW ATRIBUTES - BEGIN */
-		Capimon* _selected_capimon = nullptr;
-		Skill* _selected_skill = nullptr;
+		Capimon* _selected_player_capimon = nullptr;
+		Skill* _selected_player_skill = nullptr;
+		Capimon* _selected_npc_capimon = nullptr;
+		Skill* _selected_npc_skill = nullptr;
 		/* NEW ATRIBUTES - END */
 
 	public:
@@ -71,9 +73,16 @@ class Battle {
 		/* SKILL FUNCTIONS - END */
 		
 		/* NEW FUNCTIONS - BEGIN */
-		void set_selected_capimon(Capimon* selected_capimon);
-		void set_selected_skill(Skill* selected_skill);
-		Capimon* get_selected_capimon();
-		Skill* get_selected_skill();
+		// TODO: Add bool there_is_a_looser();
+		
+		Capimon* get_selected_player_capimon();
+		Skill* get_selected_player_skill();
+		void set_selected_player_capimon(Capimon* selected_player_capimon);
+		void set_selected_player_skill(Skill* selected_player_skill);
+		
+		Capimon* get_selected_npc_capimon();
+		Skill* get_selected_npc_skill();
+		void set_selected_npc_capimon(Capimon* selected_npc_capimon);
+		void set_selected_npc_skill(Skill* selected_npc_skill);
 		/* NEW FUNCTIONS - END */
 };

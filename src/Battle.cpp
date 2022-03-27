@@ -263,19 +263,35 @@ void Battle::draw_skill(Skill* skill) {
 /* SKILL FUNCTIONS - END */
 
 /* NEW FUNCTIONS - BEGIN */
-void Battle::set_selected_capimon(Capimon* selected_capimon) {
-	this->_selected_capimon = selected_capimon;
+Capimon* Battle::get_selected_player_capimon() {
+	return this->_selected_player_capimon;
 }
 
-void Battle::set_selected_skill(Skill* selected_skill) {
-	this->_selected_capimon = selected_skill;
+Skill* Battle::get_selected_player_skill() {
+	return this->_selected_player_capimon;
 }
 
-Capimon* Battle::get_selected_capimon() {
-	return this->_selected_capimon;
+void Battle::set_selected_npc_capimon(Capimon* selected_npc_capimon) {
+	this->_selected_npc_capimon = selected_npc_capimon;
 }
 
-Skill* Battle::get_selected_skill() {
-	return this->_selected_capimon;
+void Battle::set_selected_npc_skill(Skill* selected_npc_skill) {
+	this->_selected_npc_capimon = selected_npc_skill;
+}
+
+Capimon* Battle::get_selected_npc_capimon() {
+	return this->_selected_npc_capimon;
+}
+
+Skill* Battle::get_selected_npc_skill() {
+	return this->_selected_npc_capimon;
+}
+
+void Battle::set_selected_npc_capimon(Capimon* selected_npc_capimon) {
+	this->_selected_npc_capimon = selected_npc_capimon;
+}
+
+void Battle::set_selected_npc_skill(Skill* selected_npc_skill) {
+	this->_selected_npc_capimon = selected_npc_skill;
 }
 /* NEW FUNCTIONS - END */
