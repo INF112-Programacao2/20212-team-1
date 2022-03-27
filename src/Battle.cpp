@@ -8,16 +8,20 @@ float Battle::_x_bar_player = 420;
 float Battle::_y_bar_player = 350;
 
 // TODO: Change construct to the easier way
-Battle::Battle(Player *hero, Npc *enemy, ALLEGRO_FONT *font, std::string endereco_life_bar, std::endereco_color_bar):
-	_hero(hero), _enemy(enemy) {
-	_life_bar = al_load_bitmap(endereco_life_bar);
-	_colorBar = al_load_bitmap(endereco_color_bar);
-	__font = font ;
+Battle::Battle(Player *hero, Npc *enemy, ALLEGRO_FONT *font, std::string endereco_life_bar, std::string endereco_color_bar) :
+	_hero(hero), _enemy(enemy), _font(font) {
+	this->_health_bar = al_load_bitmap(endereco_life_bar);
+	this->_colored_bar = al_load_bitmap(endereco_color_bar);
 };
 
+//	Alternative constructor considering _health_bar, _colored_bat and _font like consts
+Battle::Battle(Player *hero, Npc *enemy) :
+	_hero(hero), _enemy(enemy) {};
+
 Battle::~Battle() {
-	al_destroy_bitmap(_life_Bar);
-	al_destroy_bitmap(_color_Bar);
+	al_destroy_bitmap(this->_health_bar);
+	al_destroy_bitmap(this->_color_bar);
+	al_destroy_font(this->_font);
 }
 
 // TODO: start_battle()
@@ -31,6 +35,10 @@ Battle::start_battle() {
 	ALLEGRO_BITMAP *selector;
 	ALLEGRO_BITMAP *life_bar;
 	ALLEGRO_BITMAP *bar;
+	
+	/* Fixo */
+	background = al_load_bitmap("img/battle/TileBatalla.bmp");
+	options = al_load_bitmap("img/battle/DialogBar.bmp");
 
 	/*
 	//Inicio do programa
@@ -57,8 +65,8 @@ Battle::start_battle() {
 		  std::cerr << "Font Addon nao foi inicializado!" << std::endl;
 	}
 
-	ALLEGRO_FONT *font = al_load_font("font.ttf", 11, 0);
-	ALLEGRO_FONT *fonteFinal = al_load_font("font.ttf", 30, 0);
+	//ALLEGRO_FONT *font = al_load_font("font.ttf", 11, 0);
+	ALLEGRO_FONT *fonteFinal = al_load_font("file/font.ttf", 30, 0);	// TODO: Add this const in the class
 	ALLEGRO_SAMPLE *musica = NULL;
 	ALLEGRO_SAMPLE_INSTANCE *musicaInstancia = NULL;
 
@@ -69,12 +77,6 @@ Battle::start_battle() {
 	al_set_sample_instance_playmode(musicaInstancia, ALLEGRO_PLAYMODE_LOOP);
 
 	al_attach_sample_instance_to_mixer(musicaInstancia, al_get_default_mixer());
-	
-	/* Fixo */
-	background = al_load_bitmap("img/battle/TileBatalla.bmp");
-	options = al_load_bitmap("img/battle/DialogBar.bmp");
-	life_bar = al_load_bitmap("img/battle/Vida.bmp");
-	bar = al_load_bitmap("img/battle/Bar.bmp");
 
 	//Capimon Capivaristo(capimonAliado, "Capivaristo");
 	PlayerAttack a;
@@ -128,9 +130,9 @@ Battle::start_battle() {
 		  al_draw_bitmap(background, 0, 0, 0);
 		  al_draw_bitmap(options,0,407,0);
 
-		  a.draw(font, selector);
-		  Jul.draw("CHARIZARD",vida,bar,font);
-		  Cap.draw("PIKACHU",vida,bar,font);
+		  //a.draw(font, selector);
+		  //Jul.draw("CHARIZARD",vida,bar,font);
+		  //Cap.draw("PIKACHU",vida,bar,font);
 
 		  Capivaristo.Mostrar_Capimon();
 		  if(i==1){
@@ -163,7 +165,7 @@ Battle::start_battle() {
 
 	al_destroy_bitmap(background);
 	al_destroy_font(fonteFinal);
-	al_destroy_font(font);
+	//al_destroy_font(font);
 	al_destroy_bitmap(options);
 	al_destroy_bitmap(capimonJulio);
 	al_destroy_bitmap(capimonAndre);
@@ -182,25 +184,24 @@ Battle::start_battle() {
 
 void Battle::draw_player_capimon(){ //alterar para pegar a imagem do capimon certo
 	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
-	al_draw_bitmap(this->_image, 200, 295, 0); 	//the position is changed if it's a player or and NPC
+	al_draw_bitmap(this->_image, 200, 295, 0); 	// TODO: Add right values in image position
 }
 
 void Battle::draw_npc_capimon(){ //alterar para pegar a imagem do capimon certo
 	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
-	al_draw_bitmap(this->_image, 200, 295, 0); 	//the position is changed if it's a player or and NPC 
-	//alterar posicao da imagem
+	al_draw_bitmap(this->_image, 200, 295, 0); 	// TODO: Add right values in image position (considering this is an Capimon's NPC)
 }
 
 void Battle::draw_player_status(){ //alterar ainda
-	al_convert_mask_to_alpha(_life_bar, al_map_rgb(255,0,255));
-	al_draw_bitmap(_life_bar, _x_bar_player, _y_bar_player, 0);
-	al_draw_text(_font, al_map_rgb(0,0,0), _x_bar_player + 14.f, _y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(this->_name));
-	al_draw_scaled_bitmap(_colorBar, 0.f, 0.f, 18.f, 10.f, _x_bar_player + 78.f, _y_bar_player + 32.f, ((float)_cur_health / (float)_max_health) * 96.f, 10.f, 0);
+	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
+	al_draw_bitmap(this->_health_bar, this->_x_bar_player, this->_y_bar_player, 0);
+	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_player + 14.f, this->_y_bar_player + 5.f, ALLEGRO_ALIGN_LEFT, c_str(this->_name));
+	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_player + 78.f, this->_y_bar_player + 32.f, ((float)this->_cur_health / (float)this->_max_health) * 96.f, 10.f, 0);
 }
 
 void Battle::draw_npc_status(){//alterar ainda
-	al_convert_mask_to_alpha(_life_bar, al_map_rgb(255,0,255));
-	al_draw_bitmap(_life_bar, _x_bar_npc, _y_bar_npc, 0);
-	al_draw_text(_font, al_map_rgb(0,0,0), _x_bar_npc + 14.f, _y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(this->_name));
-	al_draw_scaled_bitmap(_colorBar, 0.f, 0.f, 18.f, 10.f, _x_bar_npc + 78.f, _y_bar_npc + 32.f, ((float)_cur_health / (float)_max_health) * 96.f, 10.f, 0);
+	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
+	al_draw_bitmap(this->_health_bar, this->_x_bar_npc, this->_y_bar_npc, 0);
+	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_npc + 14.f, this->_y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(this->_name));
+	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_npc + 78.f, this->_y_bar_npc + 32.f, ((float)this->_cur_health / (float)this->_max_health) * 96.f, 10.f, 0);
 }
