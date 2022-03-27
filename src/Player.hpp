@@ -11,12 +11,13 @@
 
 class Player : public Character{
     private:
-        static int _numSprites;
-        static int _tamPixels;
-        int _direcao_anterior;
-        int _numPasso;
-        int _tam_x;
-        int _tam_y;
+    	const Position CAPIMON_DRAW_POSITION(200, 295);
+		  static int _numSprites;
+		  static int _tamPixels;
+		  int _direcao_anterior;
+		  int _numPasso;
+		  int _tam_x;
+		  int _tam_y;
     public:
         Player(std::string name, ALLEGRO_BITMAP *image,int x, int y, int tam_x, int tam_y);
         ~Player();

@@ -2,6 +2,8 @@
 
 #include "Character.hpp"
 
+#include <cstdlib>
+
 Character::Character(std::string name, ALLEGRO_BITMAP *image,int x, int y):
     _name(name), Object(image, x, y) {};
 
@@ -15,6 +17,19 @@ void Character::add_capimon(Capimon *capimon) {
 	this->_deck.push_back(capimon);
 }
 
-vector<Capimon> Character::getCapimons(){
-	return _deck;
+vector<Capimon> Character::get_deck() {
+	return this->_deck;
+}
+
+void Character::select_capimon() {
+	srand(time(NULL));
+	this->_selected_capimon = this->_deck.at(rand() % this->AMOUNT_DECK);
+}
+
+Capimon* Character::get_selected_capimon() {
+	return this->_selected_capimon;
+}
+
+Position Character::get_CAPIMON_DRAW_POSITION() {
+	return this->CAPIMON_DRAW_POSITION;	
 }

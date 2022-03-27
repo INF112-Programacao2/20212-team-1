@@ -3,6 +3,7 @@
 #include "Capimon.hpp"
 
 #include <iostream>
+#include <cstdlib>
 
 int Capimon::AMOUNT_SKILLS = 4;
 //float Capimon::_x_bar_npc = 14;
@@ -19,7 +20,7 @@ Capimon::Capimon(string name, ALLEGRO_BITMAP *image, int max_health, Skill skill
 	//_font = al_load_font("file/font.ttf", 11, 0);
 	
 	for (int i = 0; i < this->AMOUNT_SKILLS; i++)
-		this->_skills[i] = skills[i];
+		this->_skills.push_back(skills[i]);
 }
 
 Capimon::~Capimon(){
@@ -94,4 +95,21 @@ void Capimon::heal_health(){ // funcao que ira restaurar a vida de um capimon po
 
 ALLEGRO_BITMAP* Capimon::get_image(){
 	return this->_image;
+}
+
+void Skill:select_skill() {
+	srand(time(NULL));
+	this->_selected_skill = this->_skills.at(rand() % this->AMOUNT_SKILLS);
+}
+
+Skill* Skill::get_selected_skill() {
+	return this->_selected_skill;
+}
+
+void Skill:set_selected_skill(Skill *selected_skill) {
+	this->_selected_skill(selected_skill);
+}
+
+void Skill:set_selected_skill(int index) {
+	this->_selected_skill(this->_skills.at(index));
 }
