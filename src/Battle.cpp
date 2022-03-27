@@ -181,9 +181,9 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 
 			//a.draw(font, selector);
 			//Jul.draw("CHARIZARD",vida,bar,font);
-			draw_npc_status(selected_npc_capimon);
+			//draw_npc_status(selected_npc_capimon);
 			//Cap.draw("PIKACHU",vida,bar,font);
-			draw_player_status(selected_player_capimon);
+			//draw_player_status(selected_player_capimon);
 
 			draw_capimon(hero);
 			draw_capimon_status(hero);
@@ -246,11 +246,13 @@ void Battle::draw_capimon(Character *character) {
 }
 
 void Battle::draw_capimon_status(Character *character){//alterar ainda
-	ALLEGRO_BITMAP
+	Position status_position = character->get_CAPIMON_STATUS_POSITION();
+	Capimon *selected_capimon = character->get_selected_capimon();
+	
 	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
-	al_draw_bitmap(this->_health_bar, this->_x_bar_npc, this->_y_bar_npc, 0);
-	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_npc + 14.f, this->_y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(capimonNpc->get_name()));
-	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_npc + 78.f, this->_y_bar_npc + 32.f, ((float)capimonNpc->get_cur_health() / (float)capimonNpc->get_max_health()) * 96.f, 10.f, 0);
+	al_draw_bitmap(health_bar, status_position.get_x(), status_position.get_y(), 0);
+	al_draw_text(this->_font, al_map_rgb(0,0,0), status_positon.get_x() + 14.f, status_positon.get_y() + 5.f, ALLEGRO_ALIGN_LEFT, c_str(selected_capimon->get_name());
+	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, status_positon.get_x() + 78.f, status_positon.get_y() + 32.f, ((float)selected_capimon->get_cur_health() / (float)selected_capimon->get_max_health()) * 96.f, 10.f, 0);
 }
 
 
@@ -266,6 +268,7 @@ void Battle::draw_npc_capimon(Capimon *capimon){ //alterar para pegar a imagem d
 }
 */
 
+/*
 void Battle::draw_player_status(Capimon *capimon){ //alterar ainda
 	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
 	al_draw_bitmap(this->_health_bar, this->_x_bar_player, this->_y_bar_player, 0);
@@ -279,6 +282,7 @@ void Battle::draw_npc_status(Capimon *capimon){//alterar ainda
 	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_npc + 14.f, this->_y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(capimonNpc->get_name()));
 	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_npc + 78.f, this->_y_bar_npc + 32.f, ((float)capimonNpc->get_cur_health() / (float)capimonNpc->get_max_health()) * 96.f, 10.f, 0);
 }
+*/
 
 /* PLAYER_ATTACK_HPP FUNCTIONS - BEGIN */
 void draw_cursor() { //draw cursor and capimon skills 
