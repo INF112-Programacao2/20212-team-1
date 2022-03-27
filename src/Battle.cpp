@@ -125,6 +125,29 @@ Battle::start_battle(Player *hero , NPC *enemy) {
 						break;
 		      }
 		  }
+		  
+		  // TODO: Confirm if the skills are correctly selected
+			switch (selected_player_skill_index[0]) {
+				case 0:
+					switch (selected_player_skill_index[1]) {
+						case 0:
+							selected_player_skill = selected_player_capimon -> get.skill(0);
+							break;
+						case 1:
+							selected_player_skill = selected_player_capimon -> get.skill(1);
+							break;
+					}
+						
+				case 1:
+					switch (selected_player_skill_index[1]) {
+						case 0:
+							selected_player_skill = selected_player_capimon -> get.skill(2);
+							break;
+						case 1:
+							selected_player_skill = selected_player_capimon -> get.skill(3);
+							break;
+					}
+			}
 
 		  int i=1;
 		  al_play_sample_instance(musicaInstancia);
