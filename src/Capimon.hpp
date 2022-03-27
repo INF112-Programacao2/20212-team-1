@@ -30,6 +30,7 @@ class Capimon{
 		~Capimon();
 		std::string get_name();
 		unsigned int get_max_health();
+		unsigned int get_cur_health();
 		vector<Skill> get_skills(int index);
 		Skil get_skill();
 		

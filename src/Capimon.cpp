@@ -37,6 +37,10 @@ unsigned int Capimon::get_max_health() {
 	return this->_max_health;
 }
 
+unsigned int Capimon::get_cur_health() {
+	return this->_cur_health;
+}
+
 vector<Skill> Capimon::get_skills() {
 	return this->_skills;
 }
