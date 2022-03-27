@@ -97,19 +97,19 @@ ALLEGRO_BITMAP* Capimon::get_image(){
 	return this->_image;
 }
 
-void Skill:select_skill() {
+void Capimon::select_skill() {
 	srand(time(NULL));
 	this->_selected_skill = this->_skills.at(rand() % this->AMOUNT_SKILLS);
 }
 
-Skill* Skill::get_selected_skill() {
+Skill* Capimon::get_selected_skill() {
 	return this->_selected_skill;
 }
 
-void Skill:set_selected_skill(Skill *selected_skill) {
+void Capimon::set_selected_skill(Skill *selected_skill) {
 	this->_selected_skill(selected_skill);
 }
 
-void Skill:set_selected_skill(int index) {
+void Capimon::set_selected_skill(int index) {
 	this->_selected_skill(this->_skills.at(index));
 }
