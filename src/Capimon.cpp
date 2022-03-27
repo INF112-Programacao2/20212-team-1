@@ -2,6 +2,8 @@
 
 #include "Capimon.hpp"
 
+#include <iostream>
+
 int Capimon::AMOUNT_SKILLS = 4;
 //float Capimon::_x_bar_npc = 14;
 //float Capimon::_y_bar_npc = 14;
