@@ -2,11 +2,23 @@
 
 #include "Battle.hpp"
 
-// TODO: Change construct to the easier way
-Battle::Battle(Player *hero, Npc *enemy):
-	_hero(hero), _enemy(enemy) {};
+float Battle::_x_bar_npc = 14;
+float Battle::_y_bar_npc = 14;
+float Battle::_x_bar_player = 420;
+float Battle::_y_bar_player = 350;
 
-Battle::~Battle() {}
+// TODO: Change construct to the easier way
+Battle::Battle(Player *hero, Npc *enemy, ALLEGRO_FONT *font, std::string endereco_life_bar, std::endereco_color_bar):
+	_hero(hero), _enemy(enemy) {
+	_life_bar = al_load_bitmap(endereco_life_bar);
+	_colorBar = al_load_bitmap(endereco_color_bar);
+	__font = font ;
+};
+
+Battle::~Battle() {
+	al_destroy_bitmap(_life_Bar);
+	al_destroy_bitmap(_color_Bar);
+}
 
 // TODO: start_battle()
 Battle::start_battle() {
@@ -164,4 +176,31 @@ Battle::start_battle() {
 	al_destroy_event_queue(event_queue);
 	al_destroy_display(display);
 	return 0;
+}
+
+
+
+void Battle::draw_player_capimon(){ //alterar para pegar a imagem do capimon certo
+	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
+	al_draw_bitmap(this->_image, 200, 295, 0); 	//the position is changed if it's a player or and NPC
+}
+
+void Battle::draw_npc_capimon(){ //alterar para pegar a imagem do capimon certo
+	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
+	al_draw_bitmap(this->_image, 200, 295, 0); 	//the position is changed if it's a player or and NPC 
+	//alterar posicao da imagem
+}
+
+void Battle::draw_player_status(){ //alterar ainda
+	al_convert_mask_to_alpha(_life_bar, al_map_rgb(255,0,255));
+	al_draw_bitmap(_life_bar, _x_bar_player, _y_bar_player, 0);
+	al_draw_text(_font, al_map_rgb(0,0,0), _x_bar_player + 14.f, _y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(this->_name));
+	al_draw_scaled_bitmap(_colorBar, 0.f, 0.f, 18.f, 10.f, _x_bar_player + 78.f, _y_bar_player + 32.f, ((float)_cur_health / (float)_max_health) * 96.f, 10.f, 0);
+}
+
+void Battle::draw_npc_status(){//alterar ainda
+	al_convert_mask_to_alpha(_life_bar, al_map_rgb(255,0,255));
+	al_draw_bitmap(_life_bar, _x_bar_npc, _y_bar_npc, 0);
+	al_draw_text(_font, al_map_rgb(0,0,0), _x_bar_npc + 14.f, _y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(this->_name));
+	al_draw_scaled_bitmap(_colorBar, 0.f, 0.f, 18.f, 10.f, _x_bar_npc + 78.f, _y_bar_npc + 32.f, ((float)_cur_health / (float)_max_health) * 96.f, 10.f, 0);
 }
