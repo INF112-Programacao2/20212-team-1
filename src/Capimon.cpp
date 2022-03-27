@@ -19,7 +19,7 @@ Capimon::Capimon(string name, ALLEGRO_BITMAP *image, int max_health, Skill skill
 	//_font = al_load_font("file/font.ttf", 11, 0);
 	
 	for (int i = 0; i < this->AMOUNT_SKILLS; i++)
-		this->_skills[i] = skills[i];
+		this->_skills.push_back(skills[i]);
 }
 
 Capimon::~Capimon(){
@@ -94,4 +94,8 @@ void Capimon::heal_health(){ // funcao que ira restaurar a vida de um capimon po
 
 ALLEGRO_BITMAP* Capimon::get_image(){
 	return this->_image;
+}
+
+Skill* get_selected_skill() {
+	return this->_selected_skill;
 }

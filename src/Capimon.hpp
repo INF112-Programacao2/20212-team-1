@@ -11,7 +11,7 @@
 
 class Capimon{
 	private:
-		const int AMOUNT_SKILLS = 4;
+		const unsigned int AMOUNT_SKILLS = 4;
 		std::string _name;
 		ALLEGRO_BITMAP *_image;
 		vector<Skill> _skills;
@@ -24,6 +24,7 @@ class Capimon{
 		//static float _y_bar_npc;
 		//static float _x_bar_player;
 		//static float _y_bar_player;
+		Skill* _selected_skill = nullptr;
 
   public:
 		Capimon(std::string name, ALLEGRO_BITMAP *image, int max_health, Skill skills[AMOUNT_SKILLS]);	// TODO: Check if parameter skills can cause a bug
@@ -31,8 +32,9 @@ class Capimon{
 		std::string get_name();
 		unsigned int get_max_health();
 		unsigned int get_cur_health();
-		vector<Skill> get_skills(int index);
-		Skil get_skill();
+		vector<Skill> get_skills();
+		Skil get_skill(int index);
+		Skill* get_selected_skill();
 		ALLEGRO_BITMAP* get_image();
 		
 		void decrement_health(int damage);

@@ -2,23 +2,19 @@
 
 #include "Battle.hpp"
 
-float Battle::_x_bar_npc = 14;
-float Battle::_y_bar_npc = 14;
-float Battle::_x_bar_player = 420;
-float Battle::_y_bar_player = 350;
-
 // TODO: Change construct to the easier way
-Battle::Battle( ALLEGRO_FONT *font, std::string endereco_background, std::string endereco_options, std::string endereco_life_bar, std::string endereco_color_bar) :
-	_font(font) {
-	this->_health_bar = al_load_bitmap(endereco_life_bar);
-	this->_colored_bar = al_load_bitmap(endereco_color_bar);
-	this->background = al_load_bitmap(endereco_background);
-	this->options = al_load_bitmap(endereco_options);
-};
-
-//	Alternative constructor considering _health_bar, _colored_bat and _font like consts
-Battle::Battle(Player *hero, Npc *enemy) :
-	_hero(hero), _enemy(enemy) {};
+Battle::Battle(std::string background_directory) {
+	this->_health_bar = al_load_bitmap("img/battle/health_bar.bmp");
+	this->_colored_bar = al_load_bitmap("img/battle/colored_bar.bmp");
+	this->_font = al_load_font("font.ttf", 11, 0);
+	this->background = al_load_bitmap(background_directory);
+	this->options = al_load_bitmap(options_directory);
+	
+	this->_selected_player_capimon = nullptr;
+	this->_selected_player_skill = nullptr;
+	this->_selected_npc_capimon = nullptr;
+	this->_selected_npc_skill = nullptr;
+}
 
 Battle::~Battle() {
 	al_destroy_bitmap(this->_health_bar);
@@ -160,8 +156,8 @@ Battle::start_battle(Player *hero , NPC *enemy) {
 		  //Cap.draw("PIKACHU",vida,bar,font);
 		  draw_player_status(selected_player_capimon);
 
-		  draw_npc_capimon(selected_npc_capimon);
-		  draw_player_capimon(selected_player_capimon);
+		  draw_capimon(hero);
+		  draw_capimon(enemy);
 
 		//   Capivaristo.Mostrar_Capimon();
 		//   if(i==1){
@@ -210,25 +206,32 @@ Battle::start_battle(Player *hero , NPC *enemy) {
 }
 
 
+// TODO: Creat draw_capimon()
+void Battle::draw_capimon(Character *character) {
+	character->get_select_capimon();
+	Position draw_position = character->get_CAPIMON_DRAW_POSITION();
+	al_convert_mask_to_alpha(character->get_selected_capimon()->get_image(), al_map_rgb(255,0,255));
+	al_draw_bitmap(character->get_selected_capimon()->get_image(), draw_position.x, draw_position.y, 0);
+}
 
-void Battle::draw_player_capimon(Capimon *capimonPlayer){ //alterar para pegar a imagem do capimon certo
+void Battle::draw_player_capimon(Capimon *capimon){ //alterar para pegar a imagem do capimon certo
 	al_convert_mask_to_alpha(capimonPlayer->get_image(), al_map_rgb(255,0,255));
 	al_draw_bitmap(capimonPlayer->get_image(), 200, 295, 0); 	// TODO: Add right values in image position
 }
 
-void Battle::draw_npc_capimon(Capimon *capimonNpc){ //alterar para pegar a imagem do capimon certo
+void Battle::draw_npc_capimon(Capimon *capimon){ //alterar para pegar a imagem do capimon certo
 	al_convert_mask_to_alpha(capimonNpc->get_image(), al_map_rgb(255,0,255));
 	al_draw_bitmap(capimonNpc->get_image(), 200, 295, 0); 	// TODO: Add right values in image position (considering this is an Capimon's NPC)
 }
 
-void Battle::draw_player_status(Capimon *capimonPlayer){ //alterar ainda
+void Battle::draw_player_status(Capimon *capimon){ //alterar ainda
 	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
 	al_draw_bitmap(this->_health_bar, this->_x_bar_player, this->_y_bar_player, 0);
 	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_player + 14.f, this->_y_bar_player + 5.f, ALLEGRO_ALIGN_LEFT, c_str(capimonPlayer->get_name()));
 	al_draw_scaled_bitmap(this->_colored_bar, 0.f, 0.f, 18.f, 10.f, this->_x_bar_player + 78.f, this->_y_bar_player + 32.f, ((float)capimonPlayer->get_cur_health() / (float)capimonPlayer->get_max_health()) * 96.f, 10.f, 0);
 }
 
-void Battle::draw_npc_status(Capimon *capimonNpc){//alterar ainda
+void Battle::draw_npc_status(Capimon *capimon){//alterar ainda
 	al_convert_mask_to_alpha(this->_health_bar, al_map_rgb(255,0,255));
 	al_draw_bitmap(this->_health_bar, this->_x_bar_npc, this->_y_bar_npc, 0);
 	al_draw_text(this->_font, al_map_rgb(0,0,0), this->_x_bar_npc + 14.f, this->_y_bar_npc + 5.f, ALLEGRO_ALIGN_LEFT, c_str(capimonNpc->get_name()));
@@ -270,7 +273,7 @@ void draw_cursor() { //draw cursor and capimon skills
 	//al_draw_text(font, al_map_rgb(0,0,0), 200, 420, ALLEGRO_ALIGN_LEFT, "INVESTIDA DO TROVÃO"); // 2
 	//al_draw_text(font, al_map_rgb(0,0,0), 200, 450, ALLEGRO_ALIGN_LEFT, "CAUDA DE FERRO"); // 3
 
-	for(Skill skill : this->_selected_player_capimon->get_skills())
+	for(Skill skill : hero->get_selected_capimon()->get_skills())
 		draw_skill(&skill);
 
 
