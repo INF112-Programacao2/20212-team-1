@@ -74,8 +74,8 @@ class Battle {
 		
 		/* PLAYER_ATTACK_HPP FUNCTIONS - BEGIN */
 		void draw_cursor(); //void draw(); // TODO: This will be a private function latter
-		int select_enemy_attack(); //int ataqueInimigo();
-		int select_player_attack(); //void selectAttack(int key);
-		int do_attack();
+		// int select_enemy_attack(); //int ataqueInimigo();
+		// int select_player_attack(); //void selectAttack(int key);
+		// int do_attack();
 		/* PLAYER_ATTACK_HPP FUNCTIONS - END */
 };

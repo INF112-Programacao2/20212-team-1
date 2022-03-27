@@ -14,7 +14,7 @@ class Capimon{
 		const unsigned int AMOUNT_SKILLS = 4;
 		std::string _name;
 		ALLEGRO_BITMAP *_image;
-		vector<Skill> _skills;
+		std::vector<Skill> _skills;
 		unsigned int _max_health;
 		unsigned int _cur_health;
 		//ALLEGRO_BITMAP* _lifeBar;
@@ -32,7 +32,7 @@ class Capimon{
 		std::string get_name();
 		unsigned int get_max_health();
 		unsigned int get_cur_health();
-		vector<Skill> get_skills();
+		std::vector<Skill> get_skills();
 		Skil get_skill(int index);
 		void select_skill();
 		Skill* get_selected_skill();

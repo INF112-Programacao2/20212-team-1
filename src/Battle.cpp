@@ -190,6 +190,11 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 			draw_capimon(enemy);
 			draw_capimon_status(enemy);
 
+			for(Skill skill : hero->get_selected_capimon()->get_skills())
+				draw_skill(&skill);
+			
+			draw_cursor();
+
 			//   Capivaristo.Mostrar_Capimon();
 			//   if(i==1){
 			//       Julio.Mostrar_Capimon();
@@ -286,25 +291,12 @@ void Battle::draw_npc_status(Capimon *capimon){//alterar ainda
 
 /* PLAYER_ATTACK_HPP FUNCTIONS - BEGIN */
 void draw_cursor() { //draw cursor and capimon skills 
-	ALLEGRO_FONT *font = al_load_font("file/font.ttf");
+	// ALLEGRO_FONT *font = al_load_font("file/font.ttf");
 	ALLEGRO_BITMAP *cursor = al_load_bitmap("img/cursor.bmp");
 	al_convert_mask_to_alpha(cursor, al_map_rgb(255,0,255));
   
-	switch (_selected)
-	{
-	case 0:
-		al_draw_bitmap(cursor, 30, 420, 0);
-		break;
-	case 1:
-		al_draw_bitmap(cursor, 30, 450, 0);
-		break;
-	case 2:
-		al_draw_bitmap(cursor, 190, 420, 0);
-		break;
-	case 3:
-		al_draw_bitmap(cursor, 190, 450, 0);
-		break;
-	// default:
+	
+	al_draw_bitmap(cursor, this->_selected_display_skill.get_x(), this->_selected_display_skill.get_y(), 0);
 	//     break;
 		}
 		
@@ -319,14 +311,14 @@ void draw_cursor() { //draw cursor and capimon skills
 	//al_draw_text(font, al_map_rgb(0,0,0), 200, 420, ALLEGRO_ALIGN_LEFT, "INVESTIDA DO TROVÃO"); // 2
 	//al_draw_text(font, al_map_rgb(0,0,0), 200, 450, ALLEGRO_ALIGN_LEFT, "CAUDA DE FERRO"); // 3
 
-	for(Skill skill : hero->get_selected_capimon()->get_skills())
-		draw_skill(&skill);
+	// for(Skill skill : hero->get_selected_capimon()->get_skills())
+	// 	draw_skill(&skill);
 
 
 }
-int select_enemy_attack(); //int ataqueInimigo();
-int select_player_attack(); //void selectAttack(int key);
-int do_attack();
+// int select_enemy_attack(); //int ataqueInimigo();
+// int select_player_attack(); //void selectAttack(int key);
+// int do_attack();
 /* PLAYER_ATTACK_HPP FUNCTIONS - END */
 
 /* SKILL FUNCTIONS - BEGIN */
