@@ -64,9 +64,11 @@ void Capimon::decrement_health(int damage){
 		this->_cur_health -= damage;
 }
 
+/*
 bool Capimon::looser(){
 	return _cur_health == 0;
 }
+*/
 
 /*void Capimon::draw_player_status(){
 	al_convert_mask_to_alpha(_life_bar, al_map_rgb(255,0,255));

@@ -34,7 +34,7 @@ class Capimon{
 		Skil get_skill();
 		
 		void decrement_health(int damage);
-		bool looser();
+		//bool looser();
 		
 		//void draw_player_capimon();//alterar ainda
 		//void draw_npc_capimon();//alterar ainda 
