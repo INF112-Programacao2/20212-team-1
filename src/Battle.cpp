@@ -14,6 +14,7 @@ Battle::Battle(std::string background_directory) {
 	this->_selected_player_skill = nullptr;
 	this->_selected_npc_capimon = nullptr;
 	this->_selected_npc_skill = nullptr;
+	this->_selected_display_skill = Position(0,0);
 }
 
 Battle::~Battle() {
@@ -90,60 +91,8 @@ Battle::start_battle(Player *hero , NPC *enemy) {
 	//Capimon Andre(capimonAndre, "Andre");
 
 	
-	_selected_player_skill_index_position[0] = 0;
-	_selected_player_skill_index_position[1] = 0;
 	while(!exit){
-
-		  ALLEGRO_EVENT ev;
-		  al_wait_for_event(event_queue,&ev);
-
-		  if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
-		      switch(ev.keyboard.keycode)
-		      {
-		          case ALLEGRO_KEY_ESCAPE:
-		              exit = true;
-		              break;		          
-					case ALLEGRO_KEY_LEFT:
-						(_selected_player_skill_index_position[0] == 1) ? _selected_player_skill_index_position[0]--;
-						break;
-					case ALLEGRO_KEY_RIGHT:
-						(_selected_player_skill_index_position[0] == 0) ? _selected_player_skill_index_position[0]++;
-						break;
-					case ALLEGRO_KEY_UP:
-						(_selected_player_skill_index_position[1] == 1) ? (_selected_player_skill_index_position[1]--);
-						break;
-					case ALLEGRO_KEY_DOWN:
-						(_selected_player_skill_index_position[1] == 0) ? _selected_player_skill_index_position[1]++;
-						break;
-					case ALLEGRO_KEY_ENTER:
-						selected_player_capimon->decrementHealth(selected_npc_skill->select_damage()); //criar algo para pegar um skill aleatoria
-						selected_npc_capimon->decrement_health(selected_player_skill->select_damage()); //criar algo para selecionar a skill ainda
-						break;
-		      }
-		  }
-		  
-		  // TODO: Confirm if the skills are correctly selected
-			switch (selected_player_skill_index[0]) {
-				case 0:
-					switch (selected_player_skill_index[1]) {
-						case 0:
-							selected_player_skill = selected_player_capimon -> get.skill(0);
-							break;
-						case 1:
-							selected_player_skill = selected_player_capimon -> get.skill(1);
-							break;
-					}
-						
-				case 1:
-					switch (selected_player_skill_index[1]) {
-						case 0:
-							selected_player_skill = selected_player_capimon -> get.skill(2);
-							break;
-						case 1:
-							selected_player_skill = selected_player_capimon -> get.skill(3);
-							break;
-					}
-			}
+		verify_action();
 
 		  int i=1;
 		  al_play_sample_instance(musicaInstancia);
@@ -211,7 +160,7 @@ void Battle::draw_capimon(Character *character) {
 	character->get_select_capimon();
 	Position draw_position = character->get_CAPIMON_DRAW_POSITION();
 	al_convert_mask_to_alpha(character->get_selected_capimon()->get_image(), al_map_rgb(255,0,255));
-	al_draw_bitmap(character->get_selected_capimon()->get_image(), draw_position.x, draw_position.y, 0);
+	al_draw_bitmap(character->get_selected_capimon()->get_image(), draw_position.get_x(), draw_position.get_y, 0);
 }
 
 void Battle::draw_player_capimon(Capimon *capimon){ //alterar para pegar a imagem do capimon certo
@@ -333,5 +282,66 @@ void Battle::set_selected_npc_capimon(Capimon* selected_npc_capimon) {
 
 void Battle::set_selected_npc_skill(Skill* selected_npc_skill) {
 	this->_selected_npc_capimon = selected_npc_skill;
+}
+
+void Battle::verify_action() {
+	ALLEGRO_EVENT ev;
+	al_wait_for_event(event_queue,&ev);
+
+  if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
+		switch(ev.keyboard.keycode) {
+		  case ALLEGRO_KEY_ESCAPE:
+		  	exit = true;
+		  	break;		          
+			case ALLEGRO_KEY_LEFT:
+				if (this->selected_display_skill.get_x() > 0)
+					this->_selected_display_skill.sub_x();
+				verify_selected_display_skill();
+				break;
+			case ALLEGRO_KEY_RIGHT:
+				if (this->_selected_display_skill.get_x() < 1)
+					this->_selected_display_skill.add_x();
+				verify_selected_display_skill();
+				break;
+			case ALLEGRO_KEY_UP:
+				if (this->_selected_display_skill.get_y() > 0)
+					this->_selected_display_skill.sub_y();
+				verify_selected_display_skill();
+				break;
+			case ALLEGRO_KEY_DOWN:
+				if (this->_selected_display_skill.get_y() < 1)
+					this->_selected_display_skill.add_x();
+				verify_selected_display_skill();
+				break;
+			case ALLEGRO_KEY_ENTER:
+				hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill->select_damage());
+				enemy->get_selected_capimon()->decrement_health(hero->get_selected_capimon()->get_selected_skill->select_damage());
+				break;
+    }
+  }
+}
+
+void Battle::verify_selected_display_skill(Character *character) {
+// TODO: Confirm if the skills are correctly selected
+	switch (this->_selected_display_skill.get_x()) {
+		case 0:
+			switch (this->_selected_display_skill.get_y()) {
+				case 0:
+					character->get_selected_capimon()->set_selected_skill(0);
+					break;
+				case 1:
+					character->get_selected_capimon()->set_selected_skill(1);
+					break;
+			}
+		case 1:
+			switch (this->_selected_display_skill.get_y()) {
+				case 0:
+					character->get_selected_capimon()->set_selected_skill(2);
+					break;
+				case 1:
+					character->get_selected_capimon()->set_selected_skill(3);
+					break;
+			}
+	}
 }
 /* NEW FUNCTIONS - END */

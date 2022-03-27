@@ -105,3 +105,11 @@ void Skill:select_skill() {
 Skill* Skill::get_selected_skill() {
 	return this->_selected_skill;
 }
+
+void Skill:set_selected_skill(Skill *selected_skill) {
+	this->_selected_skill(selected_skill);
+}
+
+void Skill:set_selected_skill(int index) {
+	this->_selected_skill(this->_skills.at(index));
+}
