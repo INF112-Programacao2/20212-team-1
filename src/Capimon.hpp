@@ -27,7 +27,7 @@ class Capimon{
 		Skill* _selected_skill = nullptr;
 
   public:
-		Capimon(std::string name, ALLEGRO_BITMAP *image, int max_health, Skill skills[AMOUNT_SKILLS]);	// TODO: Check if parameter skills can cause a bug
+		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int max_health, Skill skills[AMOUNT_SKILLS]);	// TODO: Check if parameter skills can cause a bug
 		~Capimon();
 		std::string get_name();
 		unsigned int get_max_health();
