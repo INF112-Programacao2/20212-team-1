@@ -26,8 +26,16 @@ Battle::~Battle() {
 }
 
 // TODO: start_battle()
-Battle::start_battle(Player *hero , NPC *enemy) {
+void Battle::start_battle(Player *hero , NPC *enemy) {
 	bool exit = false;
+	float fps = 5;
+	bool redraw = true;
+	ALLEGRO_TIMER *timer = NULL;
+	timer = al_create_timer(1.0 / fps);
+	if(!timer){
+        std::cerr << "Falha ao inicializar o temporizador" << std::endl;
+        return;
+    }
 
 	//ALLEGRO_DISPLAY *display = NULL; //rever isso, pois já existe uma tela criada
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -83,6 +91,8 @@ Battle::start_battle(Player *hero , NPC *enemy) {
 
 	event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
+	al_register_event_source(event_queue, al_get_timer_event_source(timer)); //adicionando a contagem de tempo na fila
+	al_start_timer(timer); //iniciando a contagem de tempo
 	//Capimon Julio(capimonJulio, "Julio");
 
 	//CapimonStatus Jul(Julio.Get_Vida(), 14.f, 14.f);
@@ -94,47 +104,49 @@ Battle::start_battle(Player *hero , NPC *enemy) {
 	while(!exit){
 		verify_action();
 
-		  int i=1;
-		  al_play_sample_instance(musicaInstancia);
-		  al_draw_bitmap(background, 0, 0, 0);
-		  al_draw_bitmap(options,0,407,0);
+		if(redraw && al_is_event_queue_empty(event_queue)){
 
-		  //a.draw(font, selector);
-		  //Jul.draw("CHARIZARD",vida,bar,font);
-		  draw_npc_status(selected_npc_capimon);
-		  //Cap.draw("PIKACHU",vida,bar,font);
-		  draw_player_status(selected_player_capimon);
+			redraw = false;
+			int i=1;
+			al_play_sample_instance(musicaInstancia);
+			al_draw_bitmap(background, 0, 0, 0);
+			al_draw_bitmap(options,0,407,0);
 
-		  draw_capimon(hero);
-		  draw_capimon(enemy);
+			//a.draw(font, selector);
+			//Jul.draw("CHARIZARD",vida,bar,font);
+			draw_npc_status(selected_npc_capimon);
+			//Cap.draw("PIKACHU",vida,bar,font);
+			draw_player_status(selected_player_capimon);
 
-		//   Capivaristo.Mostrar_Capimon();
-		//   if(i==1){
-		//       Julio.Mostrar_Capimon();
-		//   }
-		//   else{
-		//       Andre.Mostrar_Capimon();
-		//   }
+			draw_capimon(hero);
+			draw_capimon(enemy);
 
-		  if (Jul.looser())
-		  {
-		      al_clear_to_color(al_map_rgb(0,0,0));
-		      al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  APROVADO!!!!");
-		      al_flip_display();
-		      al_rest(5.0);
-		      exit = true;
-		      // Julio ganhou, Capivaristo perde
-		  } else if (Cap.looser())
-		  {
-		      al_clear_to_color(al_map_rgb(0,0,0));
-		      al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  REPROVADO!!!!");
-		      al_flip_display();
-		      al_rest(5.0);
-		      exit = true;
-		      // Capivaristo ganhou, Julio perde
-		  }
+			//   Capivaristo.Mostrar_Capimon();
+			//   if(i==1){
+			//       Julio.Mostrar_Capimon();
+			//   }
+			//   else{
+			//       Andre.Mostrar_Capimon();
+			//   }
 
-		  al_flip_display();
+			if (Jul.looser()){
+				al_clear_to_color(al_map_rgb(0,0,0));
+				al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  APROVADO!!!!");
+				al_flip_display();
+				al_rest(5.0);
+				exit = true;
+				// Julio ganhou, Capivaristo perde
+			} else if (Cap.looser())
+			{
+				al_clear_to_color(al_map_rgb(0,0,0));
+				al_draw_text(fonteFinal, al_map_rgb(255,255,255), 140, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ  FOI  REPROVADO!!!!");
+				al_flip_display();
+				al_rest(5.0);
+				exit = true;
+				// Capivaristo ganhou, Julio perde
+			}
+			al_flip_display();
+		}
 	}
 
 	//al_destroy_bitmap(background);
@@ -151,6 +163,7 @@ Battle::start_battle(Player *hero , NPC *enemy) {
 	al_destroy_sample_instance(musicaInstancia);
 	al_destroy_event_queue(event_queue);
 	al_destroy_display(display);
+	al_destroy_timer(timer); //destrutor para o tempo
 	return 0;
 }
 
