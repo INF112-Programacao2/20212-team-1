@@ -57,10 +57,11 @@ Skil Capimon::get_skill(int index) {
 }*/
 
 //funcoes que eram da capimonStatus
-void Capimon::decrement_health(int dano){
-	_cur_health -= dano;
-	if (_cur_health <= 0)
-		_cur_health = 0;
+void Capimon::decrement_health(int damage){
+	if (damage > this->_cur_health)
+		this->_cur_health = 0;
+	else
+		this->_cur_health -= damage;
 }
 
 bool Capimon::looser(){

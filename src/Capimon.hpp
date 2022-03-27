@@ -15,8 +15,8 @@ class Capimon{
 		std::string _name;
 		ALLEGRO_BITMAP *_image;
 		vector<Skill> _skills;
-		int _max_health;
-		int _cur_health;
+		unsigned int _max_health;
+		unsigned int _cur_health;
 		//ALLEGRO_BITMAP* _lifeBar;
 		//ALLEGRO_BITMAP* _colorBar;
 		//ALLEGRO_FONT *_font;
@@ -32,7 +32,8 @@ class Capimon{
 		int get_max_health();
 		vector<Skill> get_skills(int index);
 		Skil get_skill();
-		void decrement_health(int dano);
+		
+		void decrement_health(int damage);
 		bool looser();
 		
 		//void draw_player_capimon();//alterar ainda
