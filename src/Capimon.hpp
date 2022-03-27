@@ -7,13 +7,14 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
 #include <string>
+#include <vector>
 
 class Capimon{
 	private:
 		const int AMOUNT_SKILLS = 4;
 		std::string _name;
 		ALLEGRO_BITMAP *_image;
-		Skill _skills[AMOUNT_SKILLS];	// Or maybe Skill *_skills[4]
+		vector<Skill> _skills;
 		int _max_health;
 		int _cur_health;
 		//ALLEGRO_BITMAP* _lifeBar;
@@ -25,17 +26,19 @@ class Capimon{
 		//static float _y_bar_player;
 
   public:
-		Capimon(std::string name, ALLEGRO_BITMAP *image, int max_health, Skill skills[AMOUNT_SKILLS]);
+		Capimon(std::string name, ALLEGRO_BITMAP *image, int max_health, Skill skills[AMOUNT_SKILLS]);	// TODO: Check if parameter skills can cause a bug
 		~Capimon();
 		std::string get_name();
 		int get_max_health();
-		//void draw_player_capimon();//alterar ainda
-		//void draw_npc_capimon();//alterar ainda 
+		vector<Skill> get_skills(int index);
+		Skil get_skill();
 		void decrement_health(int dano);
 		bool looser();
+		
+		//void draw_player_capimon();//alterar ainda
+		//void draw_npc_capimon();//alterar ainda 
 		//void draw_player_status();
 		//void draw_npc_status();
-
 };
 
 #endif /* CAPIMON_HPP */

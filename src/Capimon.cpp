@@ -37,6 +37,14 @@ int Capimon::get_max_health() {
 	return this->_max_health;
 }
 
+vector<Skill> Capimon::get_skills() {
+	return this->_skills;
+}
+
+Skil Capimon::get_skill(int index) {
+	return this->_skills.at(index);
+}
+
 /*void Capimon::draw_player_capimon(){
 	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
 	al_draw_bitmap(this->_image, 200, 295, 0); 	//the position is changed if it's a player or and NPC
