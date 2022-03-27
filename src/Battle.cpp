@@ -172,8 +172,8 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 			int i=1;
 			if(pressed_enter){
 				pressed_enter = false;
-				selected_player_capimon->decrementHealth(selected_npc_skill->select_damage()); //criar algo para pegar um skill aleatoria
-				selected_npc_capimon->decrement_health(selected_player_skill->select_damage()); //criar algo para selecionar a skill ainda
+				hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill->select_damage())
+				enemy->get_selected_capimon()->decrement_health(hero->get_selected_capimon()->get_selected_skill->select_damage());
 			}
 			al_play_sample_instance(musicaInstancia);
 			al_draw_bitmap(background, 0, 0, 0);
