@@ -29,7 +29,7 @@ class Capimon{
 		Capimon(std::string name, ALLEGRO_BITMAP *image, int max_health, Skill skills[AMOUNT_SKILLS]);	// TODO: Check if parameter skills can cause a bug
 		~Capimon();
 		std::string get_name();
-		int get_max_health();
+		unsigned int get_max_health();
 		vector<Skill> get_skills(int index);
 		Skil get_skill();
 		

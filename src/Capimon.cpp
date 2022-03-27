@@ -33,7 +33,7 @@ std::string Capimon::get_name() {
 	return this->_name;
 }
 
-int Capimon::get_max_health() {
+unsigned int Capimon::get_max_health() {
 	return this->_max_health;
 }
 
