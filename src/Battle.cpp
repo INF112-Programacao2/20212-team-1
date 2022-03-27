@@ -29,12 +29,15 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 	bool exit = false;
 	float fps = 5;
 	bool redraw = true;
+	bool pressed_enter = false;
 	ALLEGRO_TIMER *timer = NULL;
 	timer = al_create_timer(1.0 / fps);
 	if(!timer){
         std::cerr << "Falha ao inicializar o temporizador" << std::endl;
         return;
     }
+
+	
 
 	//ALLEGRO_DISPLAY *display = NULL; //rever isso, pois já existe uma tela criada
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -131,8 +134,7 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 					(_selected_player_skill_index_position[1] == 0) ? _selected_player_skill_index_position[1]++;
 					break;
 				case ALLEGRO_KEY_ENTER:
-					selected_player_capimon->decrementHealth(selected_npc_skill->select_damage()); //criar algo para pegar um skill aleatoria
-					selected_npc_capimon->decrement_health(selected_player_skill->select_damage()); //criar algo para selecionar a skill ainda
+					pressed_enter = true;
 					break;
 		    }
 		}
@@ -164,6 +166,11 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
 
 			redraw = false;
 			int i=1;
+			if(pressed_enter){
+				pressed_enter = false;
+				selected_player_capimon->decrementHealth(selected_npc_skill->select_damage()); //criar algo para pegar um skill aleatoria
+				selected_npc_capimon->decrement_health(selected_player_skill->select_damage()); //criar algo para selecionar a skill ainda
+			}
 			al_play_sample_instance(musicaInstancia);
 			al_draw_bitmap(background, 0, 0, 0);
 			al_draw_bitmap(options,0,407,0);
