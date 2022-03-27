@@ -36,6 +36,8 @@ class Capimon{
 		Skil get_skill(int index);
 		void select_skill();
 		Skill* get_selected_skill();
+		void set_selected_skill(Skill *selected_skill);
+		void set_selected_skill(int index);
 		ALLEGRO_BITMAP* get_image();
 		
 		void decrement_health(int damage);

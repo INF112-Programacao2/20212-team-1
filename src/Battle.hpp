@@ -59,7 +59,7 @@ class Battle {
 		Skill* _selected_player_skill;
 		Capimon* _selected_npc_capimon;
 		Skill* _selected_npc_skill;
-		Position _selected_skill;
+		Position _selected_display_skill;
 		/* NEW ATRIBUTES - END */
 
 	public:
@@ -91,5 +91,8 @@ class Battle {
 		Skill* get_selected_npc_skill();
 		void set_selected_npc_capimon(Capimon* selected_npc_capimon);
 		void set_selected_npc_skill(Skill* selected_npc_skill);
+		
+		void verify_action();
+		void verify_selected_display_skill();
 		/* NEW FUNCTIONS - END */
 };
