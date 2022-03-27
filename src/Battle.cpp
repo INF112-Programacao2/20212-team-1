@@ -34,8 +34,8 @@ void Battle::start_battle(Player *hero , NPC *enemy) {
         return;
   }
   
-  hero->select_capimon();
-  
+  hero->set_selected_capimon(0);
+  enemy->set_selected_capimon(0);
 
 	
 
