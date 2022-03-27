@@ -17,7 +17,7 @@ class PlayerAttack{
 		const int DOWN_RIGHT = 3;
 	public:
 		PlayerAttack();
-		void draw(ALLEGRO_FONT *font, ALLEGRO_BITMAP *seta);
+		void draw();
 		int ataqueInimigo();
 		void selectAttack(int key);
 		int do_attack();

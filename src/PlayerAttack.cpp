@@ -15,39 +15,40 @@ PlayerAttack::PlayerAttack()
 // 	this->m_attacks = hl;
 // }
 
-void PlayerAttack::draw(ALLEGRO_FONT *font, ALLEGRO_BITMAP *cursor)
-{
-    cursor = al_load_bitmap("img/Cursor.bmp");
-    al_convert_mask_to_alpha(cursor, al_map_rgb(255,0,255));
-    //al_draw_bitmap(cursor, 420, 120, 0);
-    switch (_selected)
-    {
-    case 0: // CHOQUE DO TROVÃO
-        al_draw_bitmap(cursor, 30, 420, 0);
-        break;
-    case 1: // Choque d
-        al_draw_bitmap(cursor, 30, 450, 0);
-        break;
-    case 2: // Choque do 
-        al_draw_bitmap(cursor, 190, 420, 0);
-        break;
-    case 3: // Choque do 
-        al_draw_bitmap(cursor, 190, 450, 0);
-        break;
-    // default:
-    //     break;
-    }
-		
-		
-		/*
-		for (int s = 0; s < capimon.AMOUNT_SKILLS; s++) {
-			capimon.skill[s].draw_skill_in_battle();
-		}
-		*/
-    al_draw_text(font, al_map_rgb(0,0,0), 40, 420, ALLEGRO_ALIGN_LEFT, "CHOQUE DO TROVÃO"); // 0
-    al_draw_text(font, al_map_rgb(0,0,0), 40, 450, ALLEGRO_ALIGN_LEFT, "ATAQUE RÁPIDO"); // 1
-    al_draw_text(font, al_map_rgb(0,0,0), 200, 420, ALLEGRO_ALIGN_LEFT, "INVESTIDA DO TROVÃO"); // 2
-    al_draw_text(font, al_map_rgb(0,0,0), 200, 450, ALLEGRO_ALIGN_LEFT, "CAUDA DE FERRO"); // 3
+// TODO: Put in battle
+void PlayerAttack::draw() {
+	ALLEGRO_FONT *font = al_load_font("file/font.ttf");
+	ALLEGRO_BITMAP *cursor = al_load_bitmap("img/cursor.bmp");
+  al_convert_mask_to_alpha(cursor, al_map_rgb(255,0,255));
+  
+  switch (_selected)
+  {
+  case 0:
+      al_draw_bitmap(cursor, 30, 420, 0);
+      break;
+  case 1:
+      al_draw_bitmap(cursor, 30, 450, 0);
+      break;
+  case 2:
+      al_draw_bitmap(cursor, 190, 420, 0);
+      break;
+  case 3:
+      al_draw_bitmap(cursor, 190, 450, 0);
+      break;
+  // default:
+  //     break;
+  }
+	
+	
+	/*
+	for (int s = 0; s < capimon.AMOUNT_SKILLS; s++) {
+		capimon.skill[s].draw_skill_in_battle();
+	}
+	*/
+  al_draw_text(font, al_map_rgb(0,0,0), 40, 420, ALLEGRO_ALIGN_LEFT, "CHOQUE DO TROVÃO"); // 0
+  al_draw_text(font, al_map_rgb(0,0,0), 40, 450, ALLEGRO_ALIGN_LEFT, "ATAQUE RÁPIDO"); // 1
+  al_draw_text(font, al_map_rgb(0,0,0), 200, 420, ALLEGRO_ALIGN_LEFT, "INVESTIDA DO TROVÃO"); // 2
+  al_draw_text(font, al_map_rgb(0,0,0), 200, 450, ALLEGRO_ALIGN_LEFT, "CAUDA DE FERRO"); // 3
 }
 
 int PlayerAttack::ataqueInimigo()
