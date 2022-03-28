@@ -1,13 +1,15 @@
 /* Battle.hpp */
+
 #ifndef BATTLE_HPP
 #define BATTLE_HPP
 
+#include "Position.hpp"
 #include "Npc.hpp"
 #include "Capimon.hpp"
 #include "Character.hpp"
 #include "Player.hpp"
 #include "Skill.hpp"
-#include "Position.hpp"
+
 
 // TODO: Check if there is something repeated
 #include <allegro5/allegro.h>
@@ -57,4 +59,5 @@ class Battle {
 		void start_battle(Player *hero , Npc *enemy);
 			
 };
-#endif
+
+#endif /* BATTLE_HPP */
