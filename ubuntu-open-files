@@ -1,0 +1,12 @@
+gedit --new-window -w src/Battle.* &
+gedit --new-window -w src/Capimon.* &
+gedit --new-window -w src/Character.* &
+gedit --new-window -w src/Interaction.* &
+gedit --new-window -w src/Map.* &
+gedit --new-window -w src/Npc.* &
+gedit --new-window -w src/Object.* &
+gedit --new-window -w src/Player.* &
+gedit --new-window -w src/Position.* &
+gedit --new-window -w src/Skill.* &
+
+for file in Battle Capimon Character Interaction Map Npc Object Player Position Skill; do gedit --new-window -w src/$file.* & done
