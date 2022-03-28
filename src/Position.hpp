@@ -1,5 +1,9 @@
 /* Position.hpp */
 
+/*
+ * This class is used to store and manipulate positions in the screen (like a matrix)
+ */
+
 #ifndef POSITION_HPP
 #define POSITION_HPP
 
