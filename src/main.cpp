@@ -216,18 +216,7 @@ int main(int argc, char **argv){
 
     if(!inicializa()) return -1;
 
-<<<<<<< HEAD
-    //Criação da skills dos capimons
-    //exemplo: Skill nomeSkil (PosicaoSkill, nomeSkill, danoMinimo, dano Maximo)
-    Skill choque(0, "Choque do trovão", 10, 20);
-	Skill cauda(1, "Cauda de ferro", 50, 120);
-	Skill pena(2, "Pena de gaivota", 5, 10);
-	Skill copo(3, "Copo de plastico", 175, 200);
 
-    //atribuição de um conjunto de skills em um array;
-    //exemplo: Skill nomeVetorSkil[] = {skill1, skill2, skill3, skill4};
-	Skill hab[] = {choque, cauda, pena, copo};
-=======
 	// Criação de um vetor de skils
 	// Skill {PosicaoSkill, nomeSkill, danoMinimo, dano Maximo} chamada implícita do construtor
 
@@ -270,7 +259,6 @@ int main(int argc, char **argv){
 		{ 2, "Ataque Hipnótico", 5, 10},
 		{ 3, "Assustar", 175, 200 }
 	};
->>>>>>> 8fa88581e67312f1579abc440997f47c010224f9
 
     //Criação de Capimons
     //exemplo Capimon nomeCapimon("NomeCapimon", BitmapDaImagem, vida, array de Skills );
