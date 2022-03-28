@@ -26,7 +26,7 @@ Battle::~Battle() {
 // TODO: start_battle()
 void Battle::start_battle(Player *hero , Npc *enemy) {
 	bool exit = false;
-	float fps = 5;
+	float fps = 2;
 	bool redraw = true;
 	bool pressed_enter = false;
 	ALLEGRO_TIMER *timer = NULL;
@@ -120,8 +120,10 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 			redraw = false;
 			if(pressed_enter){
 				pressed_enter = false;
-				hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill()->select_damage());
+				enemy->get_selected_capimon()->select_skill();
 				enemy->get_selected_capimon()->decrement_health(hero->get_selected_capimon()->get_selected_skill()->select_damage());
+				if(!there_is_a_looser(hero,enemy))
+					hero->get_selected_capimon()->decrement_health(enemy->get_selected_capimon()->get_selected_skill()->select_damage());
 			}
 			al_draw_bitmap(_background, 0, 0, 0);
 			al_draw_bitmap(_options,0,407,0);
