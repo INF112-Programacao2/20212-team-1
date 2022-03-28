@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <iostream>
 #include <fstream>
 
@@ -9,44 +8,36 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
-#include "Position.hpp"
-#include "Map.hpp"
-#include "Object.hpp"
-#include "Character.hpp"
-#include "Player.hpp"
-#include "PlayerAttack.hpp"
+#include "Batlle.hpp"
 #include "Capimon.hpp"
-#include "CapimonStatus.hpp"
+#include "Character.hpp"
+#include "Interaction.hpp"
+#include "Map.hpp"
+#include "Npc.hpp"
+#include "Object.hpp"
+#include "Player.hpp"
+#include "Position.hpp"
+#include "Skill.hpp"
 
 const float FPS = 5;
-const int SCREEN_W = 640;
-const int SCREEN_H = 480;
+const int SCREEN_W = 640; //tamanho horizontal da tela
+const int SCREEN_H = 480; //tamanho vertical da tela
 
-enum MYKEYS
-{
+#define Pos_x_inicial 5 //posicao inicial em x do personagem
+#define Pos_y_inicial 6 //posicao inicial em y do personagem
+#define Tam_x_sprite 16 //tamanho em x de cada sprite do personagem
+#define Tam_y_sprite 16 //tamanho em y de cada sprite do personagem
+
+enum MYKEYS{
     KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
 };
 
+//Arquivos base para rodar o programa allegro
+ALLEGRO_DISPLAY *display = nullptr;
+ALLEGRO_EVENT_QUEUE *event_queue = nullptr;
+ALLEGRO_TIMER *timer = nullptr;
 
-ALLEGRO_DISPLAY *display = NULL;
-ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-ALLEGRO_TIMER *timer = NULL;
-ALLEGRO_BITMAP *personagem = NULL;
-ALLEGRO_BITMAP *mapa = NULL;
-ALLEGRO_FONT *font = al_load_font("font.ttf", 11, 0);
-ALLEGRO_FONT *fonteFinal = al_load_font("font.ttf", 30, 0);
-ALLEGRO_SAMPLE *musica = NULL;
-ALLEGRO_SAMPLE_INSTANCE *musicaInstancia = NULL;
-ALLEGRO_BITMAP *background;
-ALLEGRO_BITMAP *options;
-ALLEGRO_BITMAP *capimonJulio;
-ALLEGRO_BITMAP *capimonAndre;
-ALLEGRO_BITMAP *capimonAliado;
-ALLEGRO_BITMAP *seta;
-ALLEGRO_BITMAP *vida;
-ALLEGRO_BITMAP *bar;
-
-//variaveis para monitorar a camera
+//variaveis para monitorar a camera do personagem
 ALLEGRO_TRANSFORM camera;
 int camera_x = 0;
 int camera_y = 0;
@@ -56,6 +47,12 @@ int pos_y = 4;
 bool key[4] = { false, false, false, false };
 bool redraw = true;
 bool sair = false;
+
+//Criação das variaveis globais que iram armazenar Bitmaps de imagens
+// exemplo: ALLEGRO_BITMAP *nomevariavel = nullptr;
+ALLEGRO_BITMAP *personagem = nullptr;
+ALLEGRO_BITMAP *mapa = nullptr;
+
 
 int inicializa() {
     if(!al_init())
@@ -83,29 +80,29 @@ int inicializa() {
         return -1;
     }
     
-    if(!al_font_addon_initialized())
-    {
-        std::cerr <<"Falha ao iniciar al_font_addon!" << std::endl;
-        return -1;
-    }
+    // if(!al_font_addon_initialized())
+    // {
+    //     std::cerr <<"Falha ao iniciar al_font_addon!" << std::endl;
+    //     return -1;
+    // }
     
-    if(!al_init_ttf_addon())
-    {
-        std::cerr <<"Falha ao iniciar al_init_ttf_addon!" << std::endl;
-        return -1;
-    }
+    // if(!al_init_ttf_addon())
+    // {
+    //     std::cerr <<"Falha ao iniciar al_init_ttf_addon!" << std::endl;
+    //     return -1;
+    // }
     
-    if(!al_install_audio())
-    {
-        std::cerr <<"Falha ao iniciar al_install_audio!" << std::endl;
-        return -1;
-    }
+    // if(!al_install_audio())
+    // {
+    //     std::cerr <<"Falha ao iniciar al_install_audio!" << std::endl;
+    //     return -1;
+    // }
     
-    if(!al_init_acodec_addon();)
-    {
-        std::cerr <<"Falha ao iniciar al_init_acodec_addon!" << std::endl;
-        return -1;
-    }
+    // if(!al_init_acodec_addon();)
+    // {
+    //     std::cerr <<"Falha ao iniciar al_init_acodec_addon!" << std::endl;
+    //     return -1;
+    // }
     
     display = al_create_display(SCREEN_W, SCREEN_H);
     if(!display)
@@ -123,6 +120,19 @@ int inicializa() {
         al_destroy_timer(timer);
         return -1;
     }
+
+    //inicialização da variaveis do Bitmaps de imagem
+    
+    /*exemplo
+    nome = al_load_bitmap("enderco do diretori/nomeArquivo.bmp");
+    if(!nome)
+    {
+        std::cerr << "Falha ao carregar o nome!" << std::endl;
+        al_destroy_display(display);
+        al_destroy_timer(timer);
+        return -1;
+    }
+    */
 
     personagem = al_load_bitmap("img/personagem1.bmp");
     if(!personagem)
@@ -152,37 +162,51 @@ int inicializa() {
 
     al_reserve_samples(10);
 
-    musica = al_load_sample("audios/musica.ogg");
-    musicaInstancia = al_create_sample_instance(musica);
-    al_set_sample_instance_playmode(musicaInstancia, ALLEGRO_PLAYMODE_LOOP);
-
-    al_attach_sample_instance_to_mixer(musicaInstancia, al_get_default_mixer());
-    
-    //Desenha cenário
-    background = al_load_bitmap("img/TileBatalla.bmp");
-    options = al_load_bitmap("img/DialogBar.bmp");
-    vida = al_load_bitmap("img/Vida.bmp");
-    bar = al_load_bitmap("img/Bar.bmp");
-    
-    Npc Julio;
-    Capimon Andre(capimonAndre, "Andre", " ", " ", " ", " ");
-    CapimonStatus Jul(Julio.Get_Vida(), 14.f, 14.f);
-    CapimonStatus Cap(Capivaristo.Get_Vida(), 420.f, 350.f);
-
     return 1;
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
+
     if(!inicializa()) return -1;
 
-    Player capivaristo("Capivaristo", personagem,5, 6, 16, 16);
-    Capimon Capivaristo(capimonAliado, "Capivaristo", "Choque do Trovão", "Ataque Rápido", "Investida Trovão", "Cauda de Ferro");
-    PlayerAttack a;
+    //Criação da skills dos capimons
+    //exemplo: Skill nomeSkil (PosicaoSkill, nomeSkill, danoMinimo, dano Maximo)
+    Skill choque(0, "Choque do trovão", 10, 20);
+	Skill cauda(1, "Cauda de ferro", 50, 120);
+	Skill pena(2, "Pena de gaivota", 5, 10);
+	Skill copo(3, "Copo de plástico", 175, 200);
+
+    //atribuição de um conjunto de skills em um array;
+    //exemplo: Skill nomeVetorSkil[] = {skill1, skill2, skill3, skill4};
+	Skill hab[] = {choque, cauda, pena, copo};
+
+    //Criação de Capimons
+    //exemplo Capimon nomeCapimon("NomeCapimon", BitmapDaImagem, vida, array de Skills );
+    Capimon picachu("Picachu", pi, 350, hab );
+
+
+    //Criação do player
+    Player capivaristo("Capivaristo", personagem,Pos_x_inicial, Pos_y_inicial, Tam_x_sprite, Tam_y_sprite);
+
+    //Criação dos arquivos de falas do Npcs
+    //exemplo: std::string falas[] = {"file/Andre.txt"};
+    
+    //Criação dos Npcs
+    //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y, Array com endereço dos arquivos de fala );
+
+    //Atribuição dos Capimons aos charactes.
+    //Exemplo: nomeCharaceter.add_capimon(&CapimonNome);
+
+
+    //Criação do mapa do jogo
     Map map("img/walkable_map.pnm", mapa, 0, 0);
 
-    while(!sair)
-    {
+    //Criação das batalhas
+    Battle bat("img/battle/TileBatalla.bmp");
+    //Inicialização da batalha
+    //bat.start_battle(&Player,&Npc);
+
+    while(!sair){
         ALLEGRO_EVENT ev;
         al_wait_for_event(event_queue, &ev);
 
@@ -294,95 +318,19 @@ int main(int argc, char **argv)
             al_use_transform(&camera);
 
             al_flip_display();
-=======
-
-int main(){
-
-    while(!exit){
-
-        int i=1;
-        al_play_sample_instance(musicaInstancia);
-        al_draw_bitmap(background, 0, 0, 0);
-        al_draw_bitmap(options,0,407,0);
-
-        a.draw(font, seta);
-        Jul.draw("CHARIZARD",vida,bar,font);
-        Cap.draw("PIKACHU",vida,bar,font);
-
-        Capivaristo.Mostrar_Capimon();
-        if(i==1){
-            Julio.Mostrar_Capimon();
->>>>>>> batalha
-        }
-        else{
-            Andre.Mostrar_Capimon();
         }
 
-        ALLEGRO_EVENT ev;
-        al_wait_for_event(event_queue,&ev);
-
-        if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
-            switch(ev.keyboard.keycode)
-            {
-                case ALLEGRO_KEY_ESCAPE:
-                    exit = true;
-                    break;
-
-                case ALLEGRO_KEY_LEFT:
-                    a.selectAttack(ALLEGRO_KEY_LEFT);
-                    break;
-
-                case ALLEGRO_KEY_RIGHT:
-                    a.selectAttack(ALLEGRO_KEY_RIGHT);
-                    break;
-
-                case ALLEGRO_KEY_UP:
-                    a.selectAttack(ALLEGRO_KEY_UP);
-                    break;
-                
-                case ALLEGRO_KEY_DOWN:
-                    a.selectAttack(ALLEGRO_KEY_DOWN);
-                    break;
-                
-                case ALLEGRO_KEY_ENTER:
-                    Cap.decrementHealth(a.ataqueInimigo());
-                    Jul.decrementHealth(a.do_attack());
-                    break;
-            }
-        }
-
-        if (Jul.looser())
-        {
-            al_clear_to_color(al_map_rgb(0,0,0));
-            al_draw_text(fonteFinal, al_map_rgb(255,255,255), 160, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ FOI APROVADO!!!!");
-            al_flip_display();
-            al_rest(5.0);
-            exit = true;
-            // Julio ganhou, Capivaristo perde
-        } else if (Cap.looser())
-        {
-            al_clear_to_color(al_map_rgb(0,0,0));
-            al_draw_text(fonteFinal, al_map_rgb(255,255,255), 160, 220, ALLEGRO_ALIGN_LEFT, "VOCÊ FOI REPROVADO!!!!");
-            al_flip_display();
-            al_rest(5.0);
-            exit = true;
-            // Capivaristo ganhou, Julio perde
-        }
-
-        al_flip_display();
     }
+
+    //Destrutor para os Bitmaps das imagens
+    //exemplo: al_destroy_bitmap(nome);
 
     al_destroy_bitmap(personagem);
     al_destroy_bitmap(mapa);
     al_destroy_timer(timer);
     al_destroy_display(display);
     al_destroy_event_queue(event_queue);
-    al_destroy_bitmap(background);
-    al_destroy_font(fonteFinal);
     al_destroy_font(font);
-    al_destroy_bitmap(seta);
-    al_destroy_sample(musica);
-    al_destroy_sample_instance(musicaInstancia);
 
     return 0;
 }
