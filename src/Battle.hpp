@@ -26,9 +26,12 @@
 
 class Battle {
 	private:
-		
+		// When using this variavel, remember to convert the int to a float
+		// const Position ENEMY_BAR_POSITION = Position(14, 14);
 		const float X_ENEMY_BAR = 14;	// TODO: Maybe move to other class
 		const float Y_ENEMY_BAR = 14;	// TODO: Maybe move to other class
+		// When using this variavel, remember to convert the int to a float
+		// const Position HERO_BAR_POSITION = Position(420, 350);
 		const float X_HERO_BAR = 420;	// TODO: Maybe move to other class
 		const float Y_HERO_BAR = 350;	// TODO: Maybe move to other class
 		const int UP_LEFT = 0;
