@@ -97,7 +97,7 @@ int inicializa() {
         al_destroy_timer(timer);
         return -1;
     }
-
+    
     personagem = al_load_bitmap("../img/personagem1.bmp");
     if(!personagem)
     {
