@@ -38,6 +38,8 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
   
 	hero->set_selected_capimon(0);
 	enemy->set_selected_capimon(0);
+	hero->get_selected_capimon()->set_selected_skill(0);
+	enemy->get_selected_capimon()->set_selected_skill(0);
 
 	
 
@@ -142,7 +144,7 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 					this->_selected_display_skill.add_x();
 				verify_selected_display_skill(hero);
 				break;
-			case ALLEGRO_KEY_TAB:
+			case ALLEGRO_KEY_ENTER:
 				// TODO: Create attack function
 				pressed_enter = true;
 				break;
