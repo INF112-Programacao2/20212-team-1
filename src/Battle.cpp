@@ -4,14 +4,14 @@
 
 // TODO: Change construct to the easier way
 Battle::Battle(std::string background_directory):
-	_selected_display_skill(0,0) {
+	_selected_display_skill(0,0), _cursor_position(30, 420) {
 	this->_health_bar = al_load_bitmap("img/battle/health_bar.bmp");
 	this->_colored_bar = al_load_bitmap("img/battle/colored_bar.bmp");
 	this->_font = al_load_font("file/font.ttf", 11, 0);
 	this->_background = al_load_bitmap(background_directory.c_str());
 	this->_options = al_load_bitmap("img/battle/PlayerAttackBox.bmp");
 	this->_cursor = al_load_bitmap("img/battle/cursor.bmp");
-	this->_cursor_position = Position(30, 420);
+	
 }
 
 Battle::~Battle() {
@@ -296,7 +296,7 @@ void Battle::draw_cursor() { //draw cursor and capimon skills
   		}
   }
 	
-	al_draw_bitmap(_cursor, this->_cursor_position, this->_cursor_position, 0);
+	al_draw_bitmap(_cursor, this->_cursor_position.get_x(), this->_cursor_position.get_y(), 0);
 	//     break;
 		
 		
