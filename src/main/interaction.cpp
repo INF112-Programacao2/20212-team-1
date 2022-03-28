@@ -3,13 +3,13 @@
 #include <iostream>
 
 int main() {
-	Interaction it("../file/Andre.txt");
-	int num_dialogs = it.get_quantity_of_dialogs();
+	Interaction interaction("../file/Andre.txt");
+	int num_dialogs = interaction.get_quantity_of_dialogs();
 	std::cout << "There are " << num_dialogs << " dialogs\n" << std::endl;
-	for (int i = 0; i < num_dialogs; i++) {
-		std::string* dialog = it.get_dialog(i);
-		std::cout << "Player: " << dialog[it.SPEAK] << std::endl;
-		std::cout << "NPC: " << dialog[it.ANSWER] << std::endl;
+	for (unsigned int i = 0; i < num_dialogs; i++) {
+		Dialog dialog = interaction.get_dialog(i);
+		std::cout << "Speak: " << dialog.get_speak() << std::endl;
+		std::cout << "Answer: " << dialog.get_answer() << std::endl;
 		std::cout << "***" << std::endl;
 	}
 	return 0;
