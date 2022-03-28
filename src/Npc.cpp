@@ -103,3 +103,8 @@ Position Npc::get_CAPIMON_DRAW_POSITION() const {
 Position Npc::get_CAPIMON_STATUS_POSITION() const {
     return this->CAPIMON_STATUS_POSITION;
 }
+
+void Npc::draw_npc(){
+	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
+	al_draw_bitmap(this->_image, this->_position.get_x(), this->_position.get_y(), 0);
+}
