@@ -1,1 +1,1 @@
-g++ main/battle.cpp Position.cpp Character.cpp Player.cpp NPC.cpp Interaction.cpp Skill.cpp Object.cpp Battle.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec
+g++ main/battle.cpp Position.cpp Character.cpp Player.cpp Npc.cpp Interaction.cpp Skill.cpp Object.cpp Battle.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec
