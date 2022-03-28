@@ -1,4 +1,9 @@
 /* Skill.hpp */
+
+/*
+ * This class is used to store the skills (like power) of some capimon
+ */
+
 #ifndef SKILL_HPP
 #define SKILL_HPP
 
@@ -6,7 +11,6 @@
 
 class Skill {
 	private:
-		// TODO: Change position of consts
 		const int MIN_DAMAGE = 0;
 		const int MAX_DAMAGE = 1;
 		int _index;
@@ -19,4 +23,5 @@ class Skill {
 		std::string get_name();
 		int select_damage();
 };
-#endif
+
+#endif /* SKILL_HPP */
