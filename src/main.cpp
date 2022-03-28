@@ -29,14 +29,14 @@ const int SCREEN_H = 480; //tamanho vertical da tela
 #define Tam_y_sprite 32 //tamanho em y de cada sprite do personagem
 
 //Posicção dos Ncs no jogo
-#define Pos_x_andre 5 //posicao inicial em x do personagem
-#define Pos_y_andre 6 //posicao inicial em y do personagem
-#define Pos_x_julio 5 //posicao inicial em x do personagem
-#define Pos_y_julio 6 //posicao inicial em y do personagem
-#define Pos_x_cantineira 5 //posicao inicial em x do personagem
-#define Pos_y_cantineira 6 //posicao inicial em y do personagem
-#define Pos_x_jacare 5 //posicao inicial em x do personagem
-#define Pos_y_jacare 6 //posicao inicial em y do personagem
+#define Pos_x_andre 21 //posicao inicial em x do personagem
+#define Pos_y_andre 96 //posicao inicial em y do personagem
+#define Pos_x_julio 93 //posicao inicial em x do personagem
+#define Pos_y_julio 14 //posicao inicial em y do personagem
+#define Pos_x_cantineira 76 //posicao inicial em x do personagem
+#define Pos_y_cantineira 14 //posicao inicial em y do personagem
+#define Pos_x_jacare 47 //posicao inicial em x do personagem
+#define Pos_y_jacare 40 //posicao inicial em y do personagem
 
 enum MYKEYS{
     KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
@@ -68,6 +68,9 @@ ALLEGRO_BITMAP *hitmonchanBMP = nullptr;
 ALLEGRO_BITMAP *haunterBMP = nullptr;
 ALLEGRO_BITMAP *arcanineBMP = nullptr;
 ALLEGRO_BITMAP *andreBMP = nullptr;
+ALLEGRO_BITMAP *jacareBMP = nullptr;
+ALLEGRO_BITMAP *cantineiraBMP = nullptr;
+
 
 //Variaveis para saber se os Npcs estão ativos ou não no mapa
 bool ativaJulio = false;
@@ -197,6 +200,24 @@ int inicializa() {
         return -1;
     }
 
+    jacareBMP = al_load_bitmap("img/npc/alex.bmp");
+	if(!pikachuBMP)
+    {
+        std::cerr << "Falha ao carregar o Jacare!" << std::endl;
+        al_destroy_display(display);
+        al_destroy_timer(timer);
+        return -1;
+    }
+
+    cantineiraBMP = al_load_bitmap("img/npc/TiaDaCantina.bmp");
+	if(!pikachuBMP)
+    {
+        std::cerr << "Falha ao carregar a tia da cantina!" << std::endl;
+        al_destroy_display(display);
+        al_destroy_timer(timer);
+        return -1;
+    }
+
     personagem = al_load_bitmap("img/personagem.bmp");
     if(!personagem)
     {
@@ -293,18 +314,18 @@ int main(int argc, char **argv){
     
     //Criação dos Npcs
     //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y, Array com endereço dos arquivos de fala );
-	Npc andre("Prof. Andre", andreBMP, 6*32, 7*32, falas); // TODO: review npc initial position int: x, y
+	Npc andre("Prof. Andre", andreBMP, Pos_x_andre*32, Pos_y_andre*32, falas); // TODO: review npc initial position int: x, y
     //Npc julio("Prof. Julio", , int{}, int{}, falas);
-    //Npc jacare("Jacare da Vacina", , int{}, int{}, falas);
-    //Npc cantineira("Tia da Cantina", , int{}, int{}, falas);
+    Npc jacare("Jacare da Vacina", jacareBMP,Pos_x_jacare*32, Pos_y_jacare*32, falas);
+    Npc cantineira("Tia da Cantina", cantineiraBMP, Pos_x_cantineira*32, Pos_y_cantineira*32, falas);
 
     //Atribuição dos Capimons aos charactes.
     //Exemplo: nomeCharaceter.add_capimon(&CapimonNome);
 	capivaristo.add_capimon(&pikachu);
 	andre.add_capimon(&hitmonchan);
-	//cantineira.add_capimon(&haunter);
+	cantineira.add_capimon(&haunter);
     // julio.add_capimon(&blastoise);
-    // jacare.add_capimon(&arcanine);
+    jacare.add_capimon(&arcanine);
 
     //Criação do mapa do jogo
     Map map("img/walkable_map.pnm", mapa, 0, 0);
@@ -313,7 +334,7 @@ int main(int argc, char **argv){
     Battle bat("img/battle/TileBatalla.bmp");
     //Inicialização da batalha
     //bat.start_battle(&Player,&Npc);
-	bat.start_battle(&capivaristo, &andre);
+	//bat.start_battle(&capivaristo, &andre);
 
     while(!sair){
         ALLEGRO_EVENT ev;
@@ -382,6 +403,9 @@ int main(int argc, char **argv){
             al_clear_to_color(al_map_rgb(0,0,0));
             
             map.draw_part();
+            andre.draw_npc();
+            jacare.draw_npc();
+            cantineira.draw_npc();
 
             if(key[KEY_UP])
             {
@@ -440,6 +464,9 @@ int main(int argc, char **argv){
 	al_destroy_bitmap(hitmonchanBMP);
 	al_destroy_bitmap(haunterBMP);
 	al_destroy_bitmap(arcanineBMP);
+    al_destroy_bitmap(andreBMP);
+    al_destroy_bitmap(jacareBMP);
+    al_destroy_bitmap(cantineiraBMP);
     al_destroy_bitmap(mapa);
     al_destroy_timer(timer);
     al_destroy_display(display);
