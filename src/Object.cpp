@@ -2,16 +2,22 @@
 
 #include "Object.hpp"
 
-Object::Object(ALLEGRO_BITMAP *image,int x, int y):
+#include <string>
+
+Object::Object(/*std::string image_directory*/ALLEGRO_BITMAP *image,int x, int y):
 	_position(x,y), _image(image) {
 		this->_font_directory = "file/font.ttf";
 		this->_font_size = 11;
 		/*
 		TODO:
-		if (alegro is init and addon font is init)
-			this->_font = al_load_font(this->_font_directory.c_str(), this->_font_size, 0);
-		else
-			//throw exception
+		if (alegro is not init)
+			throw allegro must be initialized
+		if (addon font is not init)
+			throw allegro font must be initialized
+		this->_font = al_load_font(this->_font_directory.c_str(), this->_font_size, 0);
+		if (addon image is not)
+			throw allegro image must be initialized
+		this->_image = al_load_bitmap(image_directory.c_str());
 		*/
 	};
 
