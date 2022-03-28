@@ -11,7 +11,7 @@ Battle::Battle(std::string background_directory):
 	this->_background = al_load_bitmap(background_directory.c_str());
 	this->_options = al_load_bitmap("img/battle/PlayerAttackBox.bmp");
 	this->_cursor = al_load_bitmap("img/battle/cursor.bmp");
-	
+	this->_cursor_position = Position(30, 420);
 }
 
 Battle::~Battle() {
@@ -277,28 +277,26 @@ void Battle::draw_cursor() { //draw cursor and capimon skills
 	// ALLEGRO_FONT *font = al_load_font("file/font.ttf");
 	al_convert_mask_to_alpha(_cursor, al_map_rgb(255,0,255));
   
-//   Position draw_position(30, 420);	// TODO: Change to frist position
-  
   switch (this->_selected_display_skill.get_x()) {
   	case 0:
-  		draw_position.set_x(30);
+  		this->_cursor_position.set_x(30);
   		switch (this->_selected_display_skill.get_y()) {
   			case 0:
-  				draw_position.set_y(420);
+  				this->_cursor_position.set_y(420);
   			case 1:
-  				draw_position.set_y(450);
+  				this->_cursor_position.set_y(450);
   		}
   	case 1:
-			draw_position.set_x(190);
+			this->_cursor_position.set_x(190);
   		switch (this->_selected_display_skill.get_y()) {
   			case 0:
-  				draw_position.set_y(420);
+  				this->_cursor_position.set_y(420);
   			case 1:
-  				draw_position.set_y(450);
+  				this->_cursor_position.set_y(450);
   		}
   }
 	
-	al_draw_bitmap(_cursor, draw_position.get_x(), draw_position.get_y(), 0);
+	al_draw_bitmap(_cursor, this->_cursor_position, this->_cursor_position, 0);
 	//     break;
 		
 		

@@ -73,6 +73,7 @@ class Battle {
 		
 		/* NEW ATRIBUTES - BEGIN */
 		Position _selected_display_skill;
+		Position _cursor_position;
 		/* NEW ATRIBUTES - END */
 
 	public:
