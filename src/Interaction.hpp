@@ -14,17 +14,17 @@ Cada interação é composta por uma conjunto de diálogos. Cada diálogo é com
 
 class Interaction {
 	private:
-		int _quantity_of_dialogs;
-		std::string** _dialogs;
+		int _quantity_of_dialogs;	// quantity of dialogs in an interaction
+		std::string** _dialogs;	// matrix of dialogs
 	public:
-		Interaction(std::string file_directory);
-		~Interaction();
-		const int SIZE = 2;
-		const int SPEAK = 0;
-		const int ANSWER = 1;
-		const char DELIMITER = '|';
-		int get_quantity_of_dialogs();
-		std::string* get_dialog(int n);
+		Interaction(std::string file_directory);	// constructor
+		~Interaction();	// destructor
+		const int SIZE = 2;	// const that defines the quantity of texts in each dialog
+		const int SPEAK = 0;	// const that define the position of the speak's text in the some _dialog[i]
+		const int ANSWER = 1;	// const that define the position of the speak's text in the some _dialog[i]
+		const char DELIMITER = '|'; // const that define delimiter char in the interaction file
+		int get_quantity_of_dialogs();	// returns the quantity of dialogs in an interaction
+		std::string* get_dialog(int n);	// returns a dialog in an interaction
 };
 
 #endif /* INTERACTION_HPP */
