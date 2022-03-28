@@ -275,6 +275,28 @@ void Battle::draw_cursor() { //draw cursor and capimon skills
 	// ALLEGRO_FONT *font = al_load_font("file/font.ttf");
 	al_convert_mask_to_alpha(_cursor, al_map_rgb(255,0,255));
   
+  Position draw_position(0,0);	// TODO: Change to frist position
+  
+  switch (this->_selected_display_skill.get_x()) {
+  	case 0:
+  		switch (this->_selected_display_skill.get_y()) {
+  			case 0:
+  				draw_position.set_x();
+  				draw_position.set_y();
+  			case 1:
+	  			draw_position.set_x();
+  				draw_position.set_y();
+  		}
+  	case 1:
+  		switch (this->_selected_display_skill.get_y()) {
+  			case 0:
+  				draw_position.set_x();
+  				draw_position.set_y();
+  			case 1:
+  				draw_position.set_x();
+  				draw_position.set_y();
+  		}
+  }
 	
 	al_draw_bitmap(_cursor, this->_selected_display_skill.get_x(), this->_selected_display_skill.get_y(), 0);
 	//     break;
