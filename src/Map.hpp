@@ -1,5 +1,9 @@
 /* Map.hpp */
 
+/*
+ * This class represents the mapa, where the player can walk and make all the interactions with other beings
+ */
+
 #ifndef MAP_HPP
 #define MAP_HPP
 

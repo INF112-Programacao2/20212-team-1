@@ -36,8 +36,8 @@ Map::Map(std::string arquivo, ALLEGRO_BITMAP *image,int x, int y) : Object(image
 
 Map::~Map() {
 	for (int i = 0; i < this->_hight; i++)
-		delete [] _walkable[i];
-	delete [] _walkable;
+		delete [] this->_walkable[i];
+	delete [] this->_walkable;
 }
 
 int Map::get_width(){
@@ -48,10 +48,11 @@ int Map::get_hight(){
 	return this->_hight;
 }
 
+// TODO: Verify if it's an error
 char Map::get_val_walkable(int x, int y){
-	return _walkable[y][x];
+	return this->_walkable[y][x];
 }
 
 void Map::draw_part(){
-	al_draw_bitmap(_image,_position.get_x(), _position.get_y(), 0);
+	al_draw_bitmap(this->_image, this->_position.get_x(), this->_position.get_y(), 0);
 }
