@@ -8,7 +8,7 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
-#include "Batlle.hpp"
+#include "Battle.hpp"
 #include "Capimon.hpp"
 #include "Character.hpp"
 #include "Interaction.hpp"
@@ -48,11 +48,16 @@ bool key[4] = { false, false, false, false };
 bool redraw = true;
 bool sair = false;
 
-//Criação das variaveis globais que iram armazenar Bitmaps de imagens
+//Criação das variaveis globais que irão armazenar Bitmaps de imagens
 // exemplo: ALLEGRO_BITMAP *nomevariavel = nullptr;
 ALLEGRO_BITMAP *personagem = nullptr;
 ALLEGRO_BITMAP *mapa = nullptr;
-
+ALLEGRO_BITMAP *pikachuBMP = nullptr;
+ALLEGRO_BITMAP *blastoiseBMP = nullptr;
+ALLEGRO_BITMAP *hitmonchanBMP = nullptr;
+ALLEGRO_BITMAP *haunterBMP = nullptr;
+ALLEGRO_BITMAP *arcanineBMP = nullptr;
+ALLEGRO_BITMAP *andreBMP = nullptr;
 
 int inicializa() {
     if(!al_init())
@@ -122,17 +127,59 @@ int inicializa() {
     }
 
     //inicialização da variaveis do Bitmaps de imagem
-    
-    /*exemplo
-    nome = al_load_bitmap("enderco do diretori/nomeArquivo.bmp");
-    if(!nome)
+    pikachuBMP = al_load_bitmap("img/Pikachu.bmp");
+	if(!pikachuBMP)
     {
-        std::cerr << "Falha ao carregar o nome!" << std::endl;
+        std::cerr << "Falha ao carregar o Pikachu!" << std::endl;
         al_destroy_display(display);
         al_destroy_timer(timer);
         return -1;
     }
-    */
+
+    blastoiseBMP = al_load_bitmap("img/Blastoise.bmp");
+	if(!blastoiseBMP)
+    {
+        std::cerr << "Falha ao carregar o Blastoise!" << std::endl;
+        al_destroy_display(display);
+        al_destroy_timer(timer);
+        return -1;
+    }
+
+    hitmonchanBMP = al_load_bitmap("img/Hitmonchan.bmp");
+	if(!hitmonchanBMP)
+    {
+        std::cerr << "Falha ao carregar o Hitmonchan!" << std::endl;
+        al_destroy_display(display);
+        al_destroy_timer(timer);
+        return -1;
+    }
+
+    haunterBMP = al_load_bitmap("img/Haunter.bmp");
+	if(!haunterBMP)
+    {
+        std::cerr << "Falha ao carregar o Haunter!" << std::endl;
+        al_destroy_display(display);
+        al_destroy_timer(timer);
+        return -1;
+    }
+	
+    arcanineBMP = al_load_bitmap("img/DoguinhoDoRu.bmp");
+    if(!arcanineBMP)
+    {
+        std::cerr << "Falha ao carregar o Arcanine!" << std::endl;
+        al_destroy_display(display);
+        al_destroy_timer(timer);
+        return -1;
+    }
+
+	andreBMP = al_load_bitmap("img/npc/oak.bmp");
+    if(!andreBMP)
+    {
+        std::cerr << "Falha ao carregar o Andre!" << std::endl;
+        al_destroy_display(display);
+        al_destroy_timer(timer);
+        return -1;
+    }
 
     personagem = al_load_bitmap("img/personagem1.bmp");
     if(!personagem)
@@ -169,34 +216,76 @@ int main(int argc, char **argv){
 
     if(!inicializa()) return -1;
 
-    //Criação da skills dos capimons
-    //exemplo: Skill nomeSkil (PosicaoSkill, nomeSkill, danoMinimo, dano Maximo)
-    Skill choque(0, "Choque do trovão", 10, 20);
-	Skill cauda(1, "Cauda de ferro", 50, 120);
-	Skill pena(2, "Pena de gaivota", 5, 10);
-	Skill copo(3, "Copo de plástico", 175, 200);
 
-    //atribuição de um conjunto de skills em um array;
-    //exemplo: Skill nomeVetorSkil[] = {skill1, skill2, skill3, skill4};
-	Skill hab[] = {choque, cauda, pena, copo};
+	// Criação de um vetor de skils
+	// Skill {PosicaoSkill, nomeSkill, danoMinimo, dano Maximo} chamada implícita do construtor
+
+    //Pikachu
+	Skill habA[] = {
+		{ 0, "Choque do trovão", 10, 20 },
+		{ 1, "Cauda de ferro", 50, 120 },
+		{ 2, "Pena de gaivota", 5, 10},
+		{ 3, "Copo de plástico", 175, 200 }
+	};
+
+    //Blastoise
+	Skill habB[] = {
+		{ 0, "Ataque intensificado", 8, 30 },
+		{ 1, "Enxurrada", 45, 78 },
+		{ 2, "Arma d'água", 18, 23},
+		{ 3, "Surfar", 1, 23 }
+	};
+
+    //Arcanine
+	Skill habC[] = {
+		{ 0, "Golpe aéreo", 10, 20 },
+		{ 1, "Lança chamas", 50, 120 },
+		{ 2, "Fúria do dragão", 5, 10},
+		{ 3, "Rajada de fogo", 175, 200 }
+	};
+
+    //Hitmonchan
+	Skill habD[] = {
+		{ 0, "Soco Cometa", 10, 20 },
+		{ 1, "Soco Rápido", 50, 120 },
+		{ 2, "Mega Soco", 5, 10},
+		{ 3, "Punho Focus", 175, 200 }
+	};
+
+    //Haunter
+	Skill habE[] = {
+		{ 0, "Raio Confusão", 10, 20 },
+		{ 1, "Esfera Obscura", 50, 120 },
+		{ 2, "Ataque Hipnótico", 5, 10},
+		{ 3, "Assustar", 175, 200 }
+	};
 
     //Criação de Capimons
     //exemplo Capimon nomeCapimon("NomeCapimon", BitmapDaImagem, vida, array de Skills );
-    Capimon picachu("Picachu", pi, 350, hab );
-
+    Capimon pikachu("Pikachu", pikachuBMP, 350, habA);
+    Capimon blastoise("Blastoise", blastoiseBMP, 400, habB);
+    Capimon hitmonchan("Hitmonchan", hitmonchanBMP, 280, habC);
+    Capimon haunter("Haunter", haunterBMP, 316, habD);
+    Capimon arcanine("Arcanine", arcanineBMP, 300, habE);
 
     //Criação do player
     Player capivaristo("Capivaristo", personagem,Pos_x_inicial, Pos_y_inicial, Tam_x_sprite, Tam_y_sprite);
 
     //Criação dos arquivos de falas do Npcs
     //exemplo: std::string falas[] = {"file/Andre.txt"};
+	std::string falas[] = { "file/Andre.txt" };
     
     //Criação dos Npcs
     //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y, Array com endereço dos arquivos de fala );
+	Npc andre("Prof. Andre", andreBMP, int{}, int{}, falas); // TODO: review npc initial position int: x, y
 
     //Atribuição dos Capimons aos charactes.
     //Exemplo: nomeCharaceter.add_capimon(&CapimonNome);
-
+	capivaristo.add_capimon(&hitmonchan);
+	andre.add_capimon(&pikachu);
+	andre.add_capimon(&haunter);
+    // julio.add_capimon(&blastoise);
+    // julio.add_capimon(&arcanine);
 
     //Criação do mapa do jogo
     Map map("img/walkable_map.pnm", mapa, 0, 0);
@@ -205,6 +294,7 @@ int main(int argc, char **argv){
     Battle bat("img/battle/TileBatalla.bmp");
     //Inicialização da batalha
     //bat.start_battle(&Player,&Npc);
+	bat.start_battle(&capivaristo, &andre);
 
     while(!sair){
         ALLEGRO_EVENT ev;
@@ -326,11 +416,17 @@ int main(int argc, char **argv){
     //exemplo: al_destroy_bitmap(nome);
 
     al_destroy_bitmap(personagem);
+	al_destroy_bitmap(pikachuBMP);
+	al_destroy_bitmap(blastoiseBMP);
+	al_destroy_bitmap(hitmonchanBMP);
+	al_destroy_bitmap(haunterBMP);
+	al_destroy_bitmap(arcanineBMP);
     al_destroy_bitmap(mapa);
     al_destroy_timer(timer);
     al_destroy_display(display);
     al_destroy_event_queue(event_queue);
-    al_destroy_font(font);
+	// NOTE: it is not within this scope
+    //al_destroy_font(font);
 
     return 0;
 }

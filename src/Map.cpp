@@ -21,7 +21,7 @@ Map::Map(std::string arquivo, ALLEGRO_BITMAP *image,int x, int y) : Object(image
 	}
 	
 	char line[100];
-	
+	//Passagem de informações para a matriz alocada dinamicamente walkable por meio da leitura de arquivo externo no qual foi passado o endereço do chamada do construtor.
 	for (int i = 0; i < this->_hight; i++) {
 		for (int j = 0; j < this->_width; j++) {
 			file.getline(line, '\n');
@@ -34,7 +34,7 @@ Map::Map(std::string arquivo, ALLEGRO_BITMAP *image,int x, int y) : Object(image
 	file.close();
 };
 
-Map::~Map() {
+Map::~Map() { //Desalocação dinâmica de walkable
 	for (int i = 0; i < this->_hight; i++)
 		delete [] this->_walkable[i];
 	delete [] this->_walkable;
@@ -53,6 +53,6 @@ char Map::get_val_walkable(int x, int y){
 	return this->_walkable[y][x];
 }
 
-void Map::draw_part(){
+void Map::draw_part(){ //desenho da imagem na tela.
 	al_draw_bitmap(this->_image, this->_position.get_x(), this->_position.get_y(), 0);
 }

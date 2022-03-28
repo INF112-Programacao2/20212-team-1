@@ -7,9 +7,9 @@
 
 Capimon::Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int max_health, Skill skills[]) :
 	_name(name), Object(image, 0, 0), _max_health(max_health), _cur_health(max_health) {
-	for (int i = 0; i < this->AMOUNT_SKILLS; i++)
+	for (int i = 0; i < this->AMOUNT_SKILLS; i++)  //atribuindo as Skills passadas para os Capimon
 		this->_skills.push_back(skills[i]);
-	this->_selected_skill = nullptr;
+	this->_selected_skill = nullptr; //Colocando a _selected_skill como vazia inicialmente
 };
 
 Capimon::~Capimon(){}
