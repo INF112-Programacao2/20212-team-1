@@ -6,8 +6,9 @@
 
 Object::Object(/*std::string image_directory*/ALLEGRO_BITMAP *image,int x, int y) :
 	_position(x,y), _image(image) {
-		this->_font_directory = "file/font.ttf";
-		this->_font_size = 11;
+		// this->_font_directory = "file/font.ttf";
+		// this->_font_size = 11;
+		
 		/*
 		TODO:
 		if (alegro is not init)
