@@ -20,7 +20,7 @@ class Character : public Object {
       std::vector<Capimon*> _deck;
       Capimon* _selected_capimon = nullptr;
     public:
-		  Character(std::string name, ALLEGRO_BITMAP *image,int x, int y);
+		  Character(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y);
 		  ~Character();
 		  const unsigned int AMOUNT_DECK = 4;
 		  std::string get_name();
