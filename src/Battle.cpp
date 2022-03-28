@@ -43,7 +43,7 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 
 	
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-
+	al_install_audio();
 	al_init_acodec_addon();
 
 	if(!al_is_font_addon_initialized()){
@@ -93,25 +93,22 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 				if (this->_selected_display_skill.get_x() > 0)
 					this->_selected_display_skill.sub_x();
 				verify_selected_display_skill(hero);
-				draw_cursor();
 				break;
 			case ALLEGRO_KEY_RIGHT:
 				if (this->_selected_display_skill.get_x() < 1)
 					this->_selected_display_skill.add_x();
 				verify_selected_display_skill(hero);
-				draw_cursor();
 				break;
 			case ALLEGRO_KEY_UP:
 				if (this->_selected_display_skill.get_y() > 0)
 					this->_selected_display_skill.sub_y();
 				verify_selected_display_skill(hero);
-				draw_cursor();
+				
 				break;
 			case ALLEGRO_KEY_DOWN:
 				if (this->_selected_display_skill.get_y() < 1)
 					this->_selected_display_skill.add_y();
 				verify_selected_display_skill(hero);
-				draw_cursor();
 				break;
 			case ALLEGRO_KEY_ENTER:
 				// TODO: Create attack function
@@ -137,6 +134,7 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 
 			for(Skill skill : hero->get_selected_capimon()->get_skills())
 				draw_skill(&skill);
+			draw_cursor();
 
 
 			if (there_is_a_looser(hero,enemy) && enemy->get_selected_capimon()->get_cur_health() == 0){
