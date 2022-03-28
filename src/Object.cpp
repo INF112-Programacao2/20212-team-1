@@ -2,8 +2,6 @@
 
 #include "Object.hpp"
 
-ALLEGRO_FONT* Object::gblFont = al_load_font("file/fonte.ttf", DEF_FONT_SIZE, 0);
-
 Object::Object(ALLEGRO_BITMAP *image,int x, int y):
 	_position(x,y), _image(image) {
 		this->_font_directory = "file/font.ttf";
@@ -12,6 +10,8 @@ Object::Object(ALLEGRO_BITMAP *image,int x, int y):
 		TODO:
 		if (alegro is init and addon font is init)
 			this->_font = al_load_font(this->_font_directory.c_str(), this->_font_size, 0);
+		else
+			//throw exception
 		*/
 	};
 
