@@ -128,21 +128,25 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 				if (this->_selected_display_skill.get_x() > 0)
 					this->_selected_display_skill.sub_x();
 				verify_selected_display_skill(hero);
+				draw_cursor();
 				break;
 			case ALLEGRO_KEY_RIGHT:
 				if (this->_selected_display_skill.get_x() < 1)
 					this->_selected_display_skill.add_x();
 				verify_selected_display_skill(hero);
+				draw_cursor();
 				break;
 			case ALLEGRO_KEY_UP:
 				if (this->_selected_display_skill.get_y() > 0)
 					this->_selected_display_skill.sub_y();
 				verify_selected_display_skill(hero);
+				draw_cursor();
 				break;
 			case ALLEGRO_KEY_DOWN:
 				if (this->_selected_display_skill.get_y() < 1)
 					this->_selected_display_skill.add_y();
 				verify_selected_display_skill(hero);
+				draw_cursor();
 				break;
 			case ALLEGRO_KEY_ENTER:
 				// TODO: Create attack function
@@ -279,21 +283,29 @@ void Battle::draw_cursor() { //draw cursor and capimon skills
   
   switch (this->_selected_display_skill.get_x()) {
   	case 0:
-  		this->_cursor_position.set_x(30);
   		switch (this->_selected_display_skill.get_y()) {
   			case 0:
+		  		this->_cursor_position.set_x(30);
   				this->_cursor_position.set_y(420);
+  				break;
   			case 1:
+		  		this->_cursor_position.set_x(30);
   				this->_cursor_position.set_y(450);
+  				break;
   		}
+  		break;
   	case 1:
-			this->_cursor_position.set_x(190);
   		switch (this->_selected_display_skill.get_y()) {
   			case 0:
+  				this->_cursor_position.set_x(190);
   				this->_cursor_position.set_y(420);
+  				break;
   			case 1:
+  				this->_cursor_position.set_x(190);
   				this->_cursor_position.set_y(450);
+  				break;
   		}
+  		break;
   }
 	
 	al_draw_bitmap(_cursor, this->_cursor_position.get_x(), this->_cursor_position.get_y(), 0);
