@@ -1,12 +1,8 @@
 /* Map.cpp */
 
-#include <iostream>
-#include <fstream>
-
 #include "Map.hpp"
-#include "Object.hpp"
-#include "Position.hpp"
 
+#include <iostream>
 
 Map::Map(std::string arquivo, ALLEGRO_BITMAP *image,int x, int y) : Object(image, x, y){
 	std::ifstream file(arquivo);

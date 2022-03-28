@@ -3,8 +3,9 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include "Object.hpp"
 #include "Position.hpp"
+#include "Object.hpp"
+
 #include <fstream>
 
 class Map : public Object{
