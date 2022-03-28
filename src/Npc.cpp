@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstring>
 
-Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, std::string file_directory[]):
+Npc::Npc(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y, std::string file_directory[]):
 	Character(name, image, x, y) {
 	for (int i = 0; i < 1; i++) {
 		std::string t = file_directory[i];

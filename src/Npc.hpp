@@ -1,5 +1,9 @@
 /* Npc.hpp */
 
+/*
+ * This class represents a character that isn't the player, the NPC. It is an independent being that can interact and battle with the player
+ */
+
 #ifndef NPC_HPP
 #define NPC_HPP
 
@@ -20,7 +24,7 @@ class Npc : public Character {
 		void show_interaction();
 		void draw_text(std::string name, std::string text);
 		virtual Position get_CAPIMON_DRAW_POSITION();
-      	virtual Position get_CAPIMON_STATUS_POSITION();
+    virtual Position get_CAPIMON_STATUS_POSITION();
 };
 
 #endif /* NPC_HPP */
