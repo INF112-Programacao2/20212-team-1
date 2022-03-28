@@ -28,6 +28,16 @@ const int SCREEN_H = 480; //tamanho vertical da tela
 #define Tam_x_sprite 32 //tamanho em x de cada sprite do personagem
 #define Tam_y_sprite 32 //tamanho em y de cada sprite do personagem
 
+//Posicção dos Ncs no jogo
+#define Pos_x_andre 5 //posicao inicial em x do personagem
+#define Pos_y_andre 6 //posicao inicial em y do personagem
+#define Pos_x_julio 5 //posicao inicial em x do personagem
+#define Pos_y_julio 6 //posicao inicial em y do personagem
+#define Pos_x_cantineira 5 //posicao inicial em x do personagem
+#define Pos_y_cantineira 6 //posicao inicial em y do personagem
+#define Pos_x_jacare 5 //posicao inicial em x do personagem
+#define Pos_y_jacare 6 //posicao inicial em y do personagem
+
 enum MYKEYS{
     KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
 };
@@ -283,7 +293,7 @@ int main(int argc, char **argv){
     
     //Criação dos Npcs
     //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y, Array com endereço dos arquivos de fala );
-	Npc andre("Prof. Andre", andreBMP, int{}, int{}, falas); // TODO: review npc initial position int: x, y
+	Npc andre("Prof. Andre", andreBMP, 6*32, 7*32, falas); // TODO: review npc initial position int: x, y
     //Npc julio("Prof. Julio", , int{}, int{}, falas);
     //Npc jacare("Jacare da Vacina", , int{}, int{}, falas);
     //Npc cantineira("Tia da Cantina", , int{}, int{}, falas);
