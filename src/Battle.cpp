@@ -7,10 +7,10 @@ Battle::Battle(std::string background_directory):
 	_selected_display_skill(0,0) {
 	this->_health_bar = al_load_bitmap("img/battle/health_bar.bmp");
 	this->_colored_bar = al_load_bitmap("img/battle/colored_bar.bmp");
-	this->_font = al_load_font("font.ttf", 11, 0);
+	this->_font = al_load_font("file/font.ttf", 11, 0);
 	this->_background = al_load_bitmap(background_directory.c_str());
 	this->_options = al_load_bitmap("img/battle/PlayerAttackBox.bmp");
-	this->_cursor = al_load_bitmap("img/cursor.bmp");
+	this->_cursor = al_load_bitmap("img/battle/cursor.bmp");
 	
 }
 
@@ -142,7 +142,7 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 					this->_selected_display_skill.add_x();
 				verify_selected_display_skill(hero);
 				break;
-			case ALLEGRO_KEY_ENTER:
+			case ALLEGRO_KEY_TAB:
 				// TODO: Create attack function
 				pressed_enter = true;
 				break;

@@ -19,6 +19,8 @@ class Npc : public Character {
 		bool can_interact(Position player_position);
 		void show_interaction();
 		void draw_text(std::string name, std::string text);
+		virtual Position get_CAPIMON_DRAW_POSITION();
+      	virtual Position get_CAPIMON_STATUS_POSITION();
 };
 
 #endif /* NPC_HPP */

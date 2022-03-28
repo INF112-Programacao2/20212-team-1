@@ -24,5 +24,7 @@ class Player : public Character{
     ~Player();
     bool walk(int direcao, Map &mapa);
     void interact(Npc *npc);
+	virtual Position get_CAPIMON_DRAW_POSITION();
+    virtual Position get_CAPIMON_STATUS_POSITION();
 };
 #endif /* PLAYER_HPP */

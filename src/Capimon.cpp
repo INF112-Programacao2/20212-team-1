@@ -15,6 +15,7 @@ Capimon::Capimon(std::string name, ALLEGRO_BITMAP *image, int max_health, Skill 
 	this->_name = name;
 	this->_image = image;
 	this->_max_health = max_health;
+	this->_cur_health = max_health;
 	//_life_bar = al_load_bitmap("img/battle/Vida.bmp");
 	//_colorBar = al_load_bitmap("img/battle/Bar.bmp");
 	//_font = al_load_font("file/font.ttf", 11, 0);
@@ -34,11 +35,11 @@ std::string Capimon::get_name() {
 	return this->_name;
 }
 
-unsigned int Capimon::get_max_health() {
+int Capimon::get_max_health() {
 	return this->_max_health;
 }
 
-unsigned int Capimon::get_cur_health() {
+int Capimon::get_cur_health() {
 	return this->_cur_health;
 }
 

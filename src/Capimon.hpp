@@ -16,8 +16,8 @@ class Capimon{
 		std::string _name;
 		ALLEGRO_BITMAP *_image;
 		std::vector<Skill> _skills;
-		unsigned int _max_health;
-		unsigned int _cur_health;
+		int _max_health;
+		int _cur_health;
 		//ALLEGRO_BITMAP* _lifeBar;
 		//ALLEGRO_BITMAP* _colorBar;
 		//ALLEGRO_FONT *_font;
@@ -31,8 +31,8 @@ class Capimon{
 		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int max_health, Skill skills[]);	// TODO: Check if parameter skills can cause a bug
 		~Capimon();
 		std::string get_name();
-		unsigned int get_max_health();
-		unsigned int get_cur_health();
+		int get_max_health();
+		int get_cur_health();
 		std::vector<Skill> get_skills();
 		Skill get_skill(int index);
 		void select_skill();

@@ -20,8 +20,8 @@
 #include <vector>
 #include <string>
 
-const int SCREEN_W = 640;
-const int SCREEN_H = 480;
+// const int SCREEN_W = 640;
+// const int SCREEN_H = 480;
 
 class Battle {
 	private:

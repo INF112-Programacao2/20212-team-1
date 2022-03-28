@@ -80,3 +80,11 @@ void Player::interact(Npc *npc) {
 		}
 	}
 }
+
+Position Player::get_CAPIMON_DRAW_POSITION(){
+    return this->CAPIMON_DRAW_POSITION;
+}
+
+Position Player::get_CAPIMON_STATUS_POSITION(){
+    return this->CAPIMON_STATUS_POSITION;
+}

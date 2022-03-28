@@ -89,3 +89,11 @@ void Npc::draw_text(std::string name, std::string text) {
 	
 	al_destroy_event_queue(event_queue);
 }
+
+Position Npc::get_CAPIMON_DRAW_POSITION(){
+    return this->CAPIMON_DRAW_POSITION;
+}
+
+Position Npc::get_CAPIMON_STATUS_POSITION(){
+    return this->CAPIMON_STATUS_POSITION;
+}
