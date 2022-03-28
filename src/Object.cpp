@@ -4,7 +4,7 @@
 
 #include <string>
 
-Object::Object(/*std::string image_directory*/ALLEGRO_BITMAP *image,int x, int y):
+Object::Object(/*std::string image_directory*/ALLEGRO_BITMAP *image,int x, int y) :
 	_position(x,y), _image(image) {
 		this->_font_directory = "file/font.ttf";
 		this->_font_size = 11;
@@ -27,7 +27,7 @@ void Object::set_image(ALLEGRO_BITMAP *image){
 	this->_image = image;
 }
 
-ALLEGRO_BITMAP* get_image() {
+ALLEGRO_BITMAP* Object::get_image() {
 	return this->_image;
 }
 

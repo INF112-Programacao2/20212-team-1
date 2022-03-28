@@ -1,0 +1,2 @@
+#!/bin/bash
+for file in Battle Capimon Character Interaction Map Npc Object Player Position Skill; do gedit --new-window -w src/$file.* & done
