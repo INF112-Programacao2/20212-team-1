@@ -1,5 +1,9 @@
 /* Capimon.hpp */
 
+/*
+ * This class represents an special pet from a Character, this pet is used in battle with NPC's.
+ */
+
 #ifndef CAPIMON_HPP
 #define CAPIMON_HPP
 
