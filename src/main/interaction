@@ -1,1 +1,2 @@
+#!/bin/bash
 cd ../ && g++ main/interaction.cpp Map.cpp Position.cpp Interaction.cpp Player.cpp Npc.cpp Character.cpp Object.cpp -lallegro -lallegro_ttf -lallegro_font -lallegro_color -lallegro_image

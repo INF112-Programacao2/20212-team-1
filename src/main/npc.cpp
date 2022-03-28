@@ -24,6 +24,7 @@ int main() {
 	
 	Position player_position(0,0);
 	std::string file[] = {"file/Andre.txt"};
+	
 	Npc npc("Andre", nullptr, 0, 1, file);	
 	ALLEGRO_EVENT event;
 	al_wait_for_event(event_queue, &event);
@@ -31,18 +32,12 @@ int main() {
 	// TODO: if key 'I' is pressed
 	if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
 		switch (event.keyboard.keycode) {
-			case ALLEGRO_KEY_I:	// The setted key is "N" (from word "next")
+			case ALLEGRO_KEY_I:
 				if (npc.can_interact(player_position)) {
+					std::cout << "Show interaction\n";
 					npc.show_interaction();
-					std::cout << "Everything is ok!\n";
-				}
-				else {
-					std::cerr << "Error in interaction Allegro.\n";
-					return -1;
 				}
 				break;
-			default:
-				std::cerr << "Other key pressed.\n";
 		}
 	}
 	

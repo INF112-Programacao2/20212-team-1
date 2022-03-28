@@ -3,8 +3,8 @@
 #include <iostream>
 
 int main() {
-	Interaction it("file/Andre.txt");
-	int num_dialogs = it.get_dialog_length();
+	Interaction it("../file/Andre.txt");
+	int num_dialogs = it.get_quantity_of_dialogs();
 	std::cout << "There are " << num_dialogs << " dialogs\n" << std::endl;
 	for (int i = 0; i < num_dialogs; i++) {
 		std::string* dialog = it.get_dialog(i);

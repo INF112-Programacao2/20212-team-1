@@ -68,16 +68,11 @@ void Player::interact(Npc *npc) {
 					npc->show_interaction();
 					std::cout << "Successful interaction.\n";	// TODO: Add exception
 				}
-				else {
-					std::cerr << "Error in interaction.\n";	// TODO: Add exception
-					return ;
-				}
-				break;
-			default:
-				std::cerr << "Interaction wasn't called.\n";	// TODO: Add exception
 				break;
 		}
 	}
+	
+	al_destroy_event_queue(event_queue);
 }
 
 Position Player::get_CAPIMON_DRAW_POSITION() const {
