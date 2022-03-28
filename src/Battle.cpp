@@ -141,7 +141,7 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 				break;
 			case ALLEGRO_KEY_DOWN:
 				if (this->_selected_display_skill.get_y() < 1)
-					this->_selected_display_skill.add_x();
+					this->_selected_display_skill.add_y();
 				verify_selected_display_skill(hero);
 				break;
 			case ALLEGRO_KEY_ENTER:
@@ -277,7 +277,7 @@ void Battle::draw_cursor() { //draw cursor and capimon skills
 	// ALLEGRO_FONT *font = al_load_font("file/font.ttf");
 	al_convert_mask_to_alpha(_cursor, al_map_rgb(255,0,255));
   
-  Position draw_position(30, 420);	// TODO: Change to frist position
+//   Position draw_position(30, 420);	// TODO: Change to frist position
   
   switch (this->_selected_display_skill.get_x()) {
   	case 0:
@@ -298,7 +298,7 @@ void Battle::draw_cursor() { //draw cursor and capimon skills
   		}
   }
 	
-	al_draw_bitmap(_cursor, this->_selected_display_skill.get_x(), this->_selected_display_skill.get_y(), 0);
+	al_draw_bitmap(_cursor, draw_position.get_x(), draw_position.get_y(), 0);
 	//     break;
 		
 		
