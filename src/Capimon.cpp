@@ -5,16 +5,14 @@
 #include <iostream>
 #include <cstdlib>
 
-int Capimon::AMOUNT_SKILLS = 4;
-
-Capimon::Capimon(std::string name, ALLEGRO_BITMAP *image, int max_health, Skill skills[]){
+Capimon::Capimon((std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y, int max_health, Skill skills[]){
 	this->_name = name;
 	this->_image = image;
 	this->_max_health = max_health;
 	this->_cur_health = max_health;
-	
 	for (int i = 0; i < this->AMOUNT_SKILLS; i++)
 		this->_skills.push_back(skills[i]);
+	this->_selected_skill = nullptr;
 }
 
 Capimon::~Capimon(){}
@@ -39,21 +37,6 @@ Skill Capimon::get_skill(int index) {
 	return this->_skills.at(index);
 }
 
-void Capimon::decrement_health(int damage){
-	if (damage > this->_cur_health)
-		this->_cur_health = 0;
-	else
-		this->_cur_health -= damage;
-}
-
-void Capimon::heal_health(){ // funcao que ira restaurar a vida de um capimon pos batalha
-	this->_cur_health = this->_max_health;
-}
-
-ALLEGRO_BITMAP* Capimon::get_image(){
-	return this->_image;
-}
-
 void Capimon::select_skill() {
 	srand(time(NULL));
 	this->_selected_skill = &(this->_skills.at(rand() % this->AMOUNT_SKILLS));
@@ -69,4 +52,16 @@ void Capimon::set_selected_skill(Skill *selected_skill) {
 
 void Capimon::set_selected_skill(int index) {
 	this->_selected_skill = &(this->_skills.at(index));
+}
+
+void Capimon::decrement_health(int damage){
+	if (damage > this->_cur_health)
+		this->_cur_health = 0;
+	else
+		this->_cur_health -= damage;
+}
+
+// This function restore (heal) the life of the capimon after the battle
+void Capimon::heal_health() {
+	this->_cur_health = this->_max_health;
 }

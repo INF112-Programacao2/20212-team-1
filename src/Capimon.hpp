@@ -3,26 +3,26 @@
 #ifndef CAPIMON_HPP
 #define CAPIMON_HPP
 
+#include "Skill.hpp"
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
+
 #include <string>
 #include <vector>
-#include "Skill.hpp"
 
-class Capimon{
+class Capimon : public Object {
 	private:
-		static int AMOUNT_SKILLS;
 		std::string _name;
-		ALLEGRO_BITMAP *_image;
-		std::vector<Skill> _skills;
 		int _max_health;
 		int _cur_health;
-		Skill* _selected_skill = nullptr;
-
+		std::vector<Skill> _skills;
+		Skill* _selected_skill;
   public:
-		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int max_health, Skill skills[]);
+		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y, int max_health, Skill skills[]);
 		~Capimon();
+		const int AMOUNT_SKILLS = 4;
 		std::string get_name();
 		int get_max_health();
 		int get_cur_health();
@@ -32,11 +32,8 @@ class Capimon{
 		Skill* get_selected_skill();
 		void set_selected_skill(Skill *selected_skill);
 		void set_selected_skill(int index);
-		ALLEGRO_BITMAP* get_image();
-		
 		void decrement_health(int damage);
 		void heal_health();
-
 };
 
 #endif /* CAPIMON_HPP */
