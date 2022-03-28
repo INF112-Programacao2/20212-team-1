@@ -28,4 +28,4 @@ class Position{
         
 };
 
-#endif /* INF112_POSITION_HPP */
+#endif /* POSITION_HPP */
