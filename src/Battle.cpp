@@ -137,8 +137,6 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 
 			for(Skill skill : hero->get_selected_capimon()->get_skills())
 				draw_skill(&skill);
-			
-			draw_cursor();
 
 
 			if (there_is_a_looser(hero,enemy) && enemy->get_selected_capimon()->get_cur_health() == 0){
