@@ -18,17 +18,10 @@ class Capimon{
 		std::vector<Skill> _skills;
 		int _max_health;
 		int _cur_health;
-		//ALLEGRO_BITMAP* _lifeBar;
-		//ALLEGRO_BITMAP* _colorBar;
-		//ALLEGRO_FONT *_font;
-		//static float _x_bar_npc;
-		//static float _y_bar_npc;
-		//static float _x_bar_player;
-		//static float _y_bar_player;
 		Skill* _selected_skill = nullptr;
 
   public:
-		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int max_health, Skill skills[]);	// TODO: Check if parameter skills can cause a bug
+		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int max_health, Skill skills[]);
 		~Capimon();
 		std::string get_name();
 		int get_max_health();
@@ -43,12 +36,7 @@ class Capimon{
 		
 		void decrement_health(int damage);
 		void heal_health();
-		//bool looser();
-		
-		//void draw_player_capimon();//alterar ainda
-		//void draw_npc_capimon();//alterar ainda 
-		//void draw_player_status();
-		//void draw_npc_status();
+
 };
 
 #endif /* CAPIMON_HPP */

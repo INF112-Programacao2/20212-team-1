@@ -58,37 +58,3 @@ void Position::sub_x(int value){
 void Position::sub_y(int value){
     this->_y -= value;
 }
-
-/*
-Position Position::up() {
-	Position p;
-	p.get_x(this->_x++);
-	p.get_y(this->_y);
-
-	return p;
-}
-
-Position Position::right() {
-	Position p;
-	p.get_x(this->_x);
-	p.get_y(this->_y++);
-
-	return p;
-}
-
-Position Position::down() {
-	Position p;
-	p.get_x(this->_x--);
-	p.get_y(this->_y);
-
-	return p;
-}
-
-Position Position::left() {
-	Position p;
-	p.get_x(this->_x);
-	p.get_y(this->_y--);
-
-	return p;
-}
-*/

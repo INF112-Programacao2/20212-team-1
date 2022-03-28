@@ -4,9 +4,6 @@
 
 #include <cstdlib>
 #include <time.h>
-// #include <allegro5/allegro.h>
-// #include <allegro5/allegro_ttf.h>
-// #include <allegro5/allegro_font.h>
 
 Skill::Skill(int index, std::string name, int min_damage, int max_damage) {
 	this->_index = index;
