@@ -25,8 +25,8 @@ const int SCREEN_H = 480; //tamanho vertical da tela
 
 #define Pos_x_inicial 5 //posicao inicial em x do personagem
 #define Pos_y_inicial 6 //posicao inicial em y do personagem
-#define Tam_x_sprite 16 //tamanho em x de cada sprite do personagem
-#define Tam_y_sprite 16 //tamanho em y de cada sprite do personagem
+#define Tam_x_sprite 32 //tamanho em x de cada sprite do personagem
+#define Tam_y_sprite 32 //tamanho em y de cada sprite do personagem
 
 enum MYKEYS{
     KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
@@ -59,6 +59,12 @@ ALLEGRO_BITMAP *haunterBMP = nullptr;
 ALLEGRO_BITMAP *arcanineBMP = nullptr;
 ALLEGRO_BITMAP *andreBMP = nullptr;
 
+//Variaveis para saber se os Npcs estão ativos ou não no mapa
+bool ativaJulio = false;
+bool ativaAndre = false;
+bool ativaCantineira = false;
+bool ativaJacare = false;
+
 int inicializa() {
     if(!al_init())
     {
@@ -85,29 +91,29 @@ int inicializa() {
         return -1;
     }
     
-    // if(!al_font_addon_initialized())
-    // {
-    //     std::cerr <<"Falha ao iniciar al_font_addon!" << std::endl;
-    //     return -1;
-    // }
+    if(!al_init_font_addon())
+    {
+        std::cerr <<"Falha ao iniciar al_font_addon!" << std::endl;
+        return -1;
+    }
     
-    // if(!al_init_ttf_addon())
-    // {
-    //     std::cerr <<"Falha ao iniciar al_init_ttf_addon!" << std::endl;
-    //     return -1;
-    // }
+    if(!al_init_ttf_addon())
+    {
+        std::cerr <<"Falha ao iniciar al_init_ttf_addon!" << std::endl;
+        return -1;
+    }
     
-    // if(!al_install_audio())
-    // {
-    //     std::cerr <<"Falha ao iniciar al_install_audio!" << std::endl;
-    //     return -1;
-    // }
+    if(!al_install_audio())
+    {
+        std::cerr <<"Falha ao iniciar al_install_audio!" << std::endl;
+        return -1;
+    }
     
-    // if(!al_init_acodec_addon();)
-    // {
-    //     std::cerr <<"Falha ao iniciar al_init_acodec_addon!" << std::endl;
-    //     return -1;
-    // }
+    if(!al_init_acodec_addon())
+    {
+        std::cerr <<"Falha ao iniciar al_init_acodec_addon!" << std::endl;
+        return -1;
+    }
     
     display = al_create_display(SCREEN_W, SCREEN_H);
     if(!display)
@@ -181,7 +187,7 @@ int inicializa() {
         return -1;
     }
 
-    personagem = al_load_bitmap("img/personagem1.bmp");
+    personagem = al_load_bitmap("img/personagem.bmp");
     if(!personagem)
     {
         std::cerr << "Falha ao carregar o personagem!" << std::endl;
@@ -190,7 +196,7 @@ int inicializa() {
         return -1;
     }
     
-    mapa = al_load_bitmap("img/map.bmp");
+    mapa = al_load_bitmap("img/map1.bmp");
     if(!mapa)
     {
         std::cerr << "Falha ao carregar o mapa!" << std::endl;
@@ -207,7 +213,7 @@ int inicializa() {
     al_flip_display();
     al_start_timer(timer);
 
-    al_reserve_samples(10);
+    //al_reserve_samples(10);
 
     return 1;
 }
@@ -278,14 +284,17 @@ int main(int argc, char **argv){
     //Criação dos Npcs
     //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y, Array com endereço dos arquivos de fala );
 	Npc andre("Prof. Andre", andreBMP, int{}, int{}, falas); // TODO: review npc initial position int: x, y
+    //Npc julio("Prof. Julio", , int{}, int{}, falas);
+    //Npc jacare("Jacare da Vacina", , int{}, int{}, falas);
+    //Npc cantineira("Tia da Cantina", , int{}, int{}, falas);
 
     //Atribuição dos Capimons aos charactes.
     //Exemplo: nomeCharaceter.add_capimon(&CapimonNome);
-	capivaristo.add_capimon(&hitmonchan);
-	andre.add_capimon(&pikachu);
-	andre.add_capimon(&haunter);
+	capivaristo.add_capimon(&pikachu);
+	andre.add_capimon(&hitmonchan);
+	//cantineira.add_capimon(&haunter);
     // julio.add_capimon(&blastoise);
-    // julio.add_capimon(&arcanine);
+    // jacare.add_capimon(&arcanine);
 
     //Criação do mapa do jogo
     Map map("img/walkable_map.pnm", mapa, 0, 0);
@@ -366,7 +375,7 @@ int main(int argc, char **argv){
 
             if(key[KEY_UP])
             {
-                if(capivaristo.walk(1, map)){
+                if(capivaristo.walk(2, map)){
                    pos_y--; 
                 }
             }else if(key[KEY_DOWN])
@@ -376,7 +385,7 @@ int main(int argc, char **argv){
                 }
             }else if(key[KEY_LEFT])
             {
-                if(capivaristo.walk(2, map )){
+                if(capivaristo.walk(1, map )){
                     pos_x--;
                 }
             }else if(key[KEY_RIGHT])
@@ -391,20 +400,20 @@ int main(int argc, char **argv){
             if(pos_x < 0){
                 pos_x = 0;
                 camera_x--;
-            }else if(pos_x > 34){
-                pos_x = 34;
+            }else if(pos_x > 15){
+                pos_x = 15;
                 camera_x++;
             }
 
             if(pos_y < 0){
                 pos_y = 0;
                 camera_y--;
-            }else if(pos_y > 24){
-                pos_y = 24;
+            }else if(pos_y > 10){
+                pos_y = 10;
                 camera_y++;
             }
             al_identity_transform(&camera);
-            al_translate_transform(&camera, -camera_x * 16, -camera_y * 16);
+            al_translate_transform(&camera, -camera_x * 32, -camera_y * 32);
             al_use_transform(&camera);
 
             al_flip_display();

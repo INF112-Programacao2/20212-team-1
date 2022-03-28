@@ -21,11 +21,11 @@ bool Player::walk(int direcao, Map &mapa){
         if(direcao == 0 && mapa.get_val_walkable(this->_position.get_x(), this->_position.get_y() + 1) == '1') {
             this->_position.add_y();
             andou = true;
-        } else if(direcao == 1 && mapa.get_val_walkable(this->_position.get_x(), this->_position.get_y() - 1) == '1') {
-            this->_position.sub_y();
-            andou = true;
-        } else if(direcao == 2 && mapa.get_val_walkable(this->_position.get_x() - 1, this->_position.get_y() ) == '1') {
+        } else if(direcao == 1 && mapa.get_val_walkable(this->_position.get_x() - 1, this->_position.get_y() ) == '1') {
             this->_position.sub_x();
+            andou = true;
+        } else if(direcao == 2 && mapa.get_val_walkable(this->_position.get_x(), this->_position.get_y() - 1 ) == '1') {
+            this->_position.sub_y();
             andou = true;;
         } else if(direcao == 3 && mapa.get_val_walkable(this->_position.get_x() + 1, this->_position.get_y() ) == '1') {
             this->_position.add_x();
