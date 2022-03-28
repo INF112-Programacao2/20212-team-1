@@ -180,8 +180,6 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 			for(Skill skill : hero->get_selected_capimon()->get_skills())
 				draw_skill(&skill);
 			
-			draw_cursor();
-
 			//   Capivaristo.Mostrar_Capimon();
 			//   if(i==1){
 			//       Julio.Mostrar_Capimon();
