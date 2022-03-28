@@ -39,7 +39,7 @@ void Npc::show_interaction() {
 	Interaction *interaction = this->_interactions.front();
 	this->_interactions.pop();
 		// TODO: Change drawing
-	for (int i = 0; i < interaction->get_dialog_length(); i++) {
+	for (int i = 0; i < interaction->get_quantity_of_dialogs(); i++) {
 		std::string *d = interaction->get_dialog(i);
 		al_draw_bitmap(dialog_box, 0, 384, ALLEGRO_FLIP_HORIZONTAL);
 		al_flip_display();
