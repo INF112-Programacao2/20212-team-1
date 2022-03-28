@@ -12,13 +12,12 @@ Player::~Player(){}
 
 bool Player::walk(int direcao, Map &mapa){
     bool andou = false;
-    if(direcao == -1){
+    if(direcao < 0 || direcao > 3 ){
         al_draw_bitmap_region(this->_image, 0, 0, this->_tam_x, this->_tam_y,_position.get_x() * _tamPixels,_position.get_y() * _tamPixels, 0);
         _numPasso = 0;
         this->_direcao_anterior = 0;
 
-    }
-    else {
+    } else {
         if(direcao == 0 && mapa.get_val_walkable(this->_position.get_x(), this->_position.get_y() + 1) == '1') {
             this->_position.add_y();
             andou = true;
