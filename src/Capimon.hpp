@@ -25,7 +25,7 @@ class Capimon : public Object {
 		std::vector<Skill> _skills;
 		Skill* _selected_skill;
   public:
-		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y, int max_health, Skill skills[]);
+		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, /*int x, int y,*/ int max_health, Skill skills[]);
 		~Capimon();
 		const int AMOUNT_SKILLS = 4;
 		std::string get_name();
