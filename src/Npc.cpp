@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstring>
 
-Npc::Npc(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y, std::string file_directory[]):
+Npc::Npc(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y, std::string file_directory[]) :
 	Character(name, image, x, y) {
 	for (int i = 0; i < 1; i++) {
 		std::string t = file_directory[i];
@@ -90,10 +90,10 @@ void Npc::draw_text(std::string name, std::string text) {
 	al_destroy_event_queue(event_queue);
 }
 
-Position Npc::get_CAPIMON_DRAW_POSITION(){
+Position Npc::get_CAPIMON_DRAW_POSITION() const {
     return this->CAPIMON_DRAW_POSITION;
 }
 
-Position Npc::get_CAPIMON_STATUS_POSITION(){
+Position Npc::get_CAPIMON_STATUS_POSITION() const {
     return this->CAPIMON_STATUS_POSITION;
 }

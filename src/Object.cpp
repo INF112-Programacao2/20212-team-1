@@ -23,8 +23,12 @@ Object::Object(/*std::string image_directory*/ALLEGRO_BITMAP *image,int x, int y
 
 Object::~Object(){}
 
-void Object::change_image(ALLEGRO_BITMAP *image){
+void Object::set_image(ALLEGRO_BITMAP *image){
 	this->_image = image;
+}
+
+ALLEGRO_BITMAP* get_image() {
+	return this->_image;
 }
 
 Position Object::get_position() {

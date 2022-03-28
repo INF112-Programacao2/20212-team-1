@@ -15,6 +15,8 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
+#include <string>
+
 class Object {
 	protected:
 		ALLEGRO_BITMAP *_image;
@@ -25,8 +27,8 @@ class Object {
 		int _font_size;
 		Object(ALLEGRO_BITMAP *image, int x, int y);
 		~Object();
-		void change_image(ALLEGRO_BITMAP *image);
 		ALLEGRO_BITMAP* get_image();
+		void set_image(ALLEGRO_BITMAP *image);
 		Position get_position();
 };
 

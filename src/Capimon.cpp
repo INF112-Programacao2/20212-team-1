@@ -5,15 +5,15 @@
 #include <iostream>
 #include <cstdlib>
 
-Capimon::Capimon((std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y, int max_health, Skill skills[]){
+Capimon::Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y, int max_health, Skill skills[]) :
+	Object(image, x, y) {
 	this->_name = name;
-	this->_image = image;
 	this->_max_health = max_health;
 	this->_cur_health = max_health;
 	for (int i = 0; i < this->AMOUNT_SKILLS; i++)
 		this->_skills.push_back(skills[i]);
 	this->_selected_skill = nullptr;
-}
+};
 
 Capimon::~Capimon(){}
 

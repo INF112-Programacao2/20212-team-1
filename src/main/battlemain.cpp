@@ -6,14 +6,14 @@
 #include <iostream>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-#include "Battle.hpp"
-#include "Position.hpp"
-#include "Object.hpp"
-#include "Character.hpp"
-#include "Player.hpp"
-#include "Capimon.hpp"
-#include "Npc.hpp"
-#include "Skill.hpp"
+#include "../Battle.hpp"
+#include "../Position.hpp"
+#include "../Object.hpp"
+#include "../Character.hpp"
+#include "../Player.hpp"
+#include "../Capimon.hpp"
+#include "../Npc.hpp"
+#include "../Skill.hpp"
 
 const float FPS = 5;
 const int SCREEN_W = 640;
@@ -98,7 +98,7 @@ int inicializa() {
         return -1;
     }
 
-    personagem = al_load_bitmap("img/personagem1.bmp");
+    personagem = al_load_bitmap("../img/personagem1.bmp");
     if(!personagem)
     {
         std::cerr << "Falha ao carregar o personagem!" << std::endl;
@@ -132,7 +132,7 @@ int main(int argc, char **argv){
 	al_init_image_addon();
 	
 	ALLEGRO_BITMAP *pi;
-	pi = al_load_bitmap("img/battle/pikachu.bmp");
+	pi = al_load_bitmap("../img/battle/pikachu.bmp");
 	// TODO: Remove background
 	
 	Skill choque(0, "Choque do trovão", 10, 20);
@@ -142,17 +142,17 @@ int main(int argc, char **argv){
 	Skill hab[] = {choque, cauda, pena, copo};
 
 	
-	Capimon picachu("Picachu", pi, 350, hab );
-	Capimon picachu2("Picachu", pi, 350, hab );
+	Capimon picachu("Picachu", pi, 0, 1, 350, hab );
+	Capimon picachu2("Picachu", pi, 0, 2, 350, hab );
 	
-	std::string falas[] = {"file/Andre.txt"}; 
+	std::string falas[] = {"../file/Andre.txt"}; 
 
     Player capivaristo("Capivaristo", personagem,5, 6, 16, 16);
     capivaristo.add_capimon(&picachu);
     Npc Andre("Andre", personagem, 5, 6, falas );
     Andre.add_capimon(&picachu2);
     
-    Battle bat("img/battle/TileBatalla.bmp");
+    Battle bat("../img/battle/TileBatalla.bmp");
     
     bat.start_battle(&capivaristo,&Andre);
 

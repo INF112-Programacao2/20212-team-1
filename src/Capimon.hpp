@@ -7,6 +7,7 @@
 #ifndef CAPIMON_HPP
 #define CAPIMON_HPP
 
+#include "Object.hpp"
 #include "Skill.hpp"
 
 #include <allegro5/allegro.h>

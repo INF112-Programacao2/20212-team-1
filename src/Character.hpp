@@ -29,7 +29,7 @@ class Character : public Object {
       void select_capimon();
       Capimon* get_selected_capimon();
       void set_selected_capimon(int index);
-      virtual Position get_CAPIMON_DRAW_POSITION() = 0;
-      virtual Position get_CAPIMON_STATUS_POSITION() = 0;
+      virtual Position get_CAPIMON_DRAW_POSITION() const = 0;
+      virtual Position get_CAPIMON_STATUS_POSITION() const = 0;
 };
 #endif /* CHARACTER_HPP */
