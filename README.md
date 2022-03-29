@@ -4,12 +4,12 @@
 
 Grupo 1
 
-<h2> Sinopse </h2>
+# Sinopse
 <p> Um aluno do curso de Ciência da Computação da UFV está cansado da pandemia e do EAD e decide resolver a situação por si mesmo. Assuma o papel de Capivaristo nessa história e atinja a aprovação no curso! </p>
 
 <br> ![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/TelaInicial.png) <br>
 
-<h2> Integrantes </h2>
+# Integrantes
 
 <ul>
   <li><a href="https://github.com/Igoreduardobraga">Igor Eduardo Martins Braga</a></li>
