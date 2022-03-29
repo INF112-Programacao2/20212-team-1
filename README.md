@@ -1,4 +1,6 @@
-# 20212-team-1
+![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/LEGENDS%20OF%20CPP.gif)
+
+## LEGENDS OF CCP
 
 Grupo 1
 
@@ -13,7 +15,6 @@ Um aluno do curso de Ciência da Computação da UFV está cansado da pandemia e
   <li><a href="https://github.com/jopzoli">João Pedro Pulz de Oliveira</a></li>
   <li><a href="https://github.com/SRaimundo">Samuel Raimundo Lopes Pinto</a></li>
 <ul>
-
-![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/LEGENDS%20OF%20CPP.gif)
+  
 
 ![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/TelaInicial.png)
