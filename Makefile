@@ -17,5 +17,8 @@ $(EXE): $(SRC)
 %.cpp:
 	@touch "$(SRC_DIR)/$@"
 
+.PHONY: run
+	cd "$(SRC_DIR)"; ./$(EXE)
+
 clean:
 	rm -f $(SRC_DIR)/$(EXE)
