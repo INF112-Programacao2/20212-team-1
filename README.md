@@ -4,7 +4,7 @@
 
 Grupo 1
 
-## Roteiro
+<h2> Roteiro </h2>
 Um aluno do curso de Ciência da Computação da UFV está cansado da pandemia e do EAD e decide resolver a situação por si mesmo. Durante essa jornada, Capivaristo tem que enfrentar alguns inimigos.
 
 ## Integrantes
