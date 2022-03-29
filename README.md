@@ -16,6 +16,7 @@ Grupo 1
   <li><a href="https://github.com/jpmedras">João Pedro Medrado Sena</a></li>
   <li><a href="https://github.com/jopzoli">João Pedro Pulz de Oliveira</a></li>
   <li><a href="https://github.com/SRaimundo">Samuel Raimundo Lopes Pinto</a></li>
+</ul>
 
 # Pré-requisitos
 Para conseguir testar a aplicação, você vai precisar ter instalado em sua máquina a linguagem [C++](https://diolinux.com.br/sistemas-operacionais/como-programar-em-cc-no-ubuntu.html) e usar o sistema Linux. Além disso, você vai precisar instalar a biblioteca [Allegro](https://github.com/liballeg/allegro_wiki/wiki/Quickstart)
