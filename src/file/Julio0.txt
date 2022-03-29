@@ -1,0 +1,5 @@
+4
+Só um minuto...|O que foi?
+Andei demais, não consigo falar...|[...]
+Ufa, mas como que é seu nome mesmo?|Meu nome é Júlio, sou seu professor na disciplina Programação II, código INF 112.
+NÃÃÃO! Já cansei de ponteiros!|Prepare seu capimon.
