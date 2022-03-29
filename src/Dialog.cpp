@@ -91,9 +91,9 @@ void Dialog::draw(int reference_x, int reference_y) {
 	this->draw_dialog_box(reference_x, reference_y);
 	this->draw_text(0,reference_x, reference_y);
 	al_flip_display();	// TODO: Test flip display
-	al_rest(1.0);
+	al_rest(2.5);
 	this->draw_dialog_box(reference_x, reference_y);
 	this->draw_text(1,reference_x, reference_y);
 	al_flip_display();	// TODO: Test flip display
-	al_rest(1.0);
+	al_rest(2.5);
 }

@@ -33,14 +33,14 @@ const int SCREEN_H = 480; //tamanho vertical da tela
 #define Tam_y_sprite 32 //tamanho em y de cada sprite do personagem
 
 //Posicção dos Ncs no jogo
-#define Pos_x_andre 21 //posicao inicial em x do personagem
+#define Pos_x_andre 20 //posicao inicial em x do personagem
 #define Pos_y_andre 96 //posicao inicial em y do personagem
 #define Pos_x_julio 93 //posicao inicial em x do personagem
 #define Pos_y_julio 14 //posicao inicial em y do personagem
 #define Pos_x_cantineira 76 //posicao inicial em x do personagem
 #define Pos_y_cantineira 14 //posicao inicial em y do personagem
 #define Pos_x_jacare 47 //posicao inicial em x do personagem
-#define Pos_y_jacare 40 //posicao inicial em y do personagem
+#define Pos_y_jacare 39 //posicao inicial em y do personagem
 
 enum MYKEYS{
     KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_I,
