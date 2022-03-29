@@ -11,6 +11,7 @@
 #include "Battle.hpp"
 #include "Capimon.hpp"
 #include "Character.hpp"
+#include "HomeMenu.hpp"
 #include "Interaction.hpp"
 #include "Map.hpp"
 #include "Npc.hpp"
@@ -262,6 +263,9 @@ int inicializa() {
 int main(int argc, char **argv){
 
     if(!inicializa()) return -1;
+    
+    //Criação do Menu inicial do jogo
+    HomeMenu menuinicial("img/menu0.bmp", "img/menu1.bmp");
 
 
 	// Criação de um vetor de skils
@@ -344,7 +348,10 @@ int main(int argc, char **argv){
     Battle bat("img/battle/TileBatalla.bmp");
     //Inicialização da batalha
     //bat.start_battle(&Player,&Npc);
-	bat.start_battle(&capivaristo, &andre);
+	//bat.start_battle(&capivaristo, &andre);
+
+    //Desenho do Menu inicial na tela
+    menuinicial.initMenu();
 
     while(!sair){
         ALLEGRO_EVENT ev;
