@@ -1,4 +1,5 @@
-3
+4
 Boa tarde! Qual o rango de hoje?|Não fique achando que vai ser tão fácil...
 Como assim?|Por causa de alguns cortes, tivemos que mudar a distribuição de alimentos.
+E agora?|Primeiro fale com o moço do DPI, depois a gente conversa.
 E como eu faço para pegar a minha marmitinha?|Se quiser comer, vai ter que lutar.

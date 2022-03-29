@@ -1,4 +1,4 @@
-
+9
 Olá!|Olá, aluno! Prazer em conhecê-lo, eu sou o André!
 André, você poderia em ajudar?|Claro, do que você precisa?
 Gostaria de voltar a ter aulas presenciais, e preciso encontrar o Jacaré-da-Vacina...|Entendo, mas você sabe onde ele está?
@@ -6,5 +6,5 @@ Fiquei sabendo que seria perto de uma fonte, você sabe onde é?|Sei sim, fica p
 Mas o que é DPI?|DPI é Departamento de Informática. Você é calouro?
 Sou sim, completamente perdido...|Hahaha! Não se preocupe, logo logo as coisas se ajeitam.
 Obrigado! Mas tenho outro problema...|E qual seria?
-Eu não sei batalhar ainda, como faço?|Posso ter mostrar, quer treinar?
+Eu não sei batalhar ainda, como faço?|Posso te mostrar, quer treinar?
 Vamos!|Então pegue seu Capimon e vamos, é mais fácil do que bubble sort!
