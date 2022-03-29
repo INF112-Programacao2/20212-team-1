@@ -1,6 +1,6 @@
 ![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/LEGENDS%20OF%20CPP.gif)
 
-<h1 align="center"> LEGENDS OF CCP </h1>
+<h1 align="center"> 🎮🎮🎮 LEGENDS OF CCP 🎮🎮🎮 </h1> 
 
 Grupo 1
 
