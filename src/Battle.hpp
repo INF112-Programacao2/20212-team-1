@@ -27,24 +27,20 @@
 class Battle {
 	private:
 		// When using this variavel, remember to convert the int to a float
-		// const Position ENEMY_BAR_POSITION = Position(14, 14);
-		const float X_ENEMY_BAR = 14;	// TODO: Maybe move to other class
-		const float Y_ENEMY_BAR = 14;	// TODO: Maybe move to other class
+		const float X_ENEMY_BAR = 14;
+		const float Y_ENEMY_BAR = 14;
 		// When using this variavel, remember to convert the int to a float
-		// const Position HERO_BAR_POSITION = Position(420, 350);
-		const float X_HERO_BAR = 420;	// TODO: Maybe move to other class
-		const float Y_HERO_BAR = 350;	// TODO: Maybe move to other class
-		const int UP_LEFT = 0;
-		const int DOWN_LEFT = 1;
-		const int UP_RIGHT = 2;
-		const int DOWN_RIGHT = 3;
-		Position _selected_display_skill;
-		Position _cursor_position;
+		const float X_HERO_BAR = 420;
+		const float Y_HERO_BAR = 350;
+
+		Position _selected_display_skill; //variavel para armazenar a posição da skill selecionada
+		Position _cursor_position; //variavel para armazenar a posição atual do cursor
 		
-		ALLEGRO_BITMAP *_health_bar;	// TODO: Maybe declare like a const
-		ALLEGRO_BITMAP *_colored_bar;	// TODO: Maybe declare like a const
-		ALLEGRO_BITMAP *_options;	// TODO: Maybe declare like a const
-		ALLEGRO_FONT *_font;	// TODO: Maybe declare like a const
+		//bitmaps para as imagens especificas da batalha
+		ALLEGRO_BITMAP *_health_bar;
+		ALLEGRO_BITMAP *_colored_bar;	
+		ALLEGRO_BITMAP *_options;	
+		ALLEGRO_FONT *_font;	
 		ALLEGRO_BITMAP *_cursor;
 		ALLEGRO_BITMAP *_background; 
 

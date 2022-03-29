@@ -26,9 +26,7 @@ class Dialog {
 		std::string get_player_name();
 		std::string get_npc_name();
 		void set_speak(std::string speak);
-		void set_answer(std::string answer);
-		
+		void set_answer(std::string answer);		
 		void draw(int reference_x, int reference_y);
 };
-
-#endif /* Dialog_HPP */
+#endif /* DIALOG_HPP */

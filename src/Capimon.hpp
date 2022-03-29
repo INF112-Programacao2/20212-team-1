@@ -26,12 +26,12 @@ class Capimon : public Object {
 		std::vector<Skill> _skills; // vector com as Skills (habilidades) do capimon
 		Skill* _selected_skill; //Skill selecionada no momento 
   public:
-		Capimon(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, /*int x, int y,*/ int max_health, Skill skills[]); //Construtor de Capimon
+		Capimon(std::string name, ALLEGRO_BITMAP *image, int max_health, Skill skills[]); //Construtor de Capimon
 		~Capimon(); //Destruto de Capimon
-		const int AMOUNT_SKILLS = 4;
+		const int AMOUNT_SKILLS = 4; //constante que define a quantidade máxima de skills
 		std::string get_name(); //Método para retorna o nome do Capimon
 		int get_max_health(); //Método para retorna a quantidade máxima de vida do capimon
-		int get_cur_health(); //Método para retonnar a quantidade atual de vida do capimon 
+		int get_cur_health(); //Método para retonnar a quantidade atual de vida do capimon
 		std::vector<Skill> get_skills(); //Método para retorna o Vetor de habilidades do Capimon
 		Skill get_skill(int index); //Método para obter uma Skill especifica do capimon
 		void select_skill(); //Método para selecionar uma Skill aleatorio do capimon e colocar na variavel _selected_skill

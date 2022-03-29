@@ -13,7 +13,6 @@
 
 #include <string>
 
-// Maybe this is a abstract class, because it's impossible to exist an object of type Character
 //Classe comum a Npc e Player, pois ambos carregam infomaçẽos comum de um personagem
 class Character : public Object {
     protected:
@@ -22,7 +21,7 @@ class Character : public Object {
         std::vector<Capimon*> _deck; //vetor do deck do pertonge
         Capimon* _selected_capimon = nullptr; //Capimon que será selecionado para realizar a batalha
     public:
-        Character(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y); //Construtor da Classe Character
+        Character(std::string name, ALLEGRO_BITMAP *image, int x, int y); //Construtor da Classe Character
         ~Character(); //Destrutor da classe Charater
         const unsigned int AMOUNT_DECK = 4;
         std::string get_name();

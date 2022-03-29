@@ -23,9 +23,6 @@ class Object {
 		ALLEGRO_BITMAP *_image;
 		Position _position;
 	public:
-		// std::string _font_directory;
-		// ALLEGRO_FONT* _font;
-		// int _font_size;
 		Object(ALLEGRO_BITMAP *image, int x, int y); //construtor da classe Object
 		~Object(); //destrutor da classe Object
 		ALLEGRO_BITMAP* get_image(); //método para obter o bitmap de imagem da classe
