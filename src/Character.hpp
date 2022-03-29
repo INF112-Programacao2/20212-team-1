@@ -18,6 +18,7 @@
 class Character : public Object {
     protected:
       std::string _name; //Nome do personagem
+      const int _tamPixels = 32; //tamanho em pixels utilizao como padrão as dimensões
       std::vector<Capimon*> _deck; //vetor do deck do pertonge
       Capimon* _selected_capimon = nullptr; //Capimon que será selecionado para realizar a batalha
     public:

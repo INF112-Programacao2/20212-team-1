@@ -11,6 +11,7 @@
 #include "Battle.hpp"
 #include "Capimon.hpp"
 #include "Character.hpp"
+#include "HomeMenu.hpp"
 #include "Interaction.hpp"
 #include "Map.hpp"
 #include "Npc.hpp"
@@ -23,8 +24,8 @@ const float FPS = 5;
 const int SCREEN_W = 640; //tamanho horizontal da tela
 const int SCREEN_H = 480; //tamanho vertical da tela
 
-#define Pos_x_inicial 5 //posicao inicial em x do personagem
-#define Pos_y_inicial 6 //posicao inicial em y do personagem
+#define Pos_x_inicial 30 //posicao inicial em x do personagem
+#define Pos_y_inicial 100 //posicao inicial em y do personagem
 #define Tam_x_sprite 32 //tamanho em x de cada sprite do personagem
 #define Tam_y_sprite 32 //tamanho em y de cada sprite do personagem
 
@@ -39,7 +40,7 @@ const int SCREEN_H = 480; //tamanho vertical da tela
 #define Pos_y_jacare 40 //posicao inicial em y do personagem
 
 enum MYKEYS{
-    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
+    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_I,
 };
 
 //Arquivos base para rodar o programa allegro
@@ -49,12 +50,12 @@ ALLEGRO_TIMER *timer = nullptr;
 
 //variaveis para monitorar a camera do personagem
 ALLEGRO_TRANSFORM camera;
-int camera_x = 0;
-int camera_y = 0;
-int pos_x = 3;
-int pos_y = 4;
+int camera_x = 20;
+int camera_y = 90;
+int pos_x = 8;
+int pos_y = 8;
 
-bool key[4] = { false, false, false, false };
+bool key[5] = { false, false, false, false, false };
 bool redraw = true;
 bool sair = false;
 
@@ -70,6 +71,7 @@ ALLEGRO_BITMAP *arcanineBMP = nullptr;
 ALLEGRO_BITMAP *andreBMP = nullptr;
 ALLEGRO_BITMAP *jacareBMP = nullptr;
 ALLEGRO_BITMAP *cantineiraBMP = nullptr;
+ALLEGRO_BITMAP *julioBMP = nullptr;
 
 
 //Variaveis para saber se os Npcs estão ativos ou não no mapa
@@ -191,7 +193,7 @@ int inicializa() {
         return -1;
     }
 
-	andreBMP = al_load_bitmap("img/npc/oak.bmp");
+	andreBMP = al_load_bitmap("img/npc/Andre.bmp");
     if(!andreBMP)
     {
         std::cerr << "Falha ao carregar o Andre!" << std::endl;
@@ -201,7 +203,7 @@ int inicializa() {
     }
 
     jacareBMP = al_load_bitmap("img/npc/alex.bmp");
-	if(!pikachuBMP)
+	if(!jacareBMP)
     {
         std::cerr << "Falha ao carregar o Jacare!" << std::endl;
         al_destroy_display(display);
@@ -210,9 +212,18 @@ int inicializa() {
     }
 
     cantineiraBMP = al_load_bitmap("img/npc/TiaDaCantina.bmp");
-	if(!pikachuBMP)
+	if(!cantineiraBMP)
     {
         std::cerr << "Falha ao carregar a tia da cantina!" << std::endl;
+        al_destroy_display(display);
+        al_destroy_timer(timer);
+        return -1;
+    }
+
+    julioBMP = al_load_bitmap("img/npc/Julio.bmp");
+	if(!julioBMP)
+    {
+        std::cerr << "Falha ao carregar Julio!" << std::endl;
         al_destroy_display(display);
         al_destroy_timer(timer);
         return -1;
@@ -252,6 +263,9 @@ int inicializa() {
 int main(int argc, char **argv){
 
     if(!inicializa()) return -1;
+    
+    //Criação do Menu inicial do jogo
+    HomeMenu menuinicial("img/menu0.bmp", "img/menu1.bmp");
 
 
 	// Criação de um vetor de skils
@@ -259,51 +273,51 @@ int main(int argc, char **argv){
 
     //Pikachu
 	Skill habA[] = {
-		{ 0, "Choque do trovão", 10, 20 },
-		{ 1, "Cauda de ferro", 50, 120 },
-		{ 2, "Pena de gaivota", 5, 10},
-		{ 3, "Copo de plástico", 175, 200 }
+		{ 0, "Choque do trovão", 30, 35 },
+		{ 1, "Cauda de ferro", 20, 40 },
+		{ 2, "Investida trovão", 10, 50},
+		{ 3, "Electro Ball", 10, 60 }
 	};
 
     //Blastoise
 	Skill habB[] = {
-		{ 0, "Ataque intensificado", 8, 30 },
-		{ 1, "Enxurrada", 45, 78 },
-		{ 2, "Arma d'água", 18, 23},
-		{ 3, "Surfar", 1, 23 }
+		{ 0, "Ataque intensificado", 10, 30 },
+		{ 1, "Enxurrada", 15, 40 },
+		{ 2, "Arma d'água", 20, 45},
+		{ 3, "Surfar", 5, 25 }
 	};
 
     //Arcanine
 	Skill habC[] = {
-		{ 0, "Golpe aéreo", 10, 20 },
-		{ 1, "Lança chamas", 50, 120 },
-		{ 2, "Fúria do dragão", 5, 10},
-		{ 3, "Rajada de fogo", 175, 200 }
+		{ 0, "Golpe aéreo", 15, 25 },
+		{ 1, "Lança chamas", 20, 40 },
+		{ 2, "Fúria do dragão", 20, 45},
+		{ 3, "Rajada de fogo", 10, 42 }
 	};
 
     //Hitmonchan
 	Skill habD[] = {
-		{ 0, "Soco Cometa", 10, 20 },
-		{ 1, "Soco Rápido", 50, 120 },
-		{ 2, "Mega Soco", 5, 10},
-		{ 3, "Punho Focus", 175, 200 }
+		{ 0, "Soco Cometa", 15, 25 },
+		{ 1, "Soco Rápido", 20, 25 },
+		{ 2, "Mega Soco", 20, 40},
+		{ 3, "Punho Focus", 20, 25 }
 	};
 
     //Haunter
 	Skill habE[] = {
 		{ 0, "Raio Confusão", 10, 20 },
-		{ 1, "Esfera Obscura", 50, 120 },
-		{ 2, "Ataque Hipnótico", 5, 10},
-		{ 3, "Assustar", 175, 200 }
+		{ 1, "Esfera Obscura", 25, 30 },
+		{ 2, "Ataque Hipnótico", 15, 30},
+		{ 3, "Assustar", 15, 50 }
 	};
 
     //Criação de Capimons
     //exemplo Capimon nomeCapimon("NomeCapimon", BitmapDaImagem, vida, array de Skills );
     Capimon pikachu("Pikachu", pikachuBMP, 350, habA);
     Capimon blastoise("Blastoise", blastoiseBMP, 400, habB);
-    Capimon hitmonchan("Hitmonchan", hitmonchanBMP, 280, habC);
-    Capimon haunter("Haunter", haunterBMP, 316, habD);
-    Capimon arcanine("Arcanine", arcanineBMP, 300, habE);
+    Capimon hitmonchan("Hitmonchan", hitmonchanBMP, 380, habC);
+    Capimon haunter("Haunter", haunterBMP, 360, habD);
+    Capimon arcanine("Arcanine", arcanineBMP, 340, habE);
 
     //Criação do player
     Player capivaristo("Capivaristo", personagem,Pos_x_inicial, Pos_y_inicial, Tam_x_sprite, Tam_y_sprite);
@@ -314,17 +328,17 @@ int main(int argc, char **argv){
     
     //Criação dos Npcs
     //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y, Array com endereço dos arquivos de fala );
-	Npc andre("Prof. Andre", andreBMP, Pos_x_andre*32, Pos_y_andre*32, falas); // TODO: review npc initial position int: x, y
-    //Npc julio("Prof. Julio", , int{}, int{}, falas);
-    Npc jacare("Jacare da Vacina", jacareBMP,Pos_x_jacare*32, Pos_y_jacare*32, falas);
-    Npc cantineira("Tia da Cantina", cantineiraBMP, Pos_x_cantineira*32, Pos_y_cantineira*32, falas);
+	Npc andre("Prof. Andre", andreBMP, Pos_x_andre, Pos_y_andre, falas); // TODO: review npc initial position int: x, y
+    Npc julio("Prof. Julio", julioBMP, Pos_x_julio, Pos_y_julio , falas);
+    Npc jacare("Jacare da Vacina", jacareBMP,Pos_x_jacare, Pos_y_jacare, falas);
+    Npc cantineira("Tia da Cantina", cantineiraBMP, Pos_x_cantineira, Pos_y_cantineira, falas);
 
     //Atribuição dos Capimons aos charactes.
     //Exemplo: nomeCharaceter.add_capimon(&CapimonNome);
 	capivaristo.add_capimon(&pikachu);
 	andre.add_capimon(&hitmonchan);
 	cantineira.add_capimon(&haunter);
-    // julio.add_capimon(&blastoise);
+    julio.add_capimon(&blastoise);
     jacare.add_capimon(&arcanine);
 
     //Criação do mapa do jogo
@@ -335,6 +349,9 @@ int main(int argc, char **argv){
     //Inicialização da batalha
     //bat.start_battle(&Player,&Npc);
 	//bat.start_battle(&capivaristo, &andre);
+
+    //Desenho do Menu inicial na tela
+    menuinicial.initMenu();
 
     while(!sair){
         ALLEGRO_EVENT ev;
@@ -367,6 +384,9 @@ int main(int argc, char **argv){
             case ALLEGRO_KEY_RIGHT:
                 key[KEY_RIGHT] = true;
                 break;
+            case ALLEGRO_KEY_I:
+                key[KEY_I] = true;
+                break;
             }
         }
         else if(ev.type == ALLEGRO_EVENT_KEY_UP)
@@ -392,6 +412,9 @@ int main(int argc, char **argv){
             case ALLEGRO_KEY_ESCAPE:
                 sair = true;
                 break;
+            case ALLEGRO_KEY_I:
+                key[KEY_I] = false;
+                break;
             }
         }
 
@@ -406,6 +429,7 @@ int main(int argc, char **argv){
             andre.draw_npc();
             jacare.draw_npc();
             cantineira.draw_npc();
+            julio.draw_npc();
 
             if(key[KEY_UP])
             {
@@ -429,6 +453,21 @@ int main(int argc, char **argv){
                 }
             }else{
                 capivaristo.walk(-1,map);
+            }
+            if(key[KEY_I]){
+                key[KEY_I] = false;
+                if (julio.can_interact(capivaristo.get_position())) {
+                    julio.show_interaction();
+                }
+                else if (andre.can_interact(capivaristo.get_position())) {
+                    andre.show_interaction();
+                }
+                else if (cantineira.can_interact(capivaristo.get_position())) {
+                    cantineira.show_interaction();
+                }
+                else if (jacare.can_interact(capivaristo.get_position())) {
+                    jacare.show_interaction();
+                }
             }
 
             if(pos_x < 0){
@@ -465,6 +504,7 @@ int main(int argc, char **argv){
 	al_destroy_bitmap(haunterBMP);
 	al_destroy_bitmap(arcanineBMP);
     al_destroy_bitmap(andreBMP);
+    al_destroy_bitmap(julioBMP);
     al_destroy_bitmap(jacareBMP);
     al_destroy_bitmap(cantineiraBMP);
     al_destroy_bitmap(mapa);

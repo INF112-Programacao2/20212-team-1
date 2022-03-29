@@ -69,7 +69,7 @@ void Npc::show_interaction() {
 			
 			draw_dialog_box();
 			draw_text(name, interaction->get_dialog(i)[j]);
-			al_flip_display();
+			//al_flip_display();
 			al_rest(2.0);
 		}
 	}
@@ -106,5 +106,5 @@ Position Npc::get_CAPIMON_STATUS_POSITION() const {
 
 void Npc::draw_npc(){
 	al_convert_mask_to_alpha(this->_image, al_map_rgb(255,0,255));
-	al_draw_bitmap(this->_image, this->_position.get_x(), this->_position.get_y(), 0);
+	al_draw_bitmap(this->_image, this->_position.get_x() * this->_tamPixels, this->_position.get_y() * this->_tamPixels, 0);
 }
