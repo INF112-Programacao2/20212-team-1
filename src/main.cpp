@@ -273,51 +273,51 @@ int main(int argc, char **argv){
 
     //Pikachu
 	Skill habA[] = {
-		{ 0, "Choque do trovão", 10, 20 },
-		{ 1, "Cauda de ferro", 50, 120 },
-		{ 2, "Pena de gaivota", 5, 10},
-		{ 3, "Copo de plástico", 175, 200 }
+		{ 0, "Choque do trovão", 30, 35 },
+		{ 1, "Cauda de ferro", 20, 40 },
+		{ 2, "Investida trovão", 10, 50},
+		{ 3, "Electro Ball", 10, 60 }
 	};
 
     //Blastoise
 	Skill habB[] = {
-		{ 0, "Ataque intensificado", 8, 30 },
-		{ 1, "Enxurrada", 45, 78 },
-		{ 2, "Arma d'água", 18, 23},
-		{ 3, "Surfar", 1, 23 }
+		{ 0, "Ataque intensificado", 10, 30 },
+		{ 1, "Enxurrada", 15, 40 },
+		{ 2, "Arma d'água", 20, 45},
+		{ 3, "Surfar", 5, 25 }
 	};
 
     //Arcanine
 	Skill habC[] = {
-		{ 0, "Golpe aéreo", 10, 20 },
-		{ 1, "Lança chamas", 50, 120 },
-		{ 2, "Fúria do dragão", 5, 10},
-		{ 3, "Rajada de fogo", 175, 200 }
+		{ 0, "Golpe aéreo", 15, 25 },
+		{ 1, "Lança chamas", 20, 40 },
+		{ 2, "Fúria do dragão", 20, 45},
+		{ 3, "Rajada de fogo", 10, 42 }
 	};
 
     //Hitmonchan
 	Skill habD[] = {
-		{ 0, "Soco Cometa", 10, 20 },
-		{ 1, "Soco Rápido", 50, 120 },
-		{ 2, "Mega Soco", 5, 10},
-		{ 3, "Punho Focus", 175, 200 }
+		{ 0, "Soco Cometa", 15, 25 },
+		{ 1, "Soco Rápido", 20, 25 },
+		{ 2, "Mega Soco", 20, 40},
+		{ 3, "Punho Focus", 20, 25 }
 	};
 
     //Haunter
 	Skill habE[] = {
 		{ 0, "Raio Confusão", 10, 20 },
-		{ 1, "Esfera Obscura", 50, 120 },
-		{ 2, "Ataque Hipnótico", 5, 10},
-		{ 3, "Assustar", 175, 200 }
+		{ 1, "Esfera Obscura", 25, 30 },
+		{ 2, "Ataque Hipnótico", 15, 30},
+		{ 3, "Assustar", 15, 50 }
 	};
 
     //Criação de Capimons
     //exemplo Capimon nomeCapimon("NomeCapimon", BitmapDaImagem, vida, array de Skills );
     Capimon pikachu("Pikachu", pikachuBMP, 350, habA);
     Capimon blastoise("Blastoise", blastoiseBMP, 400, habB);
-    Capimon hitmonchan("Hitmonchan", hitmonchanBMP, 280, habC);
-    Capimon haunter("Haunter", haunterBMP, 316, habD);
-    Capimon arcanine("Arcanine", arcanineBMP, 300, habE);
+    Capimon hitmonchan("Hitmonchan", hitmonchanBMP, 380, habC);
+    Capimon haunter("Haunter", haunterBMP, 360, habD);
+    Capimon arcanine("Arcanine", arcanineBMP, 340, habE);
 
     //Criação do player
     Player capivaristo("Capivaristo", personagem,Pos_x_inicial, Pos_y_inicial, Tam_x_sprite, Tam_y_sprite);
