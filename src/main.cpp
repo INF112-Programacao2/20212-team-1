@@ -70,6 +70,7 @@ ALLEGRO_BITMAP *arcanineBMP = nullptr;
 ALLEGRO_BITMAP *andreBMP = nullptr;
 ALLEGRO_BITMAP *jacareBMP = nullptr;
 ALLEGRO_BITMAP *cantineiraBMP = nullptr;
+ALLEGRO_BITMAP *julioBMP = nullptr;
 
 
 //Variaveis para saber se os Npcs estão ativos ou não no mapa
@@ -191,7 +192,7 @@ int inicializa() {
         return -1;
     }
 
-	andreBMP = al_load_bitmap("img/npc/oak.bmp");
+	andreBMP = al_load_bitmap("img/npc/Andre.bmp");
     if(!andreBMP)
     {
         std::cerr << "Falha ao carregar o Andre!" << std::endl;
@@ -201,7 +202,7 @@ int inicializa() {
     }
 
     jacareBMP = al_load_bitmap("img/npc/alex.bmp");
-	if(!pikachuBMP)
+	if(!jacareBMP)
     {
         std::cerr << "Falha ao carregar o Jacare!" << std::endl;
         al_destroy_display(display);
@@ -210,9 +211,18 @@ int inicializa() {
     }
 
     cantineiraBMP = al_load_bitmap("img/npc/TiaDaCantina.bmp");
-	if(!pikachuBMP)
+	if(!cantineiraBMP)
     {
         std::cerr << "Falha ao carregar a tia da cantina!" << std::endl;
+        al_destroy_display(display);
+        al_destroy_timer(timer);
+        return -1;
+    }
+
+    julioBMP = al_load_bitmap("img/npc/Julio.bmp");
+	if(!julioBMP)
+    {
+        std::cerr << "Falha ao carregar Julio!" << std::endl;
         al_destroy_display(display);
         al_destroy_timer(timer);
         return -1;
@@ -315,7 +325,7 @@ int main(int argc, char **argv){
     //Criação dos Npcs
     //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y, Array com endereço dos arquivos de fala );
 	Npc andre("Prof. Andre", andreBMP, Pos_x_andre*32, Pos_y_andre*32, falas); // TODO: review npc initial position int: x, y
-    //Npc julio("Prof. Julio", , int{}, int{}, falas);
+    Npc julio("Prof. Julio", julioBMP, Pos_x_julio * 32, Pos_y_julio * 32, falas);
     Npc jacare("Jacare da Vacina", jacareBMP,Pos_x_jacare*32, Pos_y_jacare*32, falas);
     Npc cantineira("Tia da Cantina", cantineiraBMP, Pos_x_cantineira*32, Pos_y_cantineira*32, falas);
 
@@ -324,7 +334,7 @@ int main(int argc, char **argv){
 	capivaristo.add_capimon(&pikachu);
 	andre.add_capimon(&hitmonchan);
 	cantineira.add_capimon(&haunter);
-    // julio.add_capimon(&blastoise);
+    julio.add_capimon(&blastoise);
     jacare.add_capimon(&arcanine);
 
     //Criação do mapa do jogo
@@ -334,7 +344,7 @@ int main(int argc, char **argv){
     Battle bat("img/battle/TileBatalla.bmp");
     //Inicialização da batalha
     //bat.start_battle(&Player,&Npc);
-	//bat.start_battle(&capivaristo, &andre);
+	bat.start_battle(&capivaristo, &andre);
 
     while(!sair){
         ALLEGRO_EVENT ev;
@@ -406,6 +416,7 @@ int main(int argc, char **argv){
             andre.draw_npc();
             jacare.draw_npc();
             cantineira.draw_npc();
+            julio.draw_npc();
 
             if(key[KEY_UP])
             {
@@ -465,6 +476,7 @@ int main(int argc, char **argv){
 	al_destroy_bitmap(haunterBMP);
 	al_destroy_bitmap(arcanineBMP);
     al_destroy_bitmap(andreBMP);
+    al_destroy_bitmap(julioBMP);
     al_destroy_bitmap(jacareBMP);
     al_destroy_bitmap(cantineiraBMP);
     al_destroy_bitmap(mapa);
