@@ -48,18 +48,17 @@ class Battle {
 		ALLEGRO_BITMAP *_cursor;
 		ALLEGRO_BITMAP *_background; 
 
-		void draw_capimon(Character *character);
-		void draw_capimon_status(Character *character);
-		bool there_is_a_looser(Player *hero, Npc *enemy);
-		void verify_selected_display_skill(Character *character);
-		void exit_battle();
-		void draw_skill(Skill* skill);
-		void draw_cursor();
+		void draw_capimon(Character *character); //método para desenhar o capimon na batalha de acordo com o tipo de personagem
+		void draw_capimon_status(Character *character); //método para desenhar a barrara de status do capimon de acordo com o tipo de personagem
+		bool there_is_a_looser(Player *hero, Npc *enemy); //método para verificar se alguém perdeu
+		void verify_selected_display_skill(Character *character); //método para  verificar a skill que foi selecionada no display
+		void draw_skill(Skill* skill); //Método para desenhar a skill na batalha
+		void draw_cursor(); //Método para desenhar o curso na batalha
 
 	public:
 		Battle(std::string background_directory);
 		~Battle();
-		bool start_battle(Player *hero , Npc *enemy);
+		bool start_battle(Player *hero , Npc *enemy); // Método para iniciar a batalha, retorno um boleano informando se o player ganhou
 			
 };
 

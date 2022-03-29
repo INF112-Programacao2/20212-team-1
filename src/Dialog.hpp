@@ -12,13 +12,12 @@
 
 class Dialog {
 	private:
-		std::string _speak;
-		std::string _answer;
-		std::string _player_name;
-		std::string _npc_name;
-		
-		void draw_dialog_box(int reference_x, int reference_y);
-		void draw_text(int i,int reference_x, int reference_y);
+        std::string _speak;
+        std::string _answer;
+        std::string _player_name;
+        std::string _npc_name;
+        void draw_dialog_box(int reference_x, int reference_y);
+        void draw_text(int i,int reference_x, int reference_y);
 	public:
 		Dialog(std::string player_name, std::string speak, std::string npc_name, std::string answer);
 		~Dialog();

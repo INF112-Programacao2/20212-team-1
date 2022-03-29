@@ -172,10 +172,10 @@ bool Battle::start_battle(Player *hero , Npc *enemy) { //inicia a batalha e reto
 	enemy->get_selected_capimon()->heal_health();
 
 
-	al_destroy_font(fonteFinal);
-	al_destroy_sample(musica);
-	al_destroy_sample_instance(musicaInstancia);
-	al_destroy_event_queue(event_queue);
+	al_destroy_font(fonteFinal); //destrutor da música
+	al_destroy_sample(musica); //destrutor da música
+	al_destroy_sample_instance(musicaInstancia); //destrutor da instância música
+	al_destroy_event_queue(event_queue); //destrutor da fila de eventos usada na batalha
 	al_destroy_timer(timer); //destrutor para o tempo
 	return vitoria;
 }
