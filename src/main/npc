@@ -1,0 +1,2 @@
+#!/bin/bash
+g++ npc.cpp ../Npc.cpp ../Position.cpp ../Object.cpp ../Character.cpp
