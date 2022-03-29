@@ -336,9 +336,9 @@ int main(int argc, char **argv){
     //Criação dos Npcs
     //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y,quantidade de fals, Array com endereço dos arquivos de fala );
 	Npc andre("Prof. Andre", andreBMP, Pos_x_andre, Pos_y_andre,1, "file/Andre.txt", capivaristo.get_name()); // TODO: review npc initial position int: x, y
-    Npc julio("Prof. Julio", julioBMP, Pos_x_julio, Pos_y_julio ,1, "file/Andre.txt", capivaristo.get_name());
-    Npc jacare("Jacare da Vacina", jacareBMP,Pos_x_jacare, Pos_y_jacare, 1, "file/Andre.txt", capivaristo.get_name());
-    Npc cantineira("Tia da Cantina", cantineiraBMP, Pos_x_cantineira, Pos_y_cantineira, 1, "file/Andre.txt", capivaristo.get_name());
+    Npc julio("Prof. Julio", julioBMP, Pos_x_julio, Pos_y_julio ,1, "file/Julio.txt", capivaristo.get_name());
+    Npc jacare("Jacare da Vacina", jacareBMP,Pos_x_jacare, Pos_y_jacare, 1, "file/Jacare.txt", capivaristo.get_name());
+    Npc cantineira("Tia da Cantina", cantineiraBMP, Pos_x_cantineira, Pos_y_cantineira, 1, "file/Cantineira.txt", capivaristo.get_name());
 
     //Atribuição dos Capimons aos charactes.
     //Exemplo: nomeCharaceter.add_capimon(&CapimonNome);
