@@ -328,10 +328,6 @@ int main(int argc, char **argv){
 
     //Criação do player
     Player capivaristo("Capivaristo", personagem,Pos_x_inicial, Pos_y_inicial, Tam_x_sprite, Tam_y_sprite);
-
-    //Criação dos arquivos de falas do Npcs
-    //exemplo: std::string falas[] = {"file/Andre.txt"};
-	//std::string falas[] = { "file/Andre.txt" };
     
     //Criação dos Npcs
     //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y,quantidade de fals, Array com endereço dos arquivos de fala );
@@ -353,9 +349,6 @@ int main(int argc, char **argv){
 
     //Criação das batalhas
     Battle bat("img/battle/TileBatalla.bmp");
-    //Inicialização da batalha
-    //bat.start_battle(&Player,&Npc);
-	//bat.start_battle(&capivaristo, &andre);
 
     //Desenho do Menu inicial na tela
     menuinicial.initMenu();

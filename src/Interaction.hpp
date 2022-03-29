@@ -25,7 +25,6 @@ class Interaction {
 		unsigned int get_quantity_of_dialogs();
 		Dialog get_dialog(int i);
 		char get_DELIMITER() const;
-		
 		void draw(int reference_x, int reference_y);
 };
 

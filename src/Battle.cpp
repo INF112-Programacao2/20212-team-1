@@ -2,7 +2,7 @@
 
 #include "Battle.hpp"
 
-// TODO: Change construct to the easier way
+
 Battle::Battle(std::string background_directory):
 	_selected_display_skill(0,0), _cursor_position(30, 420) {
 	this->_health_bar = al_load_bitmap("img/battle/health_bar.bmp");
@@ -23,7 +23,6 @@ Battle::~Battle() {
 	al_destroy_bitmap(this->_cursor);
 }
 
-// TODO: start_battle()
 bool Battle::start_battle(Player *hero , Npc *enemy) { //inicia a batalha e retorna true se o hero tiver ganho e false se o enemy tiver ganho
 	//cria uma camera para garantir que vai ser apresentada no local certo
 	ALLEGRO_TRANSFORM camera;
@@ -58,9 +57,9 @@ bool Battle::start_battle(Player *hero , Npc *enemy) { //inicia a batalha e reto
 	}
 
 	//ALLEGRO_FONT *font = al_load_font("font.ttf", 11, 0);
-	ALLEGRO_FONT *fonteFinal = al_load_font("file/font.ttf", 30, 0);	// TODO: Add this const in the class
-	ALLEGRO_SAMPLE *musica = NULL;
-	ALLEGRO_SAMPLE_INSTANCE *musicaInstancia = NULL;
+	ALLEGRO_FONT *fonteFinal = al_load_font("file/font.ttf", 30, 0);
+	ALLEGRO_SAMPLE *musica = nullptr;
+	ALLEGRO_SAMPLE_INSTANCE *musicaInstancia = nullptr;
 
 	al_reserve_samples(10);
 
@@ -118,7 +117,6 @@ bool Battle::start_battle(Player *hero , Npc *enemy) { //inicia a batalha e reto
 				verify_selected_display_skill(hero);
 				break;
 			case ALLEGRO_KEY_ENTER:
-				// TODO: Create attack function
 				pressed_enter = true;
 				break;
     	}
@@ -181,7 +179,6 @@ bool Battle::start_battle(Player *hero , Npc *enemy) { //inicia a batalha e reto
 }
 
 
-// TODO: Creat draw_capimon()
 void Battle::draw_capimon(Character *character) {
 	Position draw_position = character->get_CAPIMON_DRAW_POSITION();
 	al_convert_mask_to_alpha(character->get_selected_capimon()->get_image(), al_map_rgb(255,0,255));
@@ -237,7 +234,7 @@ void Battle::draw_skill(Skill* skill) {
 	
 	int index = skill->get_index();
 	
-	al_draw_text(this->_font, al_map_rgb(0,0,0), (index == 0 || index == 1) ? 40 : 200, (index == 0 || index == 2) ? 420 : 450, ALLEGRO_ALIGN_LEFT, skill->get_name().c_str());	// TODO: Confirme ternary operator use 
+	al_draw_text(this->_font, al_map_rgb(0,0,0), (index == 0 || index == 1) ? 40 : 200, (index == 0 || index == 2) ? 420 : 450, ALLEGRO_ALIGN_LEFT, skill->get_name().c_str());
 	
 }
 
@@ -247,7 +244,7 @@ bool Battle::there_is_a_looser(Player *hero, Npc *enemy) {
 }
 
 void Battle::verify_selected_display_skill(Character *character) {
-// TODO: Confirm if the skills are correctly selected
+	
 	switch (this->_selected_display_skill.get_x()) {
 		case 0:
 			switch (this->_selected_display_skill.get_y()) {
