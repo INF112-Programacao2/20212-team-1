@@ -24,6 +24,6 @@ Para conseguir testar a aplicação, você vai precisar ter instalado em sua má
 # Compilar e executar
 Para compilar e executar o programa, entre em seu no bash/terminal equivalente e insira o seguinte comando:
 ```console
-~$ make && make run
+make && make run
 ```
 Esses comandos compilam a fonte e executam o programa no caminho correto para que os arquivos de recursos do jogo sejam carregados corretamente. Mais informações no arquivo [Makefile](Makefile).
