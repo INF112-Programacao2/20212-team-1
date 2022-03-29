@@ -34,7 +34,7 @@ void Dialog::set_answer(std::string answer) {
 	this->_answer = answer;
 }
 
-void Dialog::draw_dialog_box() {
+void Dialog::draw_dialog_box(int reference_x, int reference_y) {
 	if (!al_is_system_installed()) {
 		std::cerr << "Allegro must be installed." << std::endl;
 		throw std::exception();
@@ -53,12 +53,12 @@ void Dialog::draw_dialog_box() {
 		throw std::exception();
 	}
 		
-	al_draw_bitmap(dialog_box, 0, 384, ALLEGRO_FLIP_HORIZONTAL);
+	al_draw_bitmap(dialog_box, reference_x, reference_y + 384, ALLEGRO_FLIP_HORIZONTAL);
 	
 	//al_destroy_bitmap(dialog_box);
 }
 
-void Dialog::draw_text(int i) {	// if i == 0 speak if i == 1 answer
+void Dialog::draw_text(int i, int reference_x, int reference_y) {	// if i == 0 speak if i == 1 answer
 	if (!al_is_system_installed()) {
 		std::cerr << "Allegro must be installed." << std::endl;
 		throw std::exception();
@@ -82,18 +82,18 @@ void Dialog::draw_text(int i) {	// if i == 0 speak if i == 1 answer
 		throw std::exception();
 	}
 		
-	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, (i == 0) ? this->_player_name.c_str() : this->_npc_name.c_str());
-	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394 + al_get_font_line_height(font), 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, (i == 0) ? this->_speak.c_str() : this->_answer.c_str());
+	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), reference_x + 20, reference_y + 394, 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, (i == 0) ? this->_player_name.c_str() : this->_npc_name.c_str());
+	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), reference_x + 20, reference_y + 394 + al_get_font_line_height(font), 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, (i == 0) ? this->_speak.c_str() : this->_answer.c_str());
 }
 
-void Dialog::draw() {
+void Dialog::draw(int reference_x, int reference_y) {
 	// TODO: Press N to next
-	this->draw_dialog_box();
-	this->draw_text(0);
+	this->draw_dialog_box(reference_x, reference_y);
+	this->draw_text(0,reference_x, reference_y);
 	al_flip_display();	// TODO: Test flip display
-	al_rest(5.0);
-	this->draw_dialog_box();
-	this->draw_text(1);
+	al_rest(1.0);
+	this->draw_dialog_box(reference_x, reference_y);
+	this->draw_text(1,reference_x, reference_y);
 	al_flip_display();	// TODO: Test flip display
-	al_rest(5.0);
+	al_rest(1.0);
 }

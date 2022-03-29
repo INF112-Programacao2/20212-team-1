@@ -26,7 +26,7 @@ class Interaction {
 		Dialog get_dialog(int i);
 		char get_DELIMITER() const;
 		
-		void draw();
+		void draw(int reference_x, int reference_y);
 };
 
 #endif /* INTERACTION_HPP */

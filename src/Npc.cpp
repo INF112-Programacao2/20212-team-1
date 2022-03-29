@@ -37,7 +37,7 @@ bool Npc::can_interact(Position player_position) {
 	return false;
 }
 
-void Npc::draw_next_interaction() {
+void Npc::draw_next_interaction(int reference_x, int reference_y) {
 	if (this->_interactions.size() == 0) {
 		std::cerr << "There is no interaction to draw." << std::endl;
 		throw std::exception();
@@ -46,8 +46,9 @@ void Npc::draw_next_interaction() {
 	Interaction *interaction = this->_interactions.back();
 	this->_interactions.pop();
 	
-	interaction->draw();
-	//al_flip_display();
+	interaction->draw(reference_x, reference_y);
+	delete interaction;
+	al_flip_display();
 	
 }
 

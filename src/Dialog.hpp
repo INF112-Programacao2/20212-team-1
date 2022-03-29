@@ -17,8 +17,8 @@ class Dialog {
 		std::string _player_name;
 		std::string _npc_name;
 		
-		void draw_dialog_box();
-		void draw_text(int i);
+		void draw_dialog_box(int reference_x, int reference_y);
+		void draw_text(int i,int reference_x, int reference_y);
 	public:
 		Dialog(std::string player_name, std::string speak, std::string npc_name, std::string answer);
 		~Dialog();
@@ -29,7 +29,7 @@ class Dialog {
 		void set_speak(std::string speak);
 		void set_answer(std::string answer);
 		
-		void draw();
+		void draw(int reference_x, int reference_y);
 };
 
 #endif /* Dialog_HPP */

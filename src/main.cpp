@@ -24,7 +24,9 @@
 const float FPS = 5;
 const int SCREEN_W = 640; //tamanho horizontal da tela
 const int SCREEN_H = 480; //tamanho vertical da tela
+#define pixelsDim 32 //Dimensão em pixels utilizada como padrão
 
+//Informações do personagem (escrever melhor ainda)
 #define Pos_x_inicial 30 //posicao inicial em x do personagem
 #define Pos_y_inicial 100 //posicao inicial em y do personagem
 #define Tam_x_sprite 32 //tamanho em x de cada sprite do personagem
@@ -77,9 +79,13 @@ ALLEGRO_BITMAP *julioBMP = nullptr;
 
 //Variaveis para saber se os Npcs estão ativos ou não no mapa
 bool ativaJulio = false;
-bool ativaAndre = false;
+bool interagio_com_julio = false;
+bool ativaAndre = true;
+bool interagio_com_andre = false;
 bool ativaCantineira = false;
+bool interagio_com_cantineira = false;
 bool ativaJacare = false;
+bool interagio_com_jacare = false;
 
 int inicializa() {
     if(!al_init())
@@ -427,10 +433,14 @@ int main(int argc, char **argv){
             al_clear_to_color(al_map_rgb(0,0,0));
             
             map.draw_part();
-            andre.draw_npc();
-            jacare.draw_npc();
-            cantineira.draw_npc();
-            julio.draw_npc();
+            if(ativaAndre)
+                andre.draw_npc();
+            if(ativaJacare)
+                jacare.draw_npc();
+            if(ativaCantineira)
+                cantineira.draw_npc();
+            if(ativaJulio)
+                julio.draw_npc();
 
             if(key[KEY_UP])
             {
@@ -457,18 +467,48 @@ int main(int argc, char **argv){
             }
             if(key[KEY_I]){
                 key[KEY_I] = false;
-                if (julio.can_interact(capivaristo.get_position())) {
-                    julio.draw_next_interaction();
+                if (julio.can_interact(capivaristo.get_position()) && ativaJulio) {
+                    if(!interagio_com_julio){
+                        interagio_com_julio = true;
+                        julio.draw_next_interaction(camera_x * pixelsDim, camera_y * pixelsDim);
+                    }
+                    if(bat.start_battle(&capivaristo, &julio)){
+                        ativaJulio = false;
+                        sair = true;
+                    }
+                        
                 }
-                else if (andre.can_interact(capivaristo.get_position())) {
-                    andre.draw_next_interaction();
-                    al_flip_display();
+                else if (andre.can_interact(capivaristo.get_position()) && ativaAndre) {
+                    if(!interagio_com_andre){
+                        interagio_com_andre = true;
+                        andre.draw_next_interaction(camera_x * pixelsDim, camera_y * pixelsDim);
+                    }
+                    if(bat.start_battle(&capivaristo, &andre)){
+                        ativaAndre = false;
+                        ativaJacare = true;
+                    }
                 }
-                else if (cantineira.can_interact(capivaristo.get_position())) {
-                    cantineira.draw_next_interaction();
+                else if (cantineira.can_interact(capivaristo.get_position()) && ativaCantineira) {
+                    if(!interagio_com_cantineira){
+                        interagio_com_cantineira = true;
+                        cantineira.draw_next_interaction(camera_x * pixelsDim, camera_y * pixelsDim);
+                    }
+                    if(bat.start_battle(&capivaristo, &cantineira)){
+                        ativaCantineira = false;
+                        ativaJulio = true;
+                    }
                 }
-                else if (jacare.can_interact(capivaristo.get_position())) {
-                    jacare.draw_next_interaction();
+                else if (jacare.can_interact(capivaristo.get_position()) && ativaJacare) {
+                    if(!interagio_com_jacare){
+                        interagio_com_jacare = true;
+                        jacare.draw_next_interaction(camera_x * pixelsDim, camera_y * pixelsDim);
+                    }
+                    if(bat.start_battle(&capivaristo, &jacare)){
+                        ativaJacare = false;
+                        ativaCantineira = true;
+                    }
+
+
                 }
             }
 
@@ -488,7 +528,7 @@ int main(int argc, char **argv){
                 camera_y++;
             }
             al_identity_transform(&camera);
-            al_translate_transform(&camera, -camera_x * 32, -camera_y * 32);
+            al_translate_transform(&camera, -camera_x * pixelsDim, -camera_y * pixelsDim);
             al_use_transform(&camera);
 
             al_flip_display();

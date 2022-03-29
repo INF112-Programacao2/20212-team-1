@@ -21,7 +21,7 @@ class Npc : public Character {
 		Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, unsigned int quantity_of_interactions, std::string interaction_base_directory, std::string player_name);	// the order metter
 		~Npc();
 		bool can_interact(Position player_position);
-		void draw_next_interaction();
+		void draw_next_interaction(int reference_x, int reference_y);
 		virtual Position get_CAPIMON_DRAW_POSITION() const;
     	virtual Position get_CAPIMON_STATUS_POSITION() const;
 		void draw_npc();

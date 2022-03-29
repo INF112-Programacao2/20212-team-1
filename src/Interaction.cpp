@@ -44,7 +44,7 @@ Dialog Interaction::get_dialog(int index) {
 	return this->_dialogs.at(index);
 }
 
-void Interaction::draw() {
+void Interaction::draw(int reference_x, int reference_y) {
 	for (Dialog dialog : this->_dialogs)
-		dialog.draw();
+		dialog.draw(reference_x, reference_y);
 }

@@ -59,7 +59,7 @@ class Battle {
 	public:
 		Battle(std::string background_directory);
 		~Battle();
-		void start_battle(Player *hero , Npc *enemy);
+		bool start_battle(Player *hero , Npc *enemy);
 			
 };
 

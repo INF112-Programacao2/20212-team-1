@@ -24,16 +24,23 @@ Battle::~Battle() {
 }
 
 // TODO: start_battle()
-void Battle::start_battle(Player *hero , Npc *enemy) {
+bool Battle::start_battle(Player *hero , Npc *enemy) { //inicia a batalha e retorna true se o hero tiver ganho e false se o enemy tiver ganho
+	//cria uma camera para garantir que vai ser apresentada no local certo
+	ALLEGRO_TRANSFORM camera;
+	al_identity_transform(&camera);
+    al_translate_transform(&camera, 0, 0);
+    al_use_transform(&camera);
+	
 	bool exit = false;
 	float fps = 2;
+	bool vitoria = false;
 	bool redraw = true;
 	bool pressed_enter = false;
 	ALLEGRO_TIMER *timer = NULL;
 	timer = al_create_timer(1.0 / fps);
 	if(!timer){
         std::cerr << "Falha ao inicializar o temporizador" << std::endl;
-        return;
+        return vitoria;
   }
   
 	hero->set_selected_capimon(0);
@@ -145,6 +152,7 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 				al_flip_display();
 				al_rest(5.0);
 				exit = true;
+				vitoria = true;
 				// Player ganhou, NPC perde
 			} else if (there_is_a_looser(hero,enemy) && hero->get_selected_capimon()->get_cur_health() == 0)
 			{
@@ -153,11 +161,15 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 				al_flip_display();
 				al_rest(5.0);
 				exit = true;
+				vitoria = false;
 				// NPC ganhou, Player perde
 			}
 			al_flip_display();
 		}
 	}
+	//restaurando a vida dos capimons personagens
+	hero->get_selected_capimon()->heal_health();
+	enemy->get_selected_capimon()->heal_health();
 
 
 	al_destroy_font(fonteFinal);
@@ -165,7 +177,7 @@ void Battle::start_battle(Player *hero , Npc *enemy) {
 	al_destroy_sample_instance(musicaInstancia);
 	al_destroy_event_queue(event_queue);
 	al_destroy_timer(timer); //destrutor para o tempo
-	return;
+	return vitoria;
 }
 
 
