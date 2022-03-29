@@ -1,34 +1,31 @@
 /* npc.cpp */
 
-#include <allegro5/allegro.h>
-
 #include "../Npc.hpp"
+#include "../Player.hpp"
 #include <iostream>
 
+//#define RESOLVE_PATH(str) "../file/" str
+
 int main() {
-  al_install_keyboard();
-	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-	al_register_event_source(event_queue, al_get_keyboard_event_source());
+	Player capivara("Capivaristo", nullptr, 1, 1, 0, 0);
+	Npc npc("André", nullptr, 1, 1, 1, "../file/Andre.txt", capivara.get_name());
 	
-	Player player("Capivaristo", nullptr, 0, 0, 0, 0);
+	al_init();
 	
-	std::string file[] = {"file/Andre.txt"};
-	Npc npc("André", nullptr, 1, 1, file);
-		
-	ALLEGRO_EVENT event;
-	al_wait_for_event(event_queue, &event);
+	ALLEGRO_DISPLAY *display = nullptr;
+	display = al_create_display(640, 480);
 	
-	if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
-		switch (event.keyboard.keycode) {
-			case ALLEGRO_KEY_I:
-				if (npc.can_interact(player_position)) {
-					npc.show_interaction();
-				}
-				break;
-		}
+	al_init_image_addon();
+	al_init_font_addon();
+	al_init_ttf_addon();
+	
+	if (npc.can_interact(capivara.get_position())) {
+		npc.draw_next_interaction();
+		al_flip_display();
+		al_rest(2.0);
 	}
-	
-	al_destroy_event_queue(event_queue);
+
+	al_destroy_display(display);
 	
 	return 0;
 }

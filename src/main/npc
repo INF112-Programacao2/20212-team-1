@@ -1,2 +1,2 @@
 #!/bin/bash
-g++ npc.cpp ../Npc.cpp ../Position.cpp ../Object.cpp ../Character.cpp
+g++ npc.cpp ../Npc.cpp ../Position.cpp ../Object.cpp ../Character.cpp ../Player.cpp ../Map.cpp ../Interaction.cpp ../Dialog.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf

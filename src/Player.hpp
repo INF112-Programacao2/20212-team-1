@@ -27,7 +27,6 @@ class Player : public Character{
   	Player(std::string name, ALLEGRO_BITMAP *image,int x, int y, int tam_x, int tam_y);
     ~Player();
     bool walk(int direcao, Map &mapa);
-    void interact(Npc *npc);
 		virtual Position get_CAPIMON_DRAW_POSITION() const;
     virtual Position get_CAPIMON_STATUS_POSITION() const;
 };
