@@ -1,5 +1,0 @@
-4
-Quem é você?|Meu nome é Júlio!
-Você já ouviu falar do Jacaré-da-Vacina?|Não.
-Ata, obrigado!|[...]
-Ok!|Ok!
