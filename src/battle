@@ -1,2 +1,0 @@
-#!/bin/bash
-g++ main/battle.cpp Position.cpp Object.cpp Character.cpp Player.cpp Npc.cpp Interaction.cpp Skill.cpp  Battle.cpp Map.cpp Capimon.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec
