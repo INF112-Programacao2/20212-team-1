@@ -4,10 +4,12 @@
 
 Grupo 1
 
-<h2> Roteiro </h2>
-Um aluno do curso de Ciência da Computação da UFV está cansado da pandemia e do EAD e decide resolver a situação por si mesmo. Durante essa jornada, Capivaristo tem que enfrentar alguns inimigos.
+<h2> Sinopse </h2>
+<p> Um aluno do curso de Ciência da Computação da UFV está cansado da pandemia e do EAD e decide resolver a situação por si mesmo. Assuma o papel de Capivaristo nessa história e atinja a aprovação no curso! </p>
 
-## Integrantes
+<br> ![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/TelaInicial.png) <br>
+
+<h2> Integrantes </h2>
 
 <ul>
   <li><a href="https://github.com/Igoreduardobraga">Igor Eduardo Martins Braga</a></li>
@@ -15,6 +17,3 @@ Um aluno do curso de Ciência da Computação da UFV está cansado da pandemia e
   <li><a href="https://github.com/jopzoli">João Pedro Pulz de Oliveira</a></li>
   <li><a href="https://github.com/SRaimundo">Samuel Raimundo Lopes Pinto</a></li>
 <ul>
-  
-
-![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/TelaInicial.png)
