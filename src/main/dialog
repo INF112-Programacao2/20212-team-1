@@ -1,2 +1,2 @@
 #!/bin/bash
-g++ dialog.cpp ../Dialog.cpp
+g++ dialog.cpp ../Dialog.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf

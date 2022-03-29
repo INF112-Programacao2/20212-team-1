@@ -5,7 +5,7 @@
 #include <fstream>
 #include <exception>
 
-Interaction::Interaction(std::string file_directory) {
+Interaction::Interaction(std::string file_directory, std::string player_name, std::string npc_name) {
 	std::string line;
 	std::ifstream file(file_directory);
 	if (!file.is_open())
@@ -19,7 +19,7 @@ Interaction::Interaction(std::string file_directory) {
 		int delim_pos = line.find_first_of(this->_DELIMITER);
 		std::string speak = line.substr(0, delim_pos);
 		std::string answer = line.substr(delim_pos + 1);
-		this->_dialogs.push_back(Dialog(speak, answer));
+		this->_dialogs.push_back(Dialog(player_name, speak, npc_name, answer));
 	}
 	
 	file.close();
@@ -42,4 +42,9 @@ Dialog Interaction::get_dialog(int index) {
 	if (index < 0 || index > this->_dialogs.size() - 1)
 		throw std::invalid_argument("The value i must be beetween 0 and (_dialogs.size() - 1).");
 	return this->_dialogs.at(index);
+}
+
+void Interaction::draw() {
+	for (Dialog dialog : this->_dialogs)
+		dialog.draw();
 }

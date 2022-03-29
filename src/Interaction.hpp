@@ -13,11 +13,13 @@ class Interaction {
 		std::vector<Dialog> _dialogs;
 		static const char _DELIMITER = '|';
 	public:
-		Interaction(std::string file_directory);
+		Interaction(std::string file_directory, std::string player_name, std::string npc_name);
 		~Interaction();
 		unsigned int get_quantity_of_dialogs();
 		Dialog get_dialog(int i);
 		char get_DELIMITER() const;
+		
+		void draw();
 };
 
 #endif /* INTERACTION_HPP */
