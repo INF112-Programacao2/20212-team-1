@@ -1,6 +1,6 @@
 
 # Se qovcê deseja trocar o nome do arquivo de saída do compilador, troque o valor da diretiva abaixo
-EXE=capigame # Executable file name
+EXE=capigame
 
 # Source files to compile
 SRC=main.cpp Battle.cpp Capimon.cpp Character.cpp Dialog.cpp HomeMenu.cpp Interaction.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Position.cpp Skill.cpp
