@@ -18,6 +18,7 @@ $(EXE): $(SRC)
 	@touch "$(SRC_DIR)/$@"
 
 .PHONY: run
+run:
 	cd "$(SRC_DIR)"; ./$(EXE)
 
 clean:
