@@ -24,8 +24,8 @@ const float FPS = 5;
 const int SCREEN_W = 640; //tamanho horizontal da tela
 const int SCREEN_H = 480; //tamanho vertical da tela
 
-#define Pos_x_inicial 5 //posicao inicial em x do personagem
-#define Pos_y_inicial 6 //posicao inicial em y do personagem
+#define Pos_x_inicial 30 //posicao inicial em x do personagem
+#define Pos_y_inicial 100 //posicao inicial em y do personagem
 #define Tam_x_sprite 32 //tamanho em x de cada sprite do personagem
 #define Tam_y_sprite 32 //tamanho em y de cada sprite do personagem
 
@@ -40,7 +40,7 @@ const int SCREEN_H = 480; //tamanho vertical da tela
 #define Pos_y_jacare 40 //posicao inicial em y do personagem
 
 enum MYKEYS{
-    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
+    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_I,
 };
 
 //Arquivos base para rodar o programa allegro
@@ -50,12 +50,12 @@ ALLEGRO_TIMER *timer = nullptr;
 
 //variaveis para monitorar a camera do personagem
 ALLEGRO_TRANSFORM camera;
-int camera_x = 0;
-int camera_y = 0;
-int pos_x = 3;
-int pos_y = 4;
+int camera_x = 20;
+int camera_y = 90;
+int pos_x = 8;
+int pos_y = 8;
 
-bool key[4] = { false, false, false, false };
+bool key[5] = { false, false, false, false, false };
 bool redraw = true;
 bool sair = false;
 
@@ -328,10 +328,10 @@ int main(int argc, char **argv){
     
     //Criação dos Npcs
     //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y, Array com endereço dos arquivos de fala );
-	Npc andre("Prof. Andre", andreBMP, Pos_x_andre*32, Pos_y_andre*32, falas); // TODO: review npc initial position int: x, y
-    Npc julio("Prof. Julio", julioBMP, Pos_x_julio * 32, Pos_y_julio * 32, falas);
+	Npc andre("Prof. Andre", andreBMP, Pos_x_andre, Pos_y_andre, falas); // TODO: review npc initial position int: x, y
+    Npc julio("Prof. Julio", julioBMP, Pos_x_julio, Pos_y_julio , falas);
     Npc jacare("Jacare da Vacina", jacareBMP,Pos_x_jacare, Pos_y_jacare, falas);
-    Npc cantineira("Tia da Cantina", cantineiraBMP, Pos_x_cantineira*32, Pos_y_cantineira*32, falas);
+    Npc cantineira("Tia da Cantina", cantineiraBMP, Pos_x_cantineira, Pos_y_cantineira, falas);
 
     //Atribuição dos Capimons aos charactes.
     //Exemplo: nomeCharaceter.add_capimon(&CapimonNome);
@@ -385,19 +385,8 @@ int main(int argc, char **argv){
                 key[KEY_RIGHT] = true;
                 break;
             case ALLEGRO_KEY_I:
-							if (julio.can_interact(capivaristo.get_position())) {
-								julio.show_interaction();
-							}
-							else if (andre.can_interact(capivaristo.get_position())) {
-								andre.show_interaction();
-							}
-							else if (cantineira.can_interact(capivaristo.get_position())) {
-								cantineira.show_interaction();
-							}
-							else if (jacare.can_interact(capivaristo.get_position())) {
-								jacare.show_interaction();
-							}
-							break;
+                key[KEY_I] = true;
+                break;
             }
         }
         else if(ev.type == ALLEGRO_EVENT_KEY_UP)
@@ -422,6 +411,9 @@ int main(int argc, char **argv){
 
             case ALLEGRO_KEY_ESCAPE:
                 sair = true;
+                break;
+            case ALLEGRO_KEY_I:
+                key[KEY_I] = false;
                 break;
             }
         }
@@ -461,6 +453,21 @@ int main(int argc, char **argv){
                 }
             }else{
                 capivaristo.walk(-1,map);
+            }
+            if(key[KEY_I]){
+                key[KEY_I] = false;
+                if (julio.can_interact(capivaristo.get_position())) {
+                    julio.show_interaction();
+                }
+                else if (andre.can_interact(capivaristo.get_position())) {
+                    andre.show_interaction();
+                }
+                else if (cantineira.can_interact(capivaristo.get_position())) {
+                    cantineira.show_interaction();
+                }
+                else if (jacare.can_interact(capivaristo.get_position())) {
+                    jacare.show_interaction();
+                }
             }
 
             if(pos_x < 0){
