@@ -4,12 +4,16 @@ EXE=capigame # Executable file name
 
 # Source files to compile
 SRC=main.cpp Battle.cpp Capimon.cpp Character.cpp Dialog.cpp HomeMenu.cpp Interaction.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Position.cpp Skill.cpp
-SRC_DIR=src # Source files directory
-
-INCLUDE=-IALLEGRO_DIR # Included directories
-LIB=-lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec # Used libraries
-CFLAGS=-lstdc++ # GNU C++ compilers flags
-CXX=gcc # GCC compiler
+# Source files directory
+SRC_DIR=src
+ # Included directories
+INCLUDE=-IALLEGRO_DIR
+ # Used libraries
+LIB=-lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec
+ # GNU C++ compilers flags
+CFLAGS=-lstdc++
+# GCC compiler
+CXX=gcc
 
 
 # Directive to generate the executable file. This is default
@@ -29,6 +33,6 @@ run:
 	cd "$(SRC_DIR)"; ./$(EXE)
 
 # Directive to clean the generated files
-.PHONY clear
+.PHONY: clean
 clean:
 	rm -f $(SRC_DIR)/$(EXE)
