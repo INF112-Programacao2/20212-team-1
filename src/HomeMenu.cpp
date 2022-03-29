@@ -22,12 +22,26 @@ void HomeMenu::initMenu(){
     }
   	
 	ALLEGRO_EVENT_QUEUE *event_queue = nullptr;
+	ALLEGRO_SAMPLE *song = NULL;
+	ALLEGRO_SAMPLE_INSTANCE *songInstance = NULL;
 
 	event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_timer_event_source(timer)); //adicionando a contagem de tempo na fila
 	al_start_timer(timer); //iniciando a contagem de tempo
+	al_install_audio();
+	al_init_acodec_addon();
 
+	al_reserve_samples(1);
+
+	song = al_load_sample("audios/MusicaAbertura.ogg");
+
+	songInstance = al_create_sample_instance(song);
+	al_set_sample_instance_playmode(songInstance, ALLEGRO_PLAYMODE_LOOP);
+
+	al_attach_sample_instance_to_mixer(songInstance, al_get_default_mixer());
+
+	al_play_sample_instance(songInstance);
 
 	bool pisca = true;
     al_draw_bitmap(menu1,0,0,0);
@@ -70,6 +84,8 @@ void HomeMenu::initMenu(){
 	}
 
 	al_destroy_event_queue(event_queue);
+	al_destroy_sample(song);
+	al_destroy_sample_instance(songInstance);
 	al_destroy_timer(timer); //destrutor para o tempo
 	return;
 }

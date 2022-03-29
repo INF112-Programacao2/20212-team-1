@@ -22,8 +22,12 @@ Grupo 1
 Para conseguir testar a aplicação, você vai precisar ter instalado em sua máquina a linguagem [C++](https://diolinux.com.br/sistemas-operacionais/como-programar-em-cc-no-ubuntu.html) e usar o sistema Linux. Além disso, você vai precisar instalar a biblioteca [Allegro](https://github.com/liballeg/allegro_wiki/wiki/Quickstart) e [make](https://linuxhint.com/install-make-ubuntu/).
 
 # Compilar e executar
-Para compilar e executar o programa, entre em seu no bash/terminal equivalente e insira o seguinte comando:
+Para compilar e executar o programa, entre em seu bash/terminal equivalente e insira o seguinte comando:
 ```console
 make && make run
 ```
-Esses comandos compilam a fonte e executam o programa no caminho correto para que os arquivos de recursos do jogo sejam carregados corretamente. Mais informações no arquivo [Makefile](Makefile).
+Esses comandos compilam a fonte e executam o programa no caminho correto para que os arquivos de recursos do jogo sejam carregados. Mais informações no arquivo [Makefile](Makefile).
+Opcionalmente, você pode compilar a fonte diretamente usando:
+```console
+gcc main.cpp Battle.cpp Capimon.cpp Character.cpp Dialog.cpp HomeMenu.cpp Interaction.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Position.cpp Skill.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec -lstdc++
+```

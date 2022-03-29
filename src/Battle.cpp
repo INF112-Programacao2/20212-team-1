@@ -61,7 +61,7 @@ bool Battle::start_battle(Player *hero , Npc *enemy) { //inicia a batalha e reto
 	ALLEGRO_SAMPLE *musica = nullptr;
 	ALLEGRO_SAMPLE_INSTANCE *musicaInstancia = nullptr;
 
-	al_reserve_samples(10);
+	al_reserve_samples(1);
 
 	musica = al_load_sample("audios/music.ogg");
 	musicaInstancia = al_create_sample_instance(musica);
