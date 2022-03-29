@@ -48,32 +48,6 @@ bool Player::walk(int direcao, Map &mapa){
     return andou;
 }
 
-// TODO: Correct interact()
-void Player::interact(Npc *npc) {
-	al_install_keyboard();	// TODO: Verify if it's not duplicate
-	// TODO: Add excepction if keyboard wasn't installed
-	
-	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();	// TODO: Verify if it's not duplicate
-	al_register_event_source(event_queue, al_get_keyboard_event_source());	// TODO: Verify if it's not duplicate
-	
-	ALLEGRO_EVENT event;
-	al_wait_for_event(event_queue, &event);
-	
-	// TODO: Include time to press the key
-	if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
-		switch (event.keyboard.keycode) {
-			case ALLEGRO_KEY_I:
-				if (npc->can_interact(this->_position)) {
-					npc->show_interaction();
-					std::cout << "Successful interaction.\n";	// TODO: Add exception
-				}
-				break;
-		}
-	}
-	
-	al_destroy_event_queue(event_queue);
-}
-
 Position Player::get_CAPIMON_DRAW_POSITION() const {
     return this->CAPIMON_DRAW_POSITION;
 }

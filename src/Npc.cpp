@@ -9,11 +9,11 @@
 #include <string>
 #include <exception>
 
-Npc::Npc(std::string name, /*std::string image_directory*/ALLEGRO_BITMAP *image, int x, int y, std::string file_directory[]) :
+Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, unsigned int quantity_of_interactions, std::string interaction_base_directory, std::string player_name) :
 	Character(name, image, x, y) {
-	for (int i = 0; i < 1; i++) {
-		std::string t = file_directory[i];
-		Interaction *interaction = new Interaction(t);
+	std::string directory_name = interaction_base_directory.substr(0, interaction_base_directory.find_last_of('.'));
+	for (int i = 0; i < quantity_of_interactions; i++) {
+		Interaction *interaction = new Interaction(directory_name + std::to_string(i) + ".txt", player_name, this->_name);
 		this->_interactions.push(interaction);
 	}
 };
@@ -26,7 +26,9 @@ bool Npc::can_interact(Position player_position) {
 	int player_y = player_position.get_y();
 	int npc_x = this->get_position().get_x();
 	int npc_y = this->get_position().get_y();
-	if ((player_x == (npc_x + 1) && player_y == npc_y) ||
+	
+	if ((player_x == npc_x && player_y == npc_y) ||
+			(player_x == (npc_x + 1) && player_y == npc_y) ||
 			(player_x == (npc_x - 1) && player_y == npc_y) ||
 			(player_x == npc_x && player_y == (npc_y + 1)) ||
 			(player_x == npc_x && player_y == (npc_y - 1))) {
@@ -35,65 +37,18 @@ bool Npc::can_interact(Position player_position) {
 	return false;
 }
 
-void Npc::draw_dialog_box() {
-	if (!al_init_image_addon())
+void Npc::draw_next_interaction() {
+	if (this->_interactions.size() == 0) {
+		std::cerr << "There is no interaction to draw." << std::endl;
 		throw std::exception();
-		
-	ALLEGRO_BITMAP *dialog_box;
-	dialog_box = al_load_bitmap("img/dialog/dialog_box.bmp");
-	if (!dialog_box)
-		throw std::exception();
-		
-	al_draw_bitmap(dialog_box, 0, 384, ALLEGRO_FLIP_HORIZONTAL);
+	}
 	
-	al_destroy_bitmap(dialog_box);
-}
-
-// Show the next interaction in the queue
-void Npc::show_interaction() {		
-	Interaction *interaction = this->_interactions.front();
+	Interaction *interaction = this->_interactions.back();
 	this->_interactions.pop();
 	
-	int size = interaction->get_quantity_of_dialogs();
+	interaction->draw();
+	//al_flip_display();
 	
-	const int SPEAK = interaction->SPEAK;
-	const int ANSWER = interaction->ANSWER;
-	
-	for (int i = 0; i < size; i++) {
-		std::string name;
-		for (int j = 0; j < interaction->SIZE; j++) {
-			if (j == 0)
-				name = "Capivaristo";
-			else if (j == 1)
-				name = this->_name;
-			
-			draw_dialog_box();
-			draw_text(name, interaction->get_dialog(i)[j]);
-			//al_flip_display();
-			al_rest(2.0);
-		}
-	}
-}
-
-void Npc::draw_text(std::string name, std::string text) {
-	// TODO:: Change font initializers place
-	// TODO:: Throw initializer errors
-	al_init_font_addon();
-	al_init_ttf_addon();
-	ALLEGRO_FONT *font;
-	font = al_load_font("file/font.ttf", 18, 0);
-
-
-	// TODO: Change type of t
-	const char *name_c = name.c_str();
-	const char *text_c = text.c_str();
-	
-	// TODO: Include possibilite of a text bigger than the box
-	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394, 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, name_c);
-	al_draw_multiline_text(font, al_map_rgb(0, 0, 0), 20, 394 + al_get_font_line_height(font), 604, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, text_c);
-	al_flip_display();
-	
-	al_destroy_font(font);
 }
 
 Position Npc::get_CAPIMON_DRAW_POSITION() const {

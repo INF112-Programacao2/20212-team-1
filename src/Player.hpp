@@ -26,7 +26,6 @@ class Player : public Character{
   	Player(std::string name, ALLEGRO_BITMAP *image,int x, int y, int tam_x, int tam_y); //Construtor de Player
     ~Player(); //Destrutor de Player
     bool walk(int direcao, Map &mapa); //Método para fazer o personagem andar e realiza a animação disso na tela, retorna um bool informando se foi possível ou não, ela utiliza uma mapa para saber onde pode andar
-    void interact(Npc *npc);
 	virtual Position get_CAPIMON_DRAW_POSITION() const; //Método para obter a posição onde o capimon do player vai ser desenhado
     virtual Position get_CAPIMON_STATUS_POSITION() const; //Método para obter a posição onde o status do capimon do player vai ser desenhado
 };

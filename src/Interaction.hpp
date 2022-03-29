@@ -10,21 +10,23 @@ Cada interação é composta por uma conjunto de diálogos. Cada diálogo é com
 #ifndef INTERACTION_HPP
 #define INTERACTION_HPP
 
-#include <string>
+#include "Dialog.hpp"
+
+#include <vector>
 
 class Interaction {
 	private:
-		int _quantity_of_dialogs;	// quantity of dialogs in an interaction
-		std::string** _dialogs;	// matrix of dialogs
+		unsigned int _quantity_of_dialogs;
+		std::vector<Dialog> _dialogs;
+		static const char _DELIMITER = '|';
 	public:
-		Interaction(std::string file_directory);	// constructor
-		~Interaction();	// destructor
-		const int SIZE = 2;	// const that defines the quantity of texts in each dialog
-		const int SPEAK = 0;	// const that define the position of the speak's text in the some _dialog[i]
-		const int ANSWER = 1;	// const that define the position of the speak's text in the some _dialog[i]
-		const char DELIMITER = '|'; // const that define delimiter char in the interaction file
-		int get_quantity_of_dialogs();	// returns the quantity of dialogs in an interaction
-		std::string* get_dialog(int n);	// returns a dialog in an interaction
+		Interaction(std::string file_directory, std::string player_name, std::string npc_name);
+		~Interaction();
+		unsigned int get_quantity_of_dialogs();
+		Dialog get_dialog(int i);
+		char get_DELIMITER() const;
+		
+		void draw();
 };
 
 #endif /* INTERACTION_HPP */
