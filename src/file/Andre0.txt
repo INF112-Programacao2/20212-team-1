@@ -1,5 +1,6 @@
-4
+5
 Quem é você?|Meu nome é André!
 Você já ouviu falar do Jacaré-da-Vacina?|Sim.
 Ata, obrigado!|[...]
 Ok!|Ok!
+Gostaria de tirar uma dúvida...|É sobre métodos de ordenação? O meu favorito é o bubble sort.
