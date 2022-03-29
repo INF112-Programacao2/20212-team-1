@@ -330,7 +330,7 @@ int main(int argc, char **argv){
     //Exemplo: Npc nomeNpc("NomeNpc", BitmapDaImagem, posicao em x, posicao em y, Array com endereço dos arquivos de fala );
 	Npc andre("Prof. Andre", andreBMP, Pos_x_andre*32, Pos_y_andre*32, falas); // TODO: review npc initial position int: x, y
     Npc julio("Prof. Julio", julioBMP, Pos_x_julio * 32, Pos_y_julio * 32, falas);
-    Npc jacare("Jacare da Vacina", jacareBMP,Pos_x_jacare*32, Pos_y_jacare*32, falas);
+    Npc jacare("Jacare da Vacina", jacareBMP,Pos_x_jacare, Pos_y_jacare, falas);
     Npc cantineira("Tia da Cantina", cantineiraBMP, Pos_x_cantineira*32, Pos_y_cantineira*32, falas);
 
     //Atribuição dos Capimons aos charactes.
@@ -384,6 +384,20 @@ int main(int argc, char **argv){
             case ALLEGRO_KEY_RIGHT:
                 key[KEY_RIGHT] = true;
                 break;
+            case ALLEGRO_KEY_I:
+							if (julio.can_interact(capivaristo.get_position())) {
+								julio.show_interaction();
+							}
+							else if (andre.can_interact(capivaristo.get_position())) {
+								andre.show_interaction();
+							}
+							else if (cantineira.can_interact(capivaristo.get_position())) {
+								cantineira.show_interaction();
+							}
+							else if (jacare.can_interact(capivaristo.get_position())) {
+								jacare.show_interaction();
+							}
+							break;
             }
         }
         else if(ev.type == ALLEGRO_EVENT_KEY_UP)
