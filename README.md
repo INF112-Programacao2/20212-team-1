@@ -50,7 +50,7 @@ Após terminar seu diálogo com André, capivaristo terá que enfrentá-lo, tend
 ![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/BatalhaTutorial.png)
 
 Como capivaristo é muito fera em aprender novos conhecimentos ele será aproavado em programação 1 e terá que batalhar com novos personagens que estarão em locais diferentes da grande UFV. Aperte o passo que a caminhada e aventura será grande!
-O último oponente de capivaristo será Julio que irá pedi-lo para fazer um projeto final, simbolizado pelo capimon .
+O último oponente de capivaristo será Julio que irá pedi-lo para fazer um projeto final, simbolizado pelo capimon Blastoise.
 Prontinho! Agora você ja esta treinado para capturar seus capimons.
 
 VAI SER TANTA EMOÇÃO CAPIMONNNNNNNNNNNNNN
