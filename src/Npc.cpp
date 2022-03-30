@@ -8,12 +8,21 @@
 #include <cstring>
 #include <string>
 #include <exception>
+#include "ConstructorError.hpp"
 
 Npc::Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, unsigned int quantity_of_interactions, std::string interaction_base_directory, std::string player_name) :
 	Character(name, image, x, y) {
 	std::string directory_name = interaction_base_directory.substr(0, interaction_base_directory.find_last_of('.'));
 	for (int i = 0; i < quantity_of_interactions; i++) {
-		Interaction *interaction = new Interaction(directory_name + std::to_string(i) + ".txt", player_name, this->_name);
+		Interaction *interaction;
+		try {
+			interaction = new Interaction(directory_name + std::to_string(i) + ".txt", player_name, this->_name);
+		}
+		catch (std::invalid_argument &e) {
+			std::cerr << e.what() << std::endl;
+			throw constructor_error();
+		}
+		
 		this->_interactions.push(interaction);
 	}
 };

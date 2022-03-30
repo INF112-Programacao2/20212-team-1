@@ -3,7 +3,10 @@
 #include "Dialog.hpp"
 
 #include <iostream>
-#include <exception>
+#include "AllegroSystemError.hpp"
+#include "AllegroImageAddonError.hpp"
+#include "AllegroFontAddonError.hpp"
+#include "AllegroTTFAddonError.hpp"
 
 Dialog::Dialog(std::string player_name, std::string speak, std::string npc_name, std::string answer) :
 	_player_name(player_name), _speak(speak), _npc_name(npc_name), _answer(answer) {};
@@ -36,13 +39,11 @@ void Dialog::set_answer(std::string answer) {
 
 void Dialog::draw_dialog_box(int reference_x, int reference_y) {
 	if (!al_is_system_installed()) {
-		std::cerr << "Allegro must be installed." << std::endl;
-		throw std::exception();
+		throw allegro_system_error();
 	}
 	
 	if (!al_is_image_addon_initialized()) {
-		std::cerr << "Image addon must be initialized." << std::endl;
-		throw std::exception();
+		throw allegro_image_addon_error();
 	}
 		
 	ALLEGRO_BITMAP* dialog_box = nullptr;
@@ -60,18 +61,15 @@ void Dialog::draw_dialog_box(int reference_x, int reference_y) {
 
 void Dialog::draw_text(int i, int reference_x, int reference_y) {	// if i == 0 speak if i == 1 answer
 	if (!al_is_system_installed()) {
-		std::cerr << "Allegro must be installed." << std::endl;
-		throw std::exception();
+		throw allegro_system_error();
 	}
 	
 	if (!al_is_font_addon_initialized()) {
-		std::cerr << "Font addon must be initialized." << std::endl;
-		throw std::exception();
+		throw allegro_font_addon_error();
 	}
 		
 	if (!al_is_ttf_addon_initialized()) {
-		std::cerr << "Ttf addon must be initialized." << std::endl;
-		throw std::exception();
+		throw allegro_ttf_addon_error();
 	}
 		
 	ALLEGRO_FONT* font = nullptr;

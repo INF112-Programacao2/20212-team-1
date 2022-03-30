@@ -3,7 +3,7 @@
 EXE=capigame
 
 # Source files to compile
-SRC=main.cpp Battle.cpp Capimon.cpp Character.cpp Dialog.cpp HomeMenu.cpp Interaction.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Position.cpp Skill.cpp
+SRC=main.cpp Battle.cpp Capimon.cpp Character.cpp Dialog.cpp HomeMenu.cpp Interaction.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Position.cpp Skill.cpp AllegroFontAddonError.cpp AllegroSystemError.cpp AllegroImageAddonError.cpp AllegroTTFAddonError.cpp ConstructorError.cpp
 # Source files directory
 SRC_DIR=src
  # Included directories
