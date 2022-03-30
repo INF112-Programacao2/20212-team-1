@@ -14,17 +14,17 @@
 
 class Npc : public Character {
 	private:
-		const Position CAPIMON_DRAW_POSITION = Position(420, 120);
-		const Position CAPIMON_STATUS_POSITION = Position(14, 14);
-		std::queue<Interaction*> _interactions;
+		const Position CAPIMON_DRAW_POSITION = Position(420, 120);	// posição de desenho de um Capimon na tela de batalha
+		const Position CAPIMON_STATUS_POSITION = Position(14, 14);	// posição de desenho da barra de status de um Capimon na tela de batalha
+		std::queue<Interaction*> _interactions;	// pilha de interações
 	public:
-		Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, unsigned int quantity_of_interactions, std::string interaction_base_directory, std::string player_name);	// the order metter
-		~Npc();
-		bool can_interact(Position player_position);
-		void draw_next_interaction(int reference_x, int reference_y);
-		virtual Position get_CAPIMON_DRAW_POSITION() const;
-    	virtual Position get_CAPIMON_STATUS_POSITION() const;
-		void draw_npc();
+		Npc(std::string name, ALLEGRO_BITMAP *image, int x, int y, unsigned int quantity_of_interactions, std::string interaction_base_directory, std::string player_name);	// construtor
+		~Npc();	// destrutor
+		bool can_interact(Position player_position);	// retorna verdadeiro caso o Npc possa interagir com um player a partir da posição e falso caso contrário
+		void draw_next_interaction(int reference_x, int reference_y);	// desenha a próxima interação da pilha de interações
+		virtual Position get_CAPIMON_DRAW_POSITION() const;	// retorna a posição de desenho de um Capimon na tela de batalha
+    	virtual Position get_CAPIMON_STATUS_POSITION() const;	// retorna a posição de desenho da barra de status de um Capimon na tela de batalha
+		void draw_npc();	// desenha o Npc na tela
 };
 
 #endif /* NPC_HPP */
