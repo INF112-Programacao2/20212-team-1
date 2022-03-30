@@ -12,21 +12,21 @@
 
 class Dialog {
 	private:
-        std::string _speak;
-        std::string _answer;
-        std::string _player_name;
-        std::string _npc_name;
-        void draw_dialog_box(int reference_x, int reference_y);
-        void draw_text(int i,int reference_x, int reference_y);
+        std::string _speak;	// fala do player
+        std::string _answer;	// fala do npc
+        std::string _player_name;	// nome do player
+        std::string _npc_name;	// nome do npc
+        void draw_dialog_box(int reference_x, int reference_y);	// desenha a caixa de diálogo (bitmap)
+        void draw_text(int i,int reference_x, int reference_y);	// desenha o texto (pode ser _speak ou _answer)
 	public:
-		Dialog(std::string player_name, std::string speak, std::string npc_name, std::string answer);
-		~Dialog();
-		std::string get_speak();
-		std::string get_answer();
-		std::string get_player_name();
-		std::string get_npc_name();
-		void set_speak(std::string speak);
-		void set_answer(std::string answer);		
-		void draw(int reference_x, int reference_y);
+		Dialog(std::string player_name, std::string speak, std::string npc_name, std::string answer);	// construtor
+		~Dialog();	// destrutor
+		std::string get_speak();	// retorna _speak
+		std::string get_answer();	// retorna _answer
+		std::string get_player_name();	// retorna o nome do player
+		std::string get_npc_name();	// retorna o nome do npc
+		void set_speak(std::string speak);	// altera _speak
+		void set_answer(std::string answer);	// altera _answer
+		void draw(int reference_x, int reference_y);	// desenha um diálogo na tela
 };
 #endif /* DIALOG_HPP */
