@@ -29,7 +29,7 @@ make && make run
 Esses comandos compilam a fonte e executam o programa no caminho correto para que os arquivos de recursos do jogo sejam carregados. Mais informações no arquivo [Makefile](Makefile).
 Opcionalmente, você pode compilar a fonte diretamente usando:
 ```console
-gcc main.cpp Battle.cpp Capimon.cpp Character.cpp Dialog.cpp HomeMenu.cpp Interaction.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Position.cpp Skill.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec -lstdc++
+gcc main.cpp Battle.cpp Capimon.cpp Character.cpp Dialog.cpp HomeMenu.cpp Interaction.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Position.cpp Skill.cpp AllegroFontAddonError.cpp AllegroSystemError.cpp AllegroImageAddonError.cpp AllegroTTFAddonError.cpp ConstructorError.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec -lstdc++
 ```
 
 # Como Jogar
