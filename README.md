@@ -42,7 +42,7 @@ Apos isso, capivaristo irá aparecer em frente a sua casa. E, como um bom aluno,
 
 
 1) Para que capivaristo interaja com André você devera chegar póximo dele e apertar a tecla "I" de seu teclado.
-![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/TelaInicial.png)
+![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/Intera%C3%A7%C3%A3o.png)
 2) Isso se repetirá para os outros personagens também.
 
 Após terminar seu diálogo com André, capivaristo terá que enfrentá-lo, tendo que escolher entre as habilidades de seu capimon. Para escolher entre uma de suas habilidades, basta utilizar as setas do teclado e para selecionar a habilidade escolhida basta usar a tecla "ENTER". O capimon que perder toda sua vida primeiro perde, e o outro ganha!
