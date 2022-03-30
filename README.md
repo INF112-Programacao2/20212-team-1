@@ -38,7 +38,7 @@ De inicio irá aparecer o menu inicial do jogo. É so apertar "ENTER" que a sua 
 ![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/TelaInicialTutorial.png)
 
 Apos isso, capivaristo irá aparecer em frente a sua casa. E, como um bom aluno, irá conversar com seu professor para aprender mais sobre o mundo de batalhas de LEGENDS OF CCP. O primeiro professor que ele terá que se encontrar será o André de programação 1, que está perto de sua casa.
-<p> <h1> ⚠️Atenção!!⚠️ </h1> </p>
+<p> <h1> ⚠️Atenção⚠️ </h1> </p>
 
 
 1) Para que capivaristo interaja com André você devera chegar póximo dele e apertar a tecla "I" de seu teclado.
