@@ -1,4 +1,4 @@
-![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/LEGENDS%20OF%20CPP.gif)
+![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/img-readme/LEGENDS%20OF%20CPP.gif)
 
 <h1 align="center"> 🎮🎮🎮 LEGENDS OF CCP 🎮🎮🎮 </h1> 
 
@@ -7,7 +7,7 @@ Grupo 1
 # Sinopse
 <p> Um aluno do curso de Ciência da Computação da UFV está cansado da pandemia e do EAD e decide resolver a situação por si mesmo. Assuma o papel de Capivaristo nessa história e atinja a aprovação no curso! </p>
 
-![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/TelaInicial.png)
+![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/img-readme/TelaInicial.png)
 
 # Integrantes
 
@@ -35,19 +35,19 @@ gcc main.cpp Battle.cpp Capimon.cpp Character.cpp Dialog.cpp HomeMenu.cpp Intera
 # Como Jogar
 De inicio irá aparecer o menu inicial do jogo. É so apertar "ENTER" que a sua aventura irá começar!
 
-![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/TelaInicialTutorial.png)
+![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/img-readme/TelaInicialTutorial.png)
 
 Apos isso, capivaristo irá aparecer em frente a sua casa. E, como um bom aluno, irá conversar com seu professor para aprender mais sobre o mundo de batalhas de LEGENDS OF CCP. O primeiro professor que ele terá que se encontrar será o André de programação 1, que está perto de sua casa.
 <p> <h1> ⚠️ Atenção ⚠️ </h1> </p>
 
 
 1) Para que capivaristo interaja com André você devera chegar póximo dele e apertar a tecla "I" de seu teclado.
-![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/Intera%C3%A7%C3%A3o.png)
+![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/img-readme/Intera%C3%A7%C3%A3o.png)
 2) Isso se repetirá para os outros personagens também.
 
 Após terminar seu diálogo com André, capivaristo terá que enfrentá-lo, tendo que escolher entre as habilidades de seu capimon. Para escolher entre uma de suas habilidades, basta utilizar as setas do teclado e para selecionar a habilidade escolhida basta usar a tecla "ENTER". O capimon que perder toda sua vida primeiro perde, e o outro ganha!
 
-![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/BatalhaTutorial.png)
+![Alt text](https://github.com/INF112-Programacao2/20212-team-1/blob/main/img-readme/BatalhaTutorial.png)
 
 Como capivaristo é muito fera em aprender novos conhecimentos ele será aprovado em programação 1 e terá que batalhar com novos personagens que estarão em locais diferentes da grande UFV. Aperte o passo que a caminhada e aventura será grande!
 O último oponente de capivaristo será Julio que irá pedi-lo para fazer um projeto final, simbolizado pelo capimon Blastoise.
